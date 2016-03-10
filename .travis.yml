@@ -32,6 +32,7 @@ android:
     - adb devices
     - ./gradlew connectedAndroidTest -PdisablePreDex --continue --stacktrace
 
+  # found this at http://panavtec.me/continous-integration-on-android-with-travis-ci/
   after_failure:
     - wget http://imgur.com/tools/imgurbash.sh
     - chmod a+x imgurbash.sh
