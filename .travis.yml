@@ -5,6 +5,8 @@ android:
     - platform-tools
     - build-tools-23.0.1
     - android-23
+    - sys-img-armeabi-v7a-android-23
+    - extra-android-support
 
 script:
    - ./gradlew build connectedCheck
@@ -12,13 +14,13 @@ script:
 
 # found this at http://panavtec.me/continous-integration-on-android-with-travis-ci/
 after_failure:
-  - wget http://imgur.com/tools/imgurbash.sh
-  - chmod a+x imgurbash.sh
-  - adb shell screencap -p | sed 's/\r$//' &gt; screen.png
-  - ./imgurbash.sh screen.png
-  - pandoc builder/build/reports/tests/index.html -t plain | sed -n '/^Failed tests/,/default-package/p'
+#  - wget http://imgur.com/tools/imgurbash.sh
+#  - chmod a+x imgurbash.sh
+#  - adb shell screencap -p | sed 's/\r$//' &gt; screen.png
+#  - ./imgurbash.sh screen.png
+#  - pandoc builder/build/reports/tests/index.html -t plain | sed -n '/^Failed tests/,/default-package/p'
 
 after_script:
   # print lint results details
-  - for f in app/build/outputs/lint-results.html; do pandoc $f -t plain; done
-  - for f in data/build/outputs/lint-results.html; do pandoc $f -t plain; done
+#  - for f in app/build/outputs/lint-results.html; do pandoc $f -t plain; done
+#  - for f in data/build/outputs/lint-results.html; do pandoc $f -t plain; done
