@@ -27,7 +27,7 @@ public class TestingDemo {
         truth/=2;
         truth*=2;
 
-        throw new Exception("I'm a evil exception.");
+        throw new Exception("I'm an evil exception.");
     }
 
 
