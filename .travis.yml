@@ -7,6 +7,15 @@ jdk: oraclejdk7
 cache: false
 # Use the Travis Container-Based Infrastructure (see #203)
 sudo: false
+# because we don't perform git operations, default is 50
+git:
+  depth: 3
+# only build master branch
+branches:
+  only:
+    - master
+    # TODO maybe add pattern for branches to build on
+    # Travis CI e.g. 'ci_name_feature'
 env:
   global:
     - ANDROID_API_LEVEL=22
