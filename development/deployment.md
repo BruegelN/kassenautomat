@@ -11,7 +11,7 @@ Basic push, build and deploy order(2):
 
 Über von TravisCI gesetzen Umgebungsvariablen(3) kann man herausfinden auf welcher branch man sich befindet, wenn der *master* branch erfolgreich gebaut wird sollte die __.apk__ und die __JavaDoc__ auf das User-Laufwerk hochgeladen werden.
 ```bash
-if[!$TRAVIS_PULL_REQUEST || $TRAVIS_BRANCH == "master"];then
+if[!$TRAVIS_PULL_REQUEST || $TRAVIS_BRANCH = "master"];then
   # do the magic deployment
 fi
 ```
@@ -21,7 +21,7 @@ Möglicherweise ist es sinnvoll die Testergebnisse immer auf den DHBW Server zu 
 Mit folgendem Kommando soll der Output von TravisCI auf das User-Laufwerk geladen werden, wobei Nutzername, Passwort (evtl. Host und Pfad) mit ```travis encrypt```(1) verschlüsselt werden sollten.
 
 In ```.travis.yml```ergänzen:
-```ruby
+```yaml
 addons:
     apt:
         packages:
