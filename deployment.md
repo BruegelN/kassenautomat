@@ -20,9 +20,17 @@ Möglicherweise ist es sinnvoll die Testergebnisse immer auf den DHBW Server zu 
 #### Upload (TODO)
 Mit folgendem Kommando soll der Output von TravisCI auf das User-Laufwerk geladen werden, wobei Nutzername, Passwort (evtl. Host und Pfad) mit ```travis encrypt```(1) verschlüsselt werden sollten.
 
-(4)
+In ```.travis.yml```ergänzen:
+```ruby
+addons:
+    apt:
+        packages:
+            - sshpass```
+
+Und dann mit ```sshpass```(5) uploaden:
 ```bash
-scp -r -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null /path/to/output/ USERNAME@nimwen.dhbw-stuttgart.de:~/public-html/kassenautomat/$TRAVIS_BUILD_NUMBER/```
+- export SSHPASS=meinVerschlüsseltesPasswort
+- sshpass -e scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null /path/to/output/which/should/be/uploaded USERNAME@nimwen.dhbw-stuttgart.de:~/public-html/kassenautomat/$TRAVIS_BUILD_NUMBER/```
 
 Reference:
   - (1) travis encrypt: https://docs.travis-ci.com/user/encryption-keys/
