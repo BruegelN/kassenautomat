@@ -25,12 +25,14 @@ In ```.travis.yml```ergänzen:
 addons:
     apt:
         packages:
-            - sshpass```
+            - sshpass
+```
 
 Und dann mit ```sshpass```(5) uploaden:
 ```bash
 - export SSHPASS=meinVerschlüsseltesPasswort
-- sshpass -e scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null /path/to/output/which/should/be/uploaded USERNAME@nimwen.dhbw-stuttgart.de:~/public-html/kassenautomat/$TRAVIS_BUILD_NUMBER/```
+- sshpass -e scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null /path/to/output/which/should/be/uploaded USERNAME@nimwen.dhbw-stuttgart.de:~/public-html/kassenautomat/$TRAVIS_BUILD_NUMBER/
+```
 
 Reference:
   - (1) travis encrypt: https://docs.travis-ci.com/user/encryption-keys/
@@ -38,6 +40,5 @@ Reference:
   - (3) Travis enviroment variables: https://docs.travis-ci.com/user/environment-variables/#Default-Environment-Variables
   - (4) always "trust" a given host: https://serverfault.com/questions/330503/scp-without-known-hosts-check
   - (5) Use sshpass for ssh+passwd authentication:https://neemzy.org/articles/deploy-to-your-own-server-through-ssh-with-travis-ci
-  -
 
 [img_deployment]: https://jens-na.github.io/images/deploy_workflow.png "Custom deployment"
