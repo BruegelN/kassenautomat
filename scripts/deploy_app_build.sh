@@ -12,4 +12,4 @@ fi
 echo "Output path: ${OUTPUT_PATH}"
 ## upload to ssh page
 export SSHPASS=$SSH_PASSWD
-sshpass -e scp -r ./app/build $SSH_USER@$SSH_DOMAIN:${OUTPUT_PATH}
+sshpass -e scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -r ./app/build $SSH_USER@$SSH_DOMAIN:${OUTPUT_PATH}
