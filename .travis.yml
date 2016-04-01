@@ -41,7 +41,8 @@ script:
   - ./gradlew test --info
   #- ./gradlew connectedAndroidTest
 
-before_deploy:
+after_script:
+  - pwd
   - ./scripts/cleanup_before_deploy.sh
 before_cache:
   - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
