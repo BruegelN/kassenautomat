@@ -14,6 +14,15 @@ env:
     - ANDROID_BUILD_TOOLS_VERSION=23.0.2
     - ANDROID_ABI=armeabi-v7a
     - ADB_INSTALL_TIMEOUT=10 # minutes (2 minutes by default - see #247)
+    - secure: KwBSu+wmC632kqnO1Kn2NW3MTxopDaur72olIm4v71kR4d5D7fbOWJsl0QwWlBBKlEh1YN++VnmmMC1PEAKSJd0s4cg2m9Ebneu+eSmodhq5u5imtLRQSWj6JMq1ZEwWK5BsVnf5zKvFhR+B/Rs4pNKdV46BO6nN406BNVoOc8KGiGRurIMyR8mWxxNSouUzj8gs/ufoACPlqsvpISAUmjCBJVUQxk2ZwyeWwzqC3bCoYkP01G3k1af0huFrwa+2KhaWxpM8M/i/1yE3ArWS5XOluu+Gu6nop0k40nLDGFb7C2ptBQ50+VIBioX5QBfZViQDHRfeiirUASMM9Uq4d7/aIwHzwtym65oNE6xqsWH0TIvqOsV9dSxIqCn7AF0ckLjvXSTfxcofnp6sVmJOuH4LO1HZEGEczUjhp6S+LuaxpnGewnqLP8VbNUpogW93IHKUfIz5CnSxBTOE2NTmif8hltYnIEbKPT4HMbckh7iVGnOeiifcIKOC1oFCv2ygkRp2RjWDjuZYeU3g9A7GqINnT15YyVc7xFWNqldFg407LfGA4D4sz8jZ89uNXMve0PvdezHk7+0YQLmYra52pLIK36HsS4d1m2DYOCqEjcqEEhnd7hiGCwGZPywzNZTRM3DFFVbK+KLzheVsItaX/4HyIsHTdDH1cdsshMQu7ME=
+    - secure: Ula6twtS6IwLd96v4sV1jgv/qN66WWsxdZ800/fCADTtdx7wBYwiIR2dtQimjvy4vEHLzJIuthnCKIPgyDY7PUklFEdKvNFdMUrrW88CUYEN3bnCI4vFNkwQr7nGyKTD7lJFGjP/Wt3dr0CnPVVRwvAiR1L2jncy9hwLekBfxhOLtqLMRpg/nFj/IlWREgsZ2x/3AGbfswey4m0eHoMDL0uDRACvF7PpOD6FoxvsuuLmGKbNAsAdtMWA3OQWwSvLlyukXyOXLXoj0SDWxvdWzV6kABsEvQkTcuWjBusdzYkSMxjes3hx5dmBYSTag1JvYdfWAhSD2uUnmfO8E5S0b8CEiObF1s+mriHTfj9yZTMSgklw0ZCGoiMorDUOKHnfpOWgE2weq+MQL1njs6Jz6gE2hWND4eYpFOflZejBBXFjbXya56j4sV9NqSoszShp4aSToEkvDbmhJf8GP1YGb/brQkXDQ4UzAWf6XIoT/udqc+5QmzBWj6OvOeSK+0ijJWrJPmoKrtFCEgojMj2qZWFzqnaR8dLTkCIfYOdbazmNlIR7ZwfEptADIMzOW4uOKeQhMowNPkLYKOEmMbd+evR7B/sd2enVDfahVOqtFviuIyyvX+DnvHb1A7nDKATQI8ZqXer71VwBzRMIXTNvsSLyY9YmxyIodIkTUlH4dIw=
+    - secure: VLVhFxhZumHluGeUxXUmb07HMmOHfuZNJzV+OhgwYC3yf7gWj5nXLQOzAv0H9Y1loowBVZ5qQaRPPtsV7gidc5QqWfVOUOa9M6GEhr+r3RETdFYWMWyRaTUqKjfGNcWlSCm8w3KGfhbK+TsFvVET0q9boeQsKmbG94ZzRCUFg83oQZbcUpc+eQeOIKgbDv+lKLD1tc+f9Fp2huZC7jMpZUBLZQ+he+yqo5eBzP338TcPDBUNOTm7KVETNDtMrwbSTfONemYr39Mh1UKdHvTKs/8yYsN2puG7XthUX+e5XUfB4ZQ6wWY0rDPlHCInX9iR5Umdn39irTnY3eX8CL2xXYL2+6zSX//0KuBtNh/MuD34dT1vSOeQLKxesBaDanL2AAnh+9Pj3gMrpLYQwbPbJlCeT5RaQQw1wghbd3npR2Z8EpNydY3tj+gFms0o2mOC/LVzNgagRSuNHcAH0QrBJVIadLCO4xXSSdglh90uwqQIBGgi3N3XecCXUJHl+b5yMlz5HxZNSMrNMo9iiaVGA9NBKu1PLe/79yYhzzSvwzrr7zLecOsjdbwwu8ooHaG9ga6VulLD5hTCLc3MEX2a8I89uwfZO2OltUE6ZPZBpmSMpvN68OL+YkwlZElyg6qEI1YNZCWZm3QhHhjnzIaTcR8EMhMeMqb7Jy7jZG6mnUc=
+    - secure: KTWAUDF79XcxqvvxdnF+CJrivJo/naung/4D6tcztXMtIUfkwvgvZCz4EbgFHle3B4ftYv7eEqdS0/3zpezaEVQd39eg7nrgFfkwsxaRabUJF15vSybXNi844dv8F5UFVBsEv+JL5orruRhbdc3M2x3n0MKzrhc9jSGR+VLhf6iKxUF4lM/m07cEYIhZv4rvBYtjiIn3I1kD2h9rc/MHPMifR2kRAB95CqcopLEhXhED0MPQCnkKD5WA1XcOzvGCqC242xTxJDNUz86OMpDeGn5knNvX7nPJMImbv/7RqqrQdGJpm9MxSwNSYTZaF9ug8zVWOBAOzMyK3ND+k0ZeF/fuQ2TulycISK1CLxlUcZ2Tzub5PHqG2vwcq4AtCqjaGkry6mu6TGLyUwl/e5jx8gyoB1DFgBNwDbL04chSkWHmGG7n0vQPB1fCyytH2hHb7OA+ULzHaMlylkaDF6CpqbaQXSFxilF7BYCQYBIbxyd4Z28pSzKFNOKXz+lGB+l6ixyvJvizjFmHTYAM7IWBQ1epgpDP1sZb92ExCK+L0Mk95UZVSYGmhtEZKKmZD2QZmVmIwO2c4WMFgVg0+XOpq4auyCh8F4sgwrtW3Gx5fHHfJxpk3x8gU0Fl0Ae8GttfN3nMqwzvwNGRHyhOyx/YhZ2qMqY5Vd3eGzGGGN12NJA=
+
+addons:
+    apt:
+        packages:
+            - sshpass
 
 android:
   components:
@@ -31,15 +40,20 @@ android:
 
 before_script:
   # Create and start emulator
-  - echo no | android create avd --force -n test -t android-$ANDROID_API_LEVEL --abi $ANDROID_ABI
-  - emulator -avd test -no-skin -no-audio -no-window &
-  - android-wait-for-emulator
-  - adb shell input keyevent 82 &
+  #- echo no | android create avd --force -n test -t android-$ANDROID_API_LEVEL --abi $ANDROID_ABI
+  #- emulator -avd test -no-skin -no-audio -no-window &
+  #- android-wait-for-emulator
+  #- adb shell input keyevent 82 &
 
-# Only run tests on the main two OneBusAway brand flavors
 script:
   - ./gradlew build --info
-  - ./gradlew connectedAndroidTest
+  - ./gradlew test --info
+  #- ./gradlew connectedAndroidTest
+
+after_script:
+  - pwd
+  - ./scripts/cleanup_before_deploy.sh
+  - ./scripts/deploy_app_build.sh
 
 before_cache:
   - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
