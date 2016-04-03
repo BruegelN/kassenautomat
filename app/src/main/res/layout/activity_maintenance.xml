@@ -1,261 +1,300 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#0099cc">
+    android:background="#0099cc"
+    android:padding="10dp">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Verfügbare Münzen"
-        android:id="@+id/txtAvaiableCoins" />
+        android:id="@+id/txtAvaiableCoins"
+        android:textStyle="bold"
+        android:layout_alignParentTop="true"
+        android:layout_alignLeft="@+id/txt20ct"
+        android:layout_alignStart="@+id/txt20ct" />
 
-    <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="5 ct"
+        android:id="@+id/txt5ct"
+        android:layout_column="1"
+        android:layout_below="@+id/txtAvaiableCoins"
+        android:layout_alignLeft="@+id/txtAvaiableCoins"
+        android:layout_alignStart="@+id/txtAvaiableCoins"
+        android:layout_marginTop="41dp" />
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+    <ProgressBar
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/prog5ct"
+        android:layout_column="2"
+        android:max="200"
+        android:progress="100"
+        android:indeterminate="false"
+        android:layout_span="2"
+        android:layout_above="@+id/txt10ct"
+        android:layout_toLeftOf="@+id/txt5ctCount"
+        android:layout_alignLeft="@+id/prog10ct"
+        android:layout_alignStart="@+id/prog10ct" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="5 ct"
-                android:id="@+id/txt5ct"
-                android:layout_column="1" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="100/200"
+        android:id="@+id/txt5ctCount"
+        android:layout_column="4"
+        android:layout_alignBottom="@+id/prog5ct"
+        android:layout_alignLeft="@+id/txt10CentCount"
+        android:layout_alignStart="@+id/txt10CentCount" />
 
-            <ProgressBar
-                style="?android:attr/progressBarStyleSmall"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/prog5ct"
-                android:layout_column="2"
-                android:max="200"
-                android:progress="100"
-                android:indeterminate="false" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="10 ct"
+        android:id="@+id/txt10ct"
+        android:layout_column="1"
+        android:layout_below="@+id/txt5ct"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="100/200"
-                android:id="@+id/txt5ctCount" />
+    <ProgressBar
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/prog10ct"
+        android:layout_column="2"
+        android:max="200"
+        android:indeterminate="false"
+        android:progress="100"
+        android:layout_alignBottom="@+id/txt10CentCount"
+        android:layout_toLeftOf="@+id/txt10CentCount"
+        android:layout_alignLeft="@+id/prog20ct"
+        android:layout_alignStart="@+id/prog20ct" />
 
-        </TableRow>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="100/200"
+        android:id="@+id/txt10CentCount"
+        android:layout_column="4"
+        android:layout_below="@+id/txt5ctCount"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="20 ct"
+        android:id="@+id/txt20ct"
+        android:layout_column="1"
+        android:layout_below="@+id/txt10ct"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="10 ct"
-                android:id="@+id/txt10ct"
-                android:layout_column="1" />
+    <ProgressBar
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/prog20ct"
+        android:layout_column="2"
+        android:max="200"
+        android:progress="100"
+        android:indeterminate="false"
+        android:layout_alignBottom="@+id/txt20CentCount"
+        android:layout_toLeftOf="@+id/txt20CentCount"
+        android:layout_alignLeft="@+id/prog50ct"
+        android:layout_alignStart="@+id/prog50ct" />
 
-            <ProgressBar
-                style="?android:attr/progressBarStyleSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/prog10ct"
-                android:layout_column="2"
-                android:max="200"
-                android:indeterminate="false"
-                android:progress="100" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="100/200"
+        android:id="@+id/txt20CentCount"
+        android:layout_column="4"
+        android:layout_below="@+id/txt10CentCount"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="100/200"
-                android:id="@+id/textView2"
-                android:layout_column="3" />
-        </TableRow>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="50 ct"
+        android:id="@+id/txt50ct"
+        android:layout_column="1"
+        android:layout_below="@+id/txt20ct"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+    <ProgressBar
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/prog50ct"
+        android:layout_column="2"
+        android:max="200"
+        android:progress="100"
+        android:indeterminate="false"
+        android:layout_alignBottom="@+id/txt50ct"
+        android:layout_toLeftOf="@+id/txt20CentCount"
+        android:layout_alignLeft="@+id/prog1euro"
+        android:layout_alignStart="@+id/prog1euro" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="20 ct"
-                android:id="@+id/txt20ct"
-                android:layout_column="1" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="1 €"
+        android:id="@+id/txt1euro"
+        android:layout_column="1"
+        android:layout_below="@+id/txt50ct"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
-            <ProgressBar
-                style="?android:attr/progressBarStyleSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/prog20ct"
-                android:layout_column="2"
-                android:max="200"
-                android:progress="100"
-                android:indeterminate="false" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="100/200"
+        android:id="@+id/txt1EuroCount"
+        android:layout_column="4"
+        android:layout_alignTop="@+id/txt1euro"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="100/200"
-                android:id="@+id/textView3"
-                android:layout_column="3" />
-        </TableRow>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="2 €"
+        android:id="@+id/txt2euro"
+        android:layout_column="1"
+        android:layout_below="@+id/txt1euro"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+    <ProgressBar
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/prog2euro"
+        android:layout_column="2"
+        android:max="200"
+        android:progress="100"
+        android:indeterminate="false"
+        android:layout_above="@+id/txtCoins"
+        android:layout_toRightOf="@+id/txtCoins"
+        android:layout_alignRight="@+id/progCoins"
+        android:layout_alignEnd="@+id/progCoins" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="50 ct"
-                android:id="@+id/txt50ct"
-                android:layout_column="1" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="100/200"
+        android:id="@+id/txt2EuroCount"
+        android:layout_column="4"
+        android:layout_below="@+id/txt1EuroCount"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
-            <ProgressBar
-                style="?android:attr/progressBarStyleSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/prog50ct"
-                android:layout_column="2"
-                android:max="200"
-                android:progress="100"
-                android:indeterminate="false" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Parkmünzen"
+        android:id="@+id/txtCoins"
+        android:layout_column="1"
+        android:layout_below="@+id/txt2euro"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="100/200"
-                android:id="@+id/textView4"
-                android:layout_column="3" />
-        </TableRow>
+    <ProgressBar
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/progCoins"
+        android:layout_column="2"
+        android:max="400"
+        android:progress="400"
+        android:layout_alignBottom="@+id/txtCoins"
+        android:layout_toLeftOf="@+id/txt2EuroCount"
+        android:layout_toEndOf="@+id/txtCoins"
+        android:marginLeft="10dp"
+        android:layout_toRightOf="@+id/txtCoins" />
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="400/400"
+        android:id="@+id/txtCoinCount"
+        android:layout_column="4"
+        android:layout_alignTop="@+id/progCoins"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="1 €"
-                android:id="@+id/txt1euro"
-                android:layout_column="1" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="100/200"
+        android:id="@+id/txt50CentCount"
+        android:layout_column="4"
+        android:layout_below="@+id/txt20CentCount"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
-            <ProgressBar
-                style="?android:attr/progressBarStyleSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/prog1euro"
-                android:layout_column="2"
-                android:max="200"
-                android:progress="100"
-                android:indeterminate="false" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Wartung beenden"
+        android:id="@+id/btnExitMaintenance"
+        android:layout_column="1"
+        android:layout_span="4"
+        android:layout_below="@+id/btnResetCoins"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="100/200"
-                android:id="@+id/textView5"
-                android:layout_column="3" />
-        </TableRow>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Münzen auffüllen"
+        android:id="@+id/btnResetCoins"
+        android:layout_column="1"
+        android:layout_span="4"
+        android:layout_below="@+id/txtCoinCount"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="20dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+    <ProgressBar
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/prog1euro"
+        android:layout_column="2"
+        android:max="200"
+        android:progress="100"
+        android:indeterminate="false"
+        android:layout_alignBottom="@+id/txt1EuroCount"
+        android:layout_toLeftOf="@+id/txt1EuroCount"
+        android:layout_alignLeft="@+id/prog2euro"
+        android:layout_alignStart="@+id/prog2euro" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="2 €"
-                android:id="@+id/txt2euro"
-                android:layout_column="1" />
-
-            <ProgressBar
-                style="?android:attr/progressBarStyleSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/prog2euro"
-                android:layout_column="2"
-                android:max="200"
-                android:progress="100"
-                android:indeterminate="false" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="100/200"
-                android:id="@+id/textView6"
-                android:layout_column="3" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Parkmünzen"
-                android:id="@+id/txtCoins"
-                android:layout_column="1" />
-
-            <ProgressBar
-                style="?android:attr/progressBarStyleSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/progMuenzen"
-                android:layout_column="2"
-                android:max="400"
-                android:indeterminate="false"
-                android:progress="400" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="400/400"
-                android:id="@+id/tctCoinCount"
-                android:layout_column="3" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Münzen auffüllen"
-                android:id="@+id/btnResetCoins"
-                android:layout_column="1"
-                android:layout_span="3" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Wartung beenden"
-                android:id="@+id/btnExitMaintenance"
-                android:layout_column="1"
-                android:layout_span="3" />
-        </TableRow>
-    </TableLayout>
-</LinearLayout>
+</RelativeLayout>
