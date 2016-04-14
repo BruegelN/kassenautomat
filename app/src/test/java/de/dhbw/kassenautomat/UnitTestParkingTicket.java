@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import java.lang.AssertionError;
 import java.lang.Exception;
+import java.lang.Integer;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.System;
@@ -53,19 +54,24 @@ public class UnitTestParkingTicket
     @Test
     public void CheckToStringMethod()
     {
-        String saved = TestTicket.getID()+"#"+ParkingTicket.getSimpleDateFormat().format(TestTicket.getCreated());
-        assertTrue(TestTicket.toString() + "<>" + saved,TestTicket.toString().equals(saved));
+        char Delimeter = ParkingTicket.getDelimeter();
+        String saved = Integer.toString(TestTicket.getID())+Delimeter+ParkingTicket.getSimpleDateFormat().format(TestTicket.getCreated())+Delimeter+Integer.toString(TestTicket.getPrintQuality());
+
+        assertTrue(TestTicket.toString() + "<>" + saved, TestTicket.toString().equals(saved));
     }
 
     @Test
     public void CheckContructionWithSavedString() throws ParseException
     {
         String savedString = TestTicket.toString();
+
         ParkingTicket ReloadedTicket = new ParkingTicket(savedString);
 
         assertTrue(ReloadedTicket.toString() + " " + TestTicket.toString(),
                 ParkingTicket.getSimpleDateFormat().format(ReloadedTicket.getCreated()).equals(ParkingTicket.getSimpleDateFormat().format(TestTicket.getCreated())));
 
         assertTrue(ReloadedTicket.getID() == TestTicket.getID());
+
+        assertTrue(ReloadedTicket.getPrintQuality() == TestTicket.getPrintQuality());
     }
 }
