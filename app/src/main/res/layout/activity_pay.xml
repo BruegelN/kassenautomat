@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:background="#0099cc"
+    android:padding="10dp"
+    android:weightSum="1">
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:inputType="textMultiLine"
+        android:ems="10"
+        android:id="@+id/lblPayment"
+        android:text="Zu zahlen:\n0,50 €"
+        android:background="#acaf90"
+        android:nestedScrollingEnabled="false"
+        android:textColor="#000"
+        android:fontFamily="monospace"
+        android:padding="10dp" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
+
+        <ImageButton
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:id="@+id/btnFiveCent"
+            android:src="@drawable/five_cent"
+            android:scaleType="fitCenter" />
+
+        <ImageButton
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:id="@+id/btnTenCent"
+            android:src="@drawable/ten_cent"
+            android:scaleType="fitCenter" />
+
+        <ImageButton
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:id="@+id/btnTwentyCent"
+            android:src="@drawable/twenty_cent"
+            android:scaleType="fitCenter" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
+
+        <ImageButton
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:id="@+id/btnFiftyCent"
+            android:src="@drawable/fifty_cent_fun"
+            android:scaleType="fitCenter" />
+
+        <ImageButton
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:id="@+id/btnOneEuro"
+            android:src="@drawable/one_euro"
+            android:scaleType="fitCenter" />
+
+        <ImageButton
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:id="@+id/btnTwoEuro"
+            android:src="@drawable/two_euro"
+            android:scaleType="fitCenter" />
+    </LinearLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Quittung"
+        android:id="@+id/btnQuittung" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Abbrechen"
+        android:id="@+id/btnAbort" />
+
+</LinearLayout>
