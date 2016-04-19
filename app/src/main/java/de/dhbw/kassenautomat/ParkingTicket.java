@@ -66,7 +66,7 @@ public class ParkingTicket {
     }
 
     /**
-    *   @return This will return the delimiter (char) used by the ParkingTicket class to separate
+    *   @return This will return the delimiter (char) used by the ParkingTicket class to separate strings.
      */
     public static char getDelimiter()
     {
