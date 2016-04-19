@@ -13,9 +13,11 @@ import java.util.Random;
 public class ParkingTicket {
     private static SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy-HH:mm:ss");
     private static final char Delimeter = ';';
-    private Date Created;
-    private int ID, printQuality;
     private static int IDcounter = 0;
+
+    private Date Created;
+    private int ID;
+    private byte printQuality; //byte is enough for printquality numbers ranging from 80 to 100
 
     public ParkingTicket()
     {
@@ -32,13 +34,13 @@ public class ParkingTicket {
 
         ID = Integer.parseInt(splittedValues[0]);
         Created = sdf.parse(splittedValues[1]);
-        printQuality = Integer.parseInt(splittedValues[2]);
+        printQuality = (byte)Integer.parseInt(splittedValues[2]);
     }
 
-    private int generatePrintQuality()
+    private byte generatePrintQuality()
     {
         Random ran = new Random();
-        return ran.nextInt(21)+80;
+        return (byte)(ran.nextInt(21)+80);
     }
     public static SimpleDateFormat getSimpleDateFormat()
     {

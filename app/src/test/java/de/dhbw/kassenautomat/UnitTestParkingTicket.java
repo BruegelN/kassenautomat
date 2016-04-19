@@ -74,4 +74,14 @@ public class UnitTestParkingTicket
 
         assertTrue(ReloadedTicket.getPrintQuality() == TestTicket.getPrintQuality());
     }
+
+    @Test
+    public void CheckRandomNumberGeneration()
+    {
+        for (int i = 0; i<100; i++) //create some 100 new Tickets and check whether the print Quality is in range...
+        {
+            ParkingTicket newTicket = new ParkingTicket();
+            assertTrue(Integer.toString(newTicket.getPrintQuality()), (80<=newTicket.getPrintQuality()) && (newTicket.getPrintQuality()<=100));
+        }
+    }
 }
