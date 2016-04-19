@@ -1,21 +1,11 @@
 package de.dhbw.kassenautomat;
 
-import junit.framework.Assert;
-
 import org.junit.Test;
 
-import java.lang.AssertionError;
-import java.lang.Exception;
 import java.lang.Integer;
-import java.lang.Override;
 import java.lang.String;
-import java.lang.System;
 import java.text.ParseException;
 import java.util.Date;
-
-import dalvik.annotation.TestTargetClass;
-import de.dhbw.kassenautomat.ParkingTicket;
-import de.dhbw.kassenautomat.TestingDemo;
 
 import static org.junit.Assert.*;
 
@@ -54,7 +44,7 @@ public class UnitTestParkingTicket
     @Test
     public void CheckToStringMethod()
     {
-        char Delimeter = ParkingTicket.getDelimeter();
+        char Delimeter = ParkingTicket.getDelimiter();
         String saved = Integer.toString(TestTicket.getID())+Delimeter+ParkingTicket.getSimpleDateFormat().format(TestTicket.getCreated())+Delimeter+Integer.toString(TestTicket.getPrintQuality());
 
         assertTrue(TestTicket.toString() + "<>" + saved, TestTicket.toString().equals(saved));
