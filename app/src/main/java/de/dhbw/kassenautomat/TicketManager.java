@@ -17,7 +17,7 @@ public class TicketManager {
     private List<ParkingTicket> ParkingTickets = new LinkedList<ParkingTicket>();
 
     /**
-     * This is the nice constructor of the TicketManager Class.
+     * This is the nice constructor of the TicketManager class.
      * @return An instance of TicketManager.
      */
     public TicketManager()
@@ -25,7 +25,7 @@ public class TicketManager {
     }
 
     /**
-     * This is another Constructor of the TicketManager Class
+     * This is another constructor of the TicketManager class
      * It will reconstruct ParkingTickets from a list of saved strings.
      * @param savedStrings A list of saved strings for ParkingTickets.
      * @throws ParseException This should not happen as long as the saved strings have the right syntax.
