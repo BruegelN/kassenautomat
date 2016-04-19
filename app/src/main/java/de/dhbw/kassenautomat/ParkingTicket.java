@@ -1,7 +1,5 @@
 package de.dhbw.kassenautomat;
 
-import android.provider.Telephony;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -17,7 +15,7 @@ public class ParkingTicket {
 
     private Date Created;
     private int ID;
-    private byte printQuality; //byte is enough for printquality numbers ranging from 80 to 100
+    private byte printQuality; //byte is enough for print quality numbers ranging from 80 to 100
 
     public ParkingTicket()
     {
