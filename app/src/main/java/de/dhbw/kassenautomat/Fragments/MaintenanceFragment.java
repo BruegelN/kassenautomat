@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 /**
  * Created by nicob on 21.04.16.
  */
-public class MaintainanceFragment extends Fragment {
+public class MaintenanceFragment extends Fragment {
 
 
     @Nullable
