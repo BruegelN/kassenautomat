@@ -1,11 +1,11 @@
 package de.dhbw.kassenautomat.Database;
 
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -49,21 +49,13 @@ public class DatabaseManager {
 
     /**
      * This saves a ticket in the Database.
-     * @param ticket Ticket in one string.
+     * @param ticket ParkingTicket object
      * @return True when successfully written to Database.
      */
-    public boolean saveTicket(String ticket) {
-        String Del = Character.toString(ParkingTicket.getDelimiter());
-        String[] splittedValues = ticket.split(Del);
-
-        int ID = Integer.parseInt(splittedValues[0]);
-        Date Created;
-
-        //get rid of the annoying parse exception by returning false on its occurrence.
-        try { Created = ParkingTicket.getSimpleDateFormat().parse(splittedValues[1]); }
-        catch (ParseException ex) { return false; }
-
-        byte printQuality = (byte)Integer.parseInt(splittedValues[2]);
+    public boolean saveTicket(ParkingTicket ticket) {
+        int ID = ticket.getID();
+        Date Created = ticket.getCreated();
+        byte printQuality = ticket.getPrintQuality();
 
         dbwrite.execSQL("insert into tickets (id, date, print_quality) values ("+ID+","+Created+","+printQuality+")");
         return true;
@@ -82,5 +74,47 @@ public class DatabaseManager {
 
         dbwrite.execSQL("delete from tickets where id = "+id+" and Date = "+ Created+" and print_quality = "+printQuality);
         return true;
+    }
+
+    /**
+     * Get the current level of a coin by its value.
+     * @param cointValue Value of the coin in cents, e.g. 5 = 5ct, 200 = 2 EURO
+     * @return The current level of the coin. -1 if not in DB or more than one result.
+     */
+    public int getCoinLevel(int cointValue)
+    {
+        Cursor c = dbread.rawQuery("SELECT level from coins WHERE value = " + cointValue, null);
+
+        if (c.getCount() != 1)
+            return -1; // There should be only one line matching this query
+
+        c.moveToFirst();
+        int level =  Integer.parseInt(c.toString());
+
+        return level;
+    }
+
+    /**
+     * This will set the coin level of the given coin value to the given new level.
+     * If the given level is higher than the MAX_COIN_LVL it will be set to MAX_COIN_LVL instead.
+     * If the given level is lower than 0 it will be set to 0.
+     * @param coinValue Value of the coin in cents, e.g. 5 = 5ct, 200 = 2 EURO etc.
+     *                  See the COINS-Array for all possible values.
+     * @param newLevel The new level to be set.
+     * @return The newly set level for the given coin. This may be different from the given new level.
+     */
+    public int setCoinLevel(int coinValue, int newLevel)
+    {
+        //Make sure the coin level is positive and does not exceed the MAX_COIN_LVL
+        //otherwise set to the nearest accepted value
+        newLevel = newLevel>MySQLLiteOpenHelper.MAX_COIN_LVL?MySQLLiteOpenHelper.MAX_COIN_LVL:newLevel;
+        newLevel = newLevel<0?0:newLevel;
+
+        ContentValues values = new ContentValues();
+        values.put("level", newLevel);
+
+        dbwrite.update("coins", values, "value=?", new String[]{Integer.toString(coinValue)});
+
+        return newLevel;
     }
 }

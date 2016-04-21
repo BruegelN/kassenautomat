@@ -1,5 +1,6 @@
 package de.dhbw.kassenautomat.Database;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -12,6 +13,10 @@ public class MySQLLiteOpenHelper extends SQLiteOpenHelper {
     Context c;
     private static final String DB_NAME = "kassenautomat";
     private static final int VERSION = 1; //We "start" with DB version 1
+
+    // TODO maybe this stuff should be defined elsewhere, since this is not only needed in the DB
+    public static final int MAX_COIN_LVL = 200;
+    public static final int[] COINS = {5, 10, 20, 50, 100, 200};
 
     public MySQLLiteOpenHelper(Context c)
     {
@@ -26,9 +31,19 @@ public class MySQLLiteOpenHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db)
     {
+        // CREATE all necessary tables
         db.execSQL("CREATE TABLE tickets (id int, created DateTime, print_quality int, paid bool)");
         db.execSQL("CREATE TABLE receipt (FKid int, paid DateTime)");
-        db.execSQL("CREATE TABLE coins (value int, level int)");
+        db.execSQL("CREATE TABLE COINS (value int, level int)");
+
+        // Insert all COINS into the coins table starting with MAX_COIN_LVL
+        for (int coin: COINS) {
+            ContentValues values = new ContentValues();
+            values.put("value", coin);
+            values.put("level", MAX_COIN_LVL);
+
+            db.insert("coins", null, values);
+        }
     }
 
     /**
@@ -39,6 +54,9 @@ public class MySQLLiteOpenHelper extends SQLiteOpenHelper {
      */
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // I don't see how this database would ever be upgraded.
+        // DELETE the old DB
+        c.deleteDatabase(DB_NAME);
+        // create the new DB as defined above
+        onCreate(db);
     }
 }
