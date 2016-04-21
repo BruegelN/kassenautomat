@@ -11,7 +11,6 @@ import java.util.Date;
 import java.util.List;
 
 import de.dhbw.kassenautomat.ParkingTicket;
-import de.dhbw.kassenautomat.TicketManager;
 
 /**
  * Created by trugf on 20.04.2016.

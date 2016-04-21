@@ -17,7 +17,7 @@ import static org.mockito.Mockito.*;
 
 public class UnitTestDatabaseManager{
 
-    //TODO This shit ain't working cause "cannot find symbol" mock
+    // TODO This shit ain't working cause "cannot find symbol" mock
     /*
     @Test
     public void TestTicketsTable()
