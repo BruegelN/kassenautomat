@@ -16,6 +16,13 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
+
+    // may be necessary for the use of Mockito
+    repositories { jcenter() }
+    dependencies { testCompile "org.mockito:mockito-core:1.+" }
 }
 
 dependencies {
