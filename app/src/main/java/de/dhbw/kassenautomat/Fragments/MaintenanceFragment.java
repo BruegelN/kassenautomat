@@ -13,11 +13,13 @@ import de.dhbw.kassenautomat.R;
 /**
  * Created by nicob on 21.04.16.
  */
-public class PayFragment extends Fragment {
+public class MaintenanceFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        // TODO initialize fields before createView
+        /* TODO initialize fields before createView
+            and add elements to list form database
+         */
         super.onCreate(savedInstanceState);
     }
 
@@ -26,16 +28,17 @@ public class PayFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         /**
-         * Set the layout where you can pay a ticket with the given LayoutInflater.
-         */
-        View layoutView = inflater.inflate(R.layout.fragment_pay, null);
+        * Set the maintenance layout with the given LayoutInflater.
+        */
+        View layoutMaintenance = inflater.inflate(R.layout.fragement_maintenance, null);
 
         // so it can be displayed
-        return layoutView;
+        return layoutMaintenance;
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
     }
 }
