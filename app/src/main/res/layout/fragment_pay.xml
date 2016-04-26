@@ -33,6 +33,7 @@
             android:layout_height="100dp"
             android:id="@+id/btnFiveCent"
             android:src="@drawable/five_cent"
+            android:contentDescription="@string/strDescFiveCent"
             android:scaleType="fitCenter" />
 
         <ImageButton
@@ -40,6 +41,7 @@
             android:layout_height="100dp"
             android:id="@+id/btnTenCent"
             android:src="@drawable/ten_cent"
+            android:contentDescription="@string/strDescTenCent"
             android:scaleType="fitCenter" />
 
         <ImageButton
@@ -47,6 +49,7 @@
             android:layout_height="100dp"
             android:id="@+id/btnTwentyCent"
             android:src="@drawable/twenty_cent"
+            android:contentDescription="@string/strDescTwentyCent"
             android:scaleType="fitCenter" />
     </LinearLayout>
 
@@ -61,6 +64,7 @@
             android:layout_height="100dp"
             android:id="@+id/btnFiftyCent"
             android:src="@drawable/fifty_cent_fun"
+            android:contentDescription="@string/strDescFiftyCent"
             android:scaleType="fitCenter" />
 
         <ImageButton
@@ -68,6 +72,7 @@
             android:layout_height="100dp"
             android:id="@+id/btnOneEuro"
             android:src="@drawable/one_euro"
+            android:contentDescription="@string/strDescOneEuro"
             android:scaleType="fitCenter" />
 
         <ImageButton
@@ -75,6 +80,7 @@
             android:layout_height="100dp"
             android:id="@+id/btnTwoEuro"
             android:src="@drawable/two_euro"
+            android:contentDescription="@string/strDescTwoEuro"
             android:scaleType="fitCenter" />
     </LinearLayout>
 

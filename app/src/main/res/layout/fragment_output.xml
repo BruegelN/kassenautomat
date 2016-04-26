@@ -11,6 +11,7 @@
         android:layout_height="200dp"
         android:id="@+id/imageView"
         android:src="@drawable/parkmuenze"
+        android:contentDescription="@string/strDescParkingCoin"
         android:scaleType="fitCenter"
         android:minHeight="200dp" />
 
