@@ -16,10 +16,11 @@
         android:id="@+id/lblPayment"
         android:text="Zu zahlen:\n0,50 €"
         android:background="#acaf90"
-        android:nestedScrollingEnabled="false"
         android:textColor="#000"
-        android:fontFamily="monospace"
         android:padding="10dp" />
+    <!-- Not supported by the old Android Version!
+    android:nestedScrollingEnabled="false"
+     android:fontFamily="monospace"-->
 
     <LinearLayout
         android:orientation="horizontal"
