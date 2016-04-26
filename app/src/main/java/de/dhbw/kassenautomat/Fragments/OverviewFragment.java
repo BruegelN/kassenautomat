@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 // To access the XML layouts easily
 import de.dhbw.kassenautomat.R;
@@ -25,6 +26,12 @@ public class OverviewFragment extends Fragment{
      * Private button for elements used in overview fragment.
      */
     private Button btnMaintenance;
+
+    /**
+     * Button to go pay a ticket.
+     * Private button for elements used in overview fragment.
+     */
+    private Button btnPayTicket;
 
     /**
      * Button to create a new Ticket.
@@ -61,12 +68,15 @@ public class OverviewFragment extends Fragment{
          * Connect the buttons the corresponding view elements in the layout.
          */
         btnMaintenance = (Button) LayoutOverview.findViewById(R.id.btnMaintenance);
-        btnCreateTicket =(Button) LayoutOverview.findViewById(R.id.btnCreateTicket);
+        btnCreateTicket = (Button) LayoutOverview.findViewById(R.id.btnCreateTicket);
+        btnPayTicket = (Button) LayoutOverview.findViewById(R.id.btnEditTicket);
 
 
         // Set handlers for button click events.
         btnMaintenance.setOnClickListener(btnMaintenancePressed);
         btnCreateTicket.setOnClickListener(btnCreateTicketPressed);
+        btnPayTicket.setOnClickListener(btnPayTicketPressed);
+
 
         // so it can be displayed
         return LayoutOverview;
@@ -93,10 +103,24 @@ public class OverviewFragment extends Fragment{
     };
 
     /**
+     * onClickListener to create a new ticket
+     */
+    private View.OnClickListener btnCreateTicketPressed = new View.OnClickListener() {
+        public void onClick(View v) {
+
+            // TODO create the needed view!
+            // TODO create ticket
+            Toast.makeText(getActivity(), "TODO Ticket lösen/ create Ticket", Toast.LENGTH_SHORT).show();
+
+        }
+    };
+
+
+    /**
      * onClickListener for payTicket button.
      * Will switch to fragment where you can pay the ticket.
      */
-    View.OnClickListener btnCreateTicketPressed = new View.OnClickListener() {
+    private View.OnClickListener btnPayTicketPressed = new View.OnClickListener() {
         public void onClick(View v) {
 
             getFragmentManager().beginTransaction()
