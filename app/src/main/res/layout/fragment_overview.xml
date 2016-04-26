@@ -11,23 +11,23 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Automat warten"
+        android:text="@string/strMaintainAutomate"
         android:id="@+id/btnMaintenance" />
 
     <ToggleButton
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Ticket bearbeiten"
+        android:text="@string/strEditTicket"
         android:id="@+id/btnEditTicket"
         android:checked="false"
         android:layout_gravity="bottom"
-        android:textOn="Ticket bearbeiten"
+        android:textOn="@string/strEditTicket"
         android:textOff="Ticket bezahlen" />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Ticket lösen"
+        android:text="@string/strCreateString"
         android:id="@+id/btnCreateTicket"
         android:layout_gravity="center_horizontal|bottom" />
 
@@ -35,7 +35,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Parktickets"
+        android:text="@string/strPrakingTicket"
         android:id="@+id/textView" />
 
     <ListView
