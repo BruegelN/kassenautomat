@@ -62,7 +62,7 @@ public class OverviewFragment extends Fragment{
         /**
          * Set the overview layout with the given LayoutInflater.
          */
-        View LayoutOverview = inflater.inflate(R.layout.fragment_overview, null);
+        View LayoutOverview = inflater.inflate(R.layout.fragment_overview, container, false);
 
         /**
          * Connect the buttons the corresponding view elements in the layout.

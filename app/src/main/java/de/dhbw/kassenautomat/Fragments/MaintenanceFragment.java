@@ -44,7 +44,7 @@ public class MaintenanceFragment extends Fragment {
         /**
         * Set the maintenance layout with the given LayoutInflater.
         */
-        View layoutMaintenance = inflater.inflate(R.layout.fragment_maintenance, null);
+        View layoutMaintenance = inflater.inflate(R.layout.fragment_maintenance, container, false);
 
         btnResetCoins = (Button) layoutMaintenance.findViewById(R.id.btnResetCoins);
         btnEndMaintenance = (Button) layoutMaintenance.findViewById(R.id.btnEndMaintenance);
