@@ -43,7 +43,7 @@ public class OverviewFragment extends Fragment{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         /* TODO initialize missing fields before createView
-            and add elements to list form database
+            and add elements form database to list
          */
 
         /**
