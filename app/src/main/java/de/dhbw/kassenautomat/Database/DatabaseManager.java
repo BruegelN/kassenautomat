@@ -5,6 +5,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -16,12 +17,13 @@ import de.dhbw.kassenautomat.ParkingTicket;
  * Created by trugf on 20.04.2016.
  */
 public class DatabaseManager {
-    SQLiteDatabase dbread, dbwrite;
-    MySQLLiteOpenHelper helper;
+    public SQLiteDatabase dbread, dbwrite;
+    SQLiteOpenHelper helper;
 
     public DatabaseManager(Context c)
     {
-        helper = new MySQLLiteOpenHelper(c);
+        helper = new MySQLiteOpenHelper(c);
+
         dbread = helper.getReadableDatabase();
         dbwrite = helper.getWritableDatabase();
     }
@@ -43,6 +45,7 @@ public class DatabaseManager {
                 //TODO Convert to the string format used by ParkingTicket class
                 c.moveToNext();
         }
+        c.close();
 
         return strings;
     }
@@ -57,7 +60,7 @@ public class DatabaseManager {
         Date Created = ticket.getCreated();
         byte printQuality = ticket.getPrintQuality();
 
-        dbwrite.execSQL("insert into tickets (id, date, print_quality) values ("+ID+","+Created+","+printQuality+")");
+        dbwrite.execSQL("insert into tickets (id, date, print_quality) values (" + ID + "," + Created + "," + printQuality + ")");
         return true;
     }
 
@@ -81,17 +84,17 @@ public class DatabaseManager {
      * @param cointValue Value of the coin in cents, e.g. 5 = 5ct, 200 = 2 EURO
      * @return The current level of the coin. -1 if not in DB or more than one result.
      */
-    public int getCoinLevel(int cointValue)
+    public String getCoinLevel(int cointValue)
     {
         Cursor c = dbread.rawQuery("SELECT level from coins WHERE value = " + cointValue, null);
 
         if (c.getCount() != 1)
-            return -1; // There should be only one line matching this query
+            return "NONONOONONO...";//-1; // There should be only one line matching this query
 
         c.moveToFirst();
-        int level =  Integer.parseInt(c.toString());
+        //int level =  Integer.parseInt(c.toString()); //TODO parse Integer from Cursor
 
-        return level;
+        return c.toString();
     }
 
     /**
@@ -107,7 +110,7 @@ public class DatabaseManager {
     {
         //Make sure the coin level is positive and does not exceed the MAX_COIN_LVL
         //otherwise set to the nearest accepted value
-        newLevel = newLevel>MySQLLiteOpenHelper.MAX_COIN_LVL?MySQLLiteOpenHelper.MAX_COIN_LVL:newLevel;
+        newLevel = newLevel> MySQLiteOpenHelper.MAX_COIN_LVL? MySQLiteOpenHelper.MAX_COIN_LVL:newLevel;
         newLevel = newLevel<0?0:newLevel;
 
         ContentValues values = new ContentValues();
