@@ -3,4 +3,22 @@
 
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="strOneEuro" >1 €</string>
+    <string name="strTwoEuro" >2 €</string>
+    <string name="strEditTicket">Ticket bearbeiten</string>
+    <string name="strTicketId">Ticket ID:</string>
+    <string name="strDate">Datum</string>
+    <string name="strStartTime">Start der Parkzeit:</string>
+    <string name="strTime">Uhrzeit</string>
+    <string name="strMaintainAutomate">Automat warten</string>
+    <string name="strCreateString">Ticket lösen</string>
+    <string name="strPrakingTicket">Parkticket</string>
+    <string name="strRefillCoins">Münzen auffüllen</string>
+    <string name="strEndMaintenance">Wartung beenden</string>
+    <string name="strFiftyCent">50 ct</string>
+    <string name="strTwentyCent">20 ct</string>
+    <string name="strTenCent">10 ct</string>
+    <string name="strFiveCent">5 ct</string>
+    <string name="strMaintenanceMode">Wartungsmodus</string>
+    <string name="strParkingCoins">Parkmünzen</string>
 </resources>
