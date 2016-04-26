@@ -19,4 +19,13 @@
     <string name="strFiveCent">5 ct</string>
     <string name="strMaintenanceMode">Wartungsmodus</string>
     <string name="strParkingCoins">Parkmünzen</string>
+    <string name="strDescFiveCent">Eine 5ct Münze</string>
+    <string name="strDescTenCent">Eine 10ct Münze</string>
+    <string name="strDescTwentyCent">Eine 20ct Münze</string>
+    <string name="strDescFiftyCent">Eine 50ct Münze</string>
+    <string name="strDescOneEuro">Eine 1€ Münze</string>
+    <string name="strDescTwoEuro">Eine 2€ Münze</string>
+    <string name="strDescParkingCoin">Eine Parkmünze</string>
+    <string name="strBill">Quittung</string>
+    <string name="strAbort">Abbrechen</string>
 </resources>
