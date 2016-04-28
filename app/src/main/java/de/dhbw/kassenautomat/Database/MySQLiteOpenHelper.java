@@ -31,7 +31,7 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db)
     {
         // CREATE all necessary tables
-        db.execSQL("CREATE TABLE tickets (id int, created DateTime, print_quality int, paid bool)");
+        db.execSQL("CREATE TABLE tickets (id int AUTOINCREMENT, created DateTime, print_quality int, paid bool)");
         db.execSQL("CREATE TABLE receipt (FKid int, paid DateTime)");
         db.execSQL("CREATE TABLE coins (value int, level int)");
 
