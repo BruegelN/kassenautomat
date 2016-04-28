@@ -14,7 +14,6 @@ import java.util.ListIterator;
  * Created by trugf on 19.04.2016.
  */
 public class TicketManager {
-    private List<ParkingTicket> ParkingTickets = new LinkedList<ParkingTicket>();
 
     /**
      * This is the nice constructor of the TicketManager class.
@@ -25,27 +24,13 @@ public class TicketManager {
     }
 
     /**
-     * This is another constructor of the TicketManager class
-     * It will reconstruct ParkingTickets from a list of saved strings.
-     * @param savedStrings A list of saved strings for ParkingTickets.
-     * @throws ParseException This should not happen as long as the saved strings have the right syntax.
-     */
-    public TicketManager(List<String> savedStrings) throws ParseException {
-        for (String saved:savedStrings)
-        {
-            ParkingTickets.add(new ParkingTicket(saved));
-        }
-    }
-
-    /**
      * This will create a new Ticket.
      * @return Function returns the newly created ParkingTicket instance.
      */
     public ParkingTicket createTicket() {
-        ParkingTicket newTicket;
-        ParkingTickets.add(newTicket = new ParkingTicket());
+        ParkingTicket newTicket = new ParkingTicket();
 
-        //TODO save ticket in some android storage
+        MainActivity.getDBmanager().saveTicket(newTicket);
 
         return newTicket;
     }
@@ -56,15 +41,15 @@ public class TicketManager {
      */
     public void removeTicket(ParkingTicket ticket)
     {
-        ParkingTickets.remove(ticket);
-        //TODO remove ticket from android storage
+        MainActivity.getDBmanager().removeTicket(ticket);
     }
 
     /**
      * Get the current list of ParkingTickets.
      * @return Current ParkingTicket List
      */
-    public List<ParkingTicket> getTicketList() {
-        return ParkingTickets;
+    public List<String> getTicketList()
+    {
+        return MainActivity.getDBmanager().getTickets();
     }
 }

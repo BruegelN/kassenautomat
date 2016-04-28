@@ -61,7 +61,7 @@ public class DatabaseManager {
         Date Created = ticket.getCreated();
         byte printQuality = ticket.getPrintQuality();
 
-        dbwrite.execSQL("insert into tickets (id, date, print_quality) values (" + ID + "," + Created + "," + printQuality + ")");
+        dbwrite.execSQL("insert into tickets (id, date, print_quality, paid) values (" + ID + "," + Created + "," + printQuality + ", FALSE)");
         return true;
     }
 
