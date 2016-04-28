@@ -27,21 +27,6 @@ public class UnitTestParkingTicket
     }
 
     @Test
-    public void CheckPositiveID()
-    {
-        assertTrue(TestTicket.getID() >= 0);
-    }
-
-    @Test
-    public void CheckIDcounter()
-    {
-        int ID = TestTicket.getID();
-        int ID2 = TestTicket2.getID();
-
-        assertTrue(ID2 == ID+1);
-    }
-
-    @Test
     public void CheckToStringMethod()
     {
         char Delimeter = ParkingTicket.getDelimiter();
@@ -59,8 +44,6 @@ public class UnitTestParkingTicket
 
         assertTrue(ReloadedTicket.toString() + " " + TestTicket.toString(),
                 ParkingTicket.getSimpleDateFormat().format(ReloadedTicket.getCreated()).equals(ParkingTicket.getSimpleDateFormat().format(TestTicket.getCreated())));
-
-        assertTrue(ReloadedTicket.getID() == TestTicket.getID());
 
         assertTrue(ReloadedTicket.getPrintQuality() == TestTicket.getPrintQuality());
     }
