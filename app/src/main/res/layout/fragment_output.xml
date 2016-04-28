@@ -19,16 +19,34 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Quittung\n0,50€\nParkdauer: 1h"
+        android:text="@string/strQuittung"
+        android:id="@+id/textView8"
+        android:layout_gravity="center_horizontal"
+        android:padding="5dp"
+        android:background="#fff" />
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/strDefaultToPay"
+        android:id="@+id/textView9"
+        android:layout_gravity="center_horizontal"
+        android:padding="5dp"
+        android:background="#fff" />
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/strDefaultParkingTime"
         android:id="@+id/textView7"
         android:layout_gravity="center_horizontal"
-        android:padding="10dp"
+        android:padding="5dp"
         android:background="#fff" />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="OK"
+        android:text="@android:string/ok"
         android:id="@+id/button"
         android:layout_gravity="center_horizontal" />
 </LinearLayout>

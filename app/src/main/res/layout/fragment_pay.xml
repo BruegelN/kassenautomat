@@ -14,10 +14,21 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:ems="10"
         android:id="@+id/lblPayment"
-        android:text="Zu zahlen:\n0,50 €"
+        android:text="@string/strPleasePay"
         android:background="#acaf90"
         android:textColor="#000"
-        android:padding="10dp" />
+        android:padding="5dp" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:ems="10"
+        android:id="@+id/lblMoneyLeftToPay"
+        android:text="@string/strDefaultToPay"
+        android:background="#acaf90"
+        android:textColor="#000"
+        android:padding="5dp" />
+
     <!-- Not supported by the old Android Version!
     android:nestedScrollingEnabled="false"
      android:fontFamily="monospace"-->
@@ -93,7 +104,7 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/strAbort"
+        android:text="@android:string/cancel"
         android:id="@+id/btnAbort" />
 
 </LinearLayout>
