@@ -6,4 +6,8 @@
 
     <color name="black_overlay">#66000000</color>
     <color name="backgroundLightBlue">#0099cc</color>
+
+    <color name="yellow_lcd"> #FFFFFF40 </color>
+    <color name="black"> #FF000000 </color>
+
 </resources>
