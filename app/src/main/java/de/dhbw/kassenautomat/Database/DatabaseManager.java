@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -33,17 +34,23 @@ public class DatabaseManager {
      * This will return all tickets in Database as String-ArrayList.
      * @return String-ArrayList with saved tickets
      */
-    public List<String> getTickets()
-    {
+    public List<String> getTickets() throws ParseException {
         List<String> strings = new ArrayList<String>();
         
-        Cursor c = dbread.rawQuery("select * from tickets", null);
+        Cursor c = dbread.rawQuery("select id, date, print_quality, paid from tickets", null);
 
         if (c.moveToFirst())
             while (!c.isAfterLast())
             {
-                strings.add(c.toString());
-                //TODO Convert to the string format used by ParkingTicket class
+                char Delimiter = ParkingTicket.getDelimiter();
+                int ID = Integer.parseInt(c.getString(0));
+                Date Created = ParkingTicket.getSimpleDateFormat().parse(c.getString(1)); //maybe doesn't work
+                int printQuality = Integer.parseInt(c.getString(2));
+                boolean paid = c.getString(3).toLowerCase() == "true";
+                //TODO implement paid-value into ParkingTicket class & saved String
+
+                //This is basically the toString function of ParkingTicket
+                strings.add(Integer.toString(ID)+Delimiter+ParkingTicket.getSimpleDateFormat().format(Created)+Delimiter+Integer.toString(printQuality));
                 c.moveToNext();
         }
         c.close();
@@ -57,26 +64,42 @@ public class DatabaseManager {
      * @return True when successfully written to Database.
      */
     public boolean saveTicket(ParkingTicket ticket) {
-        int ID = ticket.getID();
         Date Created = ticket.getCreated();
         byte printQuality = ticket.getPrintQuality();
 
-        dbwrite.execSQL("insert into tickets (id, date, print_quality, paid) values (" + ID + "," + Created + "," + printQuality + ", FALSE)");
+        ContentValues values = new ContentValues();
+        values.put("date", ParkingTicket.getSimpleDateFormat().format(Created));
+        values.put("print_quality", printQuality);
+        values.put("paid", false);
+
+        try
+        {
+            dbwrite.insert("tickets", null, values);
+        }
+        catch (Exception ex)
+        {
+            return false;
+        }
+
         return true;
     }
 
     /**
      * This removes the given ticket from the Database.
-     * @param ticket Ticket to be removed
+     * @param id: ID of the Ticket to be removed
      * @return True when ticket removed successfully.
      */
-    public boolean removeTicket(ParkingTicket ticket)
+    public boolean removeTicket(int id)
     {
-        int id = ticket.getID();
-        byte printQuality = ticket.getPrintQuality();
-        Date Created = ticket.getCreated();
+        try
+        {
+            dbwrite.delete("tickets", "id=?", new String[]{Integer.toString(id)});
+        }
+        catch (Exception ex)
+        {
+            return false;
+        }
 
-        dbwrite.execSQL("delete from tickets where id = "+id+" and Date = "+ Created+" and print_quality = "+printQuality);
         return true;
     }
 

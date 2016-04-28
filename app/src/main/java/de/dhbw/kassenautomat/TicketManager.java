@@ -25,31 +25,56 @@ public class TicketManager {
 
     /**
      * This will create a new Ticket.
-     * @return Function returns the newly created ParkingTicket instance.
+     * @return  Function returns the newly created ParkingTicket instance. On error this will be null.
+     *          Note that this Ticket instance has no valid id.
      */
     public ParkingTicket createTicket() {
         ParkingTicket newTicket = new ParkingTicket();
 
-        MainActivity.getDBmanager().saveTicket(newTicket);
+        if (MainActivity.getDBmanager().saveTicket(newTicket))
+        {
+            return newTicket;
+        }
 
-        return newTicket;
+        return null; // on error
     }
 
     /**
-     * This will remove a ticket from the current ParkingTicket list.
-     * @param ticket Ticket to be removed
+     * This will remove a ticket from the current ParkingTicket DB.
+     * @param id ID of the Ticket to be removed
      */
-    public void removeTicket(ParkingTicket ticket)
+    public void removeTicket(int id)
     {
-        MainActivity.getDBmanager().removeTicket(ticket);
+        MainActivity.getDBmanager().removeTicket(id);
     }
 
     /**
      * Get the current list of ParkingTickets.
-     * @return Current ParkingTicket List
+     * @return Current ParkingTicket List (from DB)
      */
-    public List<String> getTicketList()
+    public List<ParkingTicket> getTicketList()
     {
-        return MainActivity.getDBmanager().getTickets();
+        List<String> savedStrings;
+        List<ParkingTicket> parkingTickets = new ArrayList<ParkingTicket>();
+
+        try
+        {
+            savedStrings = MainActivity.getDBmanager().getTickets();
+
+            for (String savedString:savedStrings)
+            {
+                parkingTickets.add(new ParkingTicket(savedString));
+            }
+        }
+        catch (Exception ex)
+        {
+            // on error act as if no ticket could be read
+            // TODO: maybe implement some error handling here
+            parkingTickets = null;
+        }
+        finally
+        {
+            return parkingTickets;
+        }
     }
 }
