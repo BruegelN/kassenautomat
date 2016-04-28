@@ -15,7 +15,7 @@ import de.dhbw.kassenautomat.COIN_DATA;
 public class MySQLiteOpenHelper extends SQLiteOpenHelper {
     Context c;
     private static final String DB_NAME = "kassenautomat.db";
-    private static final int VERSION = 1; //We "start" with DB version 1
+    private static final int VERSION = 2; //We "start" with DB version 1
 
     public MySQLiteOpenHelper(Context c)
     {
@@ -31,7 +31,7 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db)
     {
         // CREATE all necessary tables
-        db.execSQL("CREATE TABLE tickets (id int AUTOINCREMENT, created DateTime, print_quality int, paid bool)");
+        db.execSQL("CREATE TABLE tickets (id INTEGER PRIMARY KEY AUTOINCREMENT, created DateTime, print_quality int, paid bool)");
         db.execSQL("CREATE TABLE receipt (FKid int, paid DateTime)");
         db.execSQL("CREATE TABLE coins (value int, level int)");
 
@@ -55,6 +55,7 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // DELETE the old DB
         c.deleteDatabase(DB_NAME);
+        Log.v("DB","DB deleted due to upgrade.");
         // create the new DB as defined above
         onCreate(db);
     }
