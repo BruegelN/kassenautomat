@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import de.dhbw.kassenautomat.COIN_DATA;
 import de.dhbw.kassenautomat.ParkingTicket;
 
 /**
@@ -82,19 +83,30 @@ public class DatabaseManager {
     /**
      * Get the current level of a coin by its value.
      * @param cointValue Value of the coin in cents, e.g. 5 = 5ct, 200 = 2 EURO
-     * @return The current level of the coin. -1 if not in DB or more than one result.
+     * @return The current level of the coin. -1 on error.
      */
-    public String getCoinLevel(int cointValue)
+    public int getCoinLevel(int cointValue)
     {
         Cursor c = dbread.rawQuery("SELECT level from coins WHERE value = " + cointValue, null);
 
         if (c.getCount() != 1)
-            return "NONONOONONO...";//-1; // There should be only one line matching this query
+            return -1; // There MUST be only one line matching this query
 
         c.moveToFirst();
-        //int level =  Integer.parseInt(c.toString()); //TODO parse Integer from Cursor
 
-        return c.toString();
+        String value = c.getString(0); // 0: there is only one value selected which has index 0
+        int level;
+
+        try
+        {
+            level = Integer.parseInt(value);
+        }
+        catch (Exception ex)
+        {
+            level = -1;
+        }
+
+        return level;
     }
 
     /**
@@ -110,7 +122,7 @@ public class DatabaseManager {
     {
         //Make sure the coin level is positive and does not exceed the MAX_COIN_LVL
         //otherwise set to the nearest accepted value
-        newLevel = newLevel> MySQLiteOpenHelper.MAX_COIN_LVL? MySQLiteOpenHelper.MAX_COIN_LVL:newLevel;
+        newLevel = newLevel> COIN_DATA.MAX_COIN_LVL? COIN_DATA.MAX_COIN_LVL:newLevel;
         newLevel = newLevel<0?0:newLevel;
 
         ContentValues values = new ContentValues();
