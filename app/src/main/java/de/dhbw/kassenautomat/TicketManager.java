@@ -42,11 +42,10 @@ public class TicketManager {
     /**
      * This will remove a ticket from the current ParkingTicket DB.
      * @param id ID of the Ticket to be removed
-     * @return Boolean as defined in DatabaseManager class.
      */
-    public boolean removeTicket(int id)
+    public void removeTicket(int id)
     {
-        return MainActivity.getDBmanager().removeTicket(id);
+        MainActivity.getDBmanager().removeTicket(id);
     }
 
     /**

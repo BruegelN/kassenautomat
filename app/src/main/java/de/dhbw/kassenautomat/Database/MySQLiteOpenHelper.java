@@ -14,8 +14,8 @@ import de.dhbw.kassenautomat.COIN_DATA;
  */
 public class MySQLiteOpenHelper extends SQLiteOpenHelper {
     Context c;
-    public static final String DB_NAME = "kassenautomat.db";
-    public static final int VERSION = 3; //We "start" with DB version 1
+    private static final String DB_NAME = "kassenautomat.db";
+    private static final int VERSION = 2; //We "start" with DB version 1
 
     public MySQLiteOpenHelper(Context c)
     {
@@ -32,7 +32,7 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
     {
         // CREATE all necessary tables
         db.execSQL("CREATE TABLE tickets (id INTEGER PRIMARY KEY AUTOINCREMENT, created DateTime, print_quality int, paid bool)");
-        db.execSQL("CREATE TABLE receipt (FKid int, paid DateTime, price int)");
+        db.execSQL("CREATE TABLE receipt (FKid int, paid DateTime)");
         db.execSQL("CREATE TABLE coins (value int, level int)");
 
         // Insert all COINS into the coins table starting with MAX_COIN_LVL
@@ -58,14 +58,5 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
         Log.v("DB","DB deleted due to upgrade.");
         // create the new DB as defined above
         onCreate(db);
-    }
-
-    /**
-     * This obviously deletes the current Database.
-     * It's useful for the UnitTests.
-     */
-    public void deleteDB()
-    {
-        c.deleteDatabase(DB_NAME);
     }
 }
