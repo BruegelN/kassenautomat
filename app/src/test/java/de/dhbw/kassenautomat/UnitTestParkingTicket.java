@@ -2,6 +2,7 @@ package de.dhbw.kassenautomat;
 
 import org.junit.Test;
 
+import java.lang.Boolean;
 import java.lang.Integer;
 import java.lang.String;
 import java.text.ParseException;
@@ -30,7 +31,7 @@ public class UnitTestParkingTicket
     public void CheckToStringMethod()
     {
         char Delimeter = ParkingTicket.getDelimiter();
-        String saved = Integer.toString(TestTicket.getID())+Delimeter+ParkingTicket.getSimpleDateFormat().format(TestTicket.getCreated())+Delimeter+Integer.toString(TestTicket.getPrintQuality());
+        String saved = Integer.toString(TestTicket.getID())+Delimeter+ParkingTicket.getSimpleDateFormat().format(TestTicket.getCreated())+Delimeter+Integer.toString(TestTicket.getPrintQuality())+Delimeter+ Boolean.toString(TestTicket.getPaid());
 
         assertTrue(TestTicket.toString() + "<>" + saved, TestTicket.toString().equals(saved));
     }
