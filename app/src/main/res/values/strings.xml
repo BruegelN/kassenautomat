@@ -33,4 +33,5 @@
     <string name="strQuittung">Quittung:</string>
     <string name="strDefaultParkingTime">Parkdauer 1h</string>
     <string name="strDefaultLcdText">Jede angebrochene halbe Stunde kostet 50ct.</string>
+    <string name="strPressBackAgainToExit">Zum Verlassen bitte erneut drücken.</string>
 </resources>
