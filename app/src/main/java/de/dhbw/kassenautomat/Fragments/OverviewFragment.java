@@ -20,7 +20,7 @@ public class OverviewFragment extends Fragment{
     // Locally used to switch to these fragments.
     private MaintenanceFragment FragmentMaintenance;
     private PayFragment FragmentPay;
-    private NewTicketFragment FragementNewTicket;
+    private NewTicketFragment FragmentNewTicket;
 
     /**
      * Button to go in maintenance mode.
@@ -52,7 +52,7 @@ public class OverviewFragment extends Fragment{
          */
         FragmentMaintenance = (MaintenanceFragment) Fragment.instantiate(this.getActivity(), MaintenanceFragment.class.getName(), null);
         FragmentPay = (PayFragment) Fragment.instantiate(this.getActivity(), PayFragment.class.getName(), null);
-        FragementNewTicket = (NewTicketFragment) Fragment.instantiate(this.getActivity(), NewTicketFragment.class.getName(), null);
+        FragmentNewTicket = (NewTicketFragment) Fragment.instantiate(this.getActivity(), NewTicketFragment.class.getName(), null);
 
         super.onCreate(savedInstanceState);
     }
@@ -115,7 +115,7 @@ public class OverviewFragment extends Fragment{
             Toast.makeText(getActivity(), "TODO Ticket lösen/ create Ticket", Toast.LENGTH_SHORT).show();
 
             getFragmentManager().beginTransaction()
-                    .replace(R.id.mainFragmentContainer, FragementNewTicket)
+                    .replace(R.id.mainFragmentContainer, FragmentNewTicket)
                     .addToBackStack(null)
                     .commitAllowingStateLoss();
 
