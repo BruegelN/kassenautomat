@@ -27,7 +27,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/strCreateString"
-        android:id="@+id/btnCreateTicket"
+        android:id="@+id/btnStartNewTicketProcess"
         android:layout_gravity="center_horizontal|bottom" />
 
     <TextView

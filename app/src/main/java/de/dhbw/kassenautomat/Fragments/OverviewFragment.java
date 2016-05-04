@@ -70,7 +70,7 @@ public class OverviewFragment extends Fragment{
          * Connect the buttons the corresponding view elements in the layout.
          */
         btnMaintenance = (Button) LayoutOverview.findViewById(R.id.btnMaintenance);
-        btnCreateTicket = (Button) LayoutOverview.findViewById(R.id.btnCreateTicket);
+        btnCreateTicket = (Button) LayoutOverview.findViewById(R.id.btnStartNewTicketProcess);
         btnPayTicket = (Button) LayoutOverview.findViewById(R.id.btnEditTicket);
 
 
