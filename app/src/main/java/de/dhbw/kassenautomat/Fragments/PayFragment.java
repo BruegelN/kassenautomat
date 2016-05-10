@@ -11,12 +11,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 // To access the XML layouts easily
+import java.util.Map;
+
 import de.dhbw.kassenautomat.COIN_DATA;
 import de.dhbw.kassenautomat.Database.DatabaseManager;
 import de.dhbw.kassenautomat.MainActivity;
+import de.dhbw.kassenautomat.ParkingTicket;
+import de.dhbw.kassenautomat.PaymentManager;
 import de.dhbw.kassenautomat.R;
 
 /**
@@ -37,14 +42,20 @@ public class PayFragment extends Fragment {
     private ImageButton btnFiftyCent;
     private ImageButton btnOneEuro;
     private ImageButton btnTwoEuro;
+    private TextView lblMoneyLeftToPay;
 
     private OverviewFragment FragmentOverview;
+
+    private PaymentManager paymentmgr;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         // TODO initialize fields before createView
-        super.onCreate(savedInstanceState);
 
+        //TODO: get the ticket selected in the list
+        paymentmgr = new PaymentManager(new ParkingTicket());
+
+        super.onCreate(savedInstanceState);
         FragmentOverview = (OverviewFragment) Fragment.instantiate(this.getActivity(), OverviewFragment.class.getName(), null);
     }
 
@@ -76,6 +87,8 @@ public class PayFragment extends Fragment {
         btnOneEuro = (ImageButton) layoutPay.findViewById(R.id.btnOneEuro);
         btnTwoEuro = (ImageButton) layoutPay.findViewById(R.id.btnTwoEuro);
 
+        lblMoneyLeftToPay = (TextView) layoutPay.findViewById(R.id.lblMoneyLeftToPay);
+
         /**
          * Register onClick handlers for money button.
          * Those are called when someone "pays" a amount of money.
@@ -86,6 +99,10 @@ public class PayFragment extends Fragment {
         btnFiftyCent.setOnClickListener(btnFiftyCentPressed);
         btnOneEuro.setOnClickListener(btnOneEuroPressed);
         btnTwoEuro.setOnClickListener(btnTwoEuroPressed);
+
+
+        // set initial remainingPrice
+        setRemainingPrice(paymentmgr.calculatePrice());
 
 
         // so it can be displayed
@@ -115,6 +132,7 @@ public class PayFragment extends Fragment {
      */
     private View.OnClickListener btnAbortPressed = new View.OnClickListener() {
         public void onClick(View v) {
+            undoPayment();
 
             getFragmentManager().beginTransaction()
                     .replace(R.id.mainFragmentContainer, FragmentOverview)
@@ -160,24 +178,78 @@ public class PayFragment extends Fragment {
     private void insertCoin(int coinValue)
     {
         String message;
-        DatabaseManager dbm = MainActivity.getDBmanager();
 
-        int coinLevel = dbm.getCoinLevel(coinValue);
-
-        if (coinLevel>= COIN_DATA.MAX_COIN_LVL)
+        switch (paymentmgr.insertCoin(coinValue))
         {
-            // We can not accept more of this coins, since the storage is already full
-            message = String.format("Der Automat kann keine weiteren %,.2f € Münzen annehmen, da der Münzspeicher voll ist.", (float)coinValue/(float)100);
-        }
-        else
-        {
-            //TODO Do some payment shit like reduce remaining price etc.
+            case 2:
+            {
+                message = String.format("Zahlung abgeschlossen.");
+                /*TODO: Handle!*/
+                break;
+            }
 
-            // add the inserted coin to the coin level
-            dbm.setCoinLevel(coinValue, coinLevel+1);
-            message = String.format("%,.2f € bezahlt", (float)coinValue/(float)100);
+            case 0:
+            {
+                message = String.format("Es ist keine weitere Geldeingabe erforderlich.");
+                break;
+            }
+
+            case 1:
+            {
+                message = String.format("%,.2f € bezahlt", (float)coinValue/(float)100);
+                break;
+            }
+
+            case -1:
+            {
+                message = String.format("Der Automat kann keine weiteren %,.2f € Münzen annehmen, da der Münzspeicher voll ist.", (float)coinValue/(float)100);
+                break;
+            }
+
+            case -2:
+            {
+                message = String.format("Die Münze konnte nicht erkannt werden...\nVersuchen Sie es erneut!");
+                break;
+            }
+            default:
+            {
+                message = String.format("Unerwarter Rückgabewert. Wenden Sie sich an den Administrator!");
+            }
         }
 
         Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+        float remainingPrice = paymentmgr.calculatePrice();
+        setRemainingPrice(remainingPrice);
+    }
+
+    private void undoPayment()
+    {
+        Map<Integer, Integer> changeMoney = paymentmgr.undoPayment();
+        dropChange(changeMoney);
+    }
+
+    private void dropChange(Map<Integer, Integer> change)
+    {
+        String message;
+        String sChange = "";
+        for (int coin:COIN_DATA.COINS)
+        {
+            int amount = change.get(coin);
+            if (amount>0)
+                sChange += String.format("%d Münze(n) á %,.2f €\n", amount, (float)coin/(float)100);
+        }
+
+        if (sChange.equals(""))
+            message = String.format("Kein Rückgeld.");
+        else
+            message = String.format("Bitte entnehmen Sie Ihr Rückgeld aus dem Ausgabefach:\n%s", sChange);
+
+        Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
+    }
+
+    private  void setRemainingPrice(float remainingPrice)
+    {
+        String sRemaingPrice = String.format("%,.2f €", remainingPrice);
+        lblMoneyLeftToPay.setText(sRemaingPrice);
     }
 }
