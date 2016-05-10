@@ -40,6 +40,6 @@
     <ListView
         android:layout_width="match_parent"
         android:layout_height="342dp"
-        android:id="@+id/listView" />
+        android:id="@android:id/list" />
 
 </LinearLayout>

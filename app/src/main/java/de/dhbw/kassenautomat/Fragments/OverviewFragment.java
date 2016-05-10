@@ -1,20 +1,24 @@
 package de.dhbw.kassenautomat.Fragments;
 
 import android.app.Fragment;
+import android.app.ListFragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 
-// To access the XML layouts easily
+import java.util.ArrayList;
+import java.util.Random;
+
 import de.dhbw.kassenautomat.R;
 
 /**
  * Created by nicob on 21.04.16.
  */
-public class OverviewFragment extends Fragment{
+public class OverviewFragment extends ListFragment{
 
     // Locally used to switch to these fragments.
     private MaintenanceFragment FragmentMaintenance;
@@ -38,6 +42,9 @@ public class OverviewFragment extends Fragment{
      * Private button for elements used in overview fragment.
      */
     private Button btnCreateTicket;
+
+    private ArrayList<String> arrayList;
+    private ArrayAdapter<String> arrayAdapter;
 
 
     @Override
@@ -78,6 +85,11 @@ public class OverviewFragment extends Fragment{
         btnCreateTicket.setOnClickListener(btnCreateTicketPressed);
         btnPayTicket.setOnClickListener(btnPayTicketPressed);
 
+        // get values from database and display them
+        arrayList = fillTheList();
+
+        arrayAdapter = new ArrayAdapter<>(this.getActivity(), android.R.layout.simple_list_item_1, arrayList);
+        setListAdapter(arrayAdapter);
 
         // so it can be displayed
         return LayoutOverview;
@@ -131,6 +143,22 @@ public class OverviewFragment extends Fragment{
                     .commitAllowingStateLoss();
         }
     };
+
+
+    private ArrayList<String> fillTheList()
+    {
+        ArrayList<String> theList = new ArrayList<>();
+
+        Random rand = new Random();
+        int  n = rand.nextInt(15) + 1;
+
+        // TODO get values from DB
+        for(int i = 0; i<n; i++)
+        {
+            theList.add( "Test"+i);
+        }
+        return theList;
+    }
 
 
 }
