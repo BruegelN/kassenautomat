@@ -145,6 +145,11 @@ public class OverviewFragment extends ListFragment{
     };
 
 
+    /**
+     * Returns a new ArrayList<String> containing some values.
+     * TODO by just filled with some pseudo random values.
+     * Later values fetched from database.
+     */
     private ArrayList<String> fillTheList()
     {
         ArrayList<String> theList = new ArrayList<>();
