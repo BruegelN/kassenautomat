@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
 
 // To access the XML layouts easily
 import de.dhbw.kassenautomat.R;
@@ -109,10 +108,6 @@ public class OverviewFragment extends Fragment{
      */
     private View.OnClickListener btnCreateTicketPressed = new View.OnClickListener() {
         public void onClick(View v) {
-
-            // TODO create the needed view!
-            // TODO create ticket
-            Toast.makeText(getActivity(), "TODO Ticket lösen/ create Ticket", Toast.LENGTH_SHORT).show();
 
             getFragmentManager().beginTransaction()
                     .replace(R.id.mainFragmentContainer, FragmentNewTicket)
