@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/fragmentOverview"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0099cc">
+
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/strMaintainAutomate"
+        android:id="@+id/btnMaintenance" />
+
+    <ToggleButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/strEditTicket"
+        android:id="@+id/btnEditTicket"
+        android:checked="false"
+        android:layout_gravity="bottom"
+        android:textOn="@string/strEditTicket"
+        android:textOff="Ticket bezahlen" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/strCreateString"
+        android:id="@+id/btnCreateTicket"
+        android:layout_gravity="center_horizontal|bottom" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/strPrakingTicket"
+        android:id="@+id/textView" />
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="342dp"
+        android:id="@+id/listView"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/textView"/>
+
+</LinearLayout>

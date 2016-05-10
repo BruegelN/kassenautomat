@@ -14,7 +14,6 @@ import java.util.ListIterator;
  * Created by trugf on 19.04.2016.
  */
 public class TicketManager {
-    private List<ParkingTicket> ParkingTickets = new LinkedList<ParkingTicket>();
 
     /**
      * This is the nice constructor of the TicketManager class.
@@ -25,46 +24,58 @@ public class TicketManager {
     }
 
     /**
-     * This is another constructor of the TicketManager class
-     * It will reconstruct ParkingTickets from a list of saved strings.
-     * @param savedStrings A list of saved strings for ParkingTickets.
-     * @throws ParseException This should not happen as long as the saved strings have the right syntax.
-     */
-    public TicketManager(List<String> savedStrings) throws ParseException {
-        for (String saved:savedStrings)
-        {
-            ParkingTickets.add(new ParkingTicket(saved));
-        }
-    }
-
-    /**
      * This will create a new Ticket.
-     * @return Function returns the newly created ParkingTicket instance.
+     * @return  Function returns the newly created ParkingTicket instance. On error this will be null.
+     *          Note that this Ticket instance has no valid id.
      */
     public ParkingTicket createTicket() {
-        ParkingTicket newTicket;
-        ParkingTickets.add(newTicket = new ParkingTicket());
+        ParkingTicket newTicket = new ParkingTicket();
 
-        //TODO save ticket in some android storage
+        if (MainActivity.getDBmanager().saveTicket(newTicket))
+        {
+            return newTicket;
+        }
 
-        return newTicket;
+        return null; // on error
     }
 
     /**
-     * This will remove a ticket from the current ParkingTicket list.
-     * @param ticket Ticket to be removed
+     * This will remove a ticket from the current ParkingTicket DB.
+     * @param id ID of the Ticket to be removed
+     * @return Boolean as defined in DatabaseManager class.
      */
-    public void removeTicket(ParkingTicket ticket)
+    public boolean removeTicket(int id)
     {
-        ParkingTickets.remove(ticket);
-        //TODO remove ticket from android storage
+        return MainActivity.getDBmanager().removeTicket(id);
     }
 
     /**
      * Get the current list of ParkingTickets.
-     * @return Current ParkingTicket List
+     * @return Current ParkingTicket List (from DB)
      */
-    public List<ParkingTicket> getTicketList() {
-        return ParkingTickets;
+    public List<ParkingTicket> getTicketList()
+    {
+        List<String> savedStrings;
+        List<ParkingTicket> parkingTickets = new ArrayList<ParkingTicket>();
+
+        try
+        {
+            savedStrings = MainActivity.getDBmanager().getTickets();
+
+            for (String savedString:savedStrings)
+            {
+                parkingTickets.add(new ParkingTicket(savedString));
+            }
+        }
+        catch (Exception ex)
+        {
+            // on error act as if no ticket could be read
+            // TODO: maybe implement some error handling here
+            parkingTickets = null;
+        }
+        finally
+        {
+            return parkingTickets;
+        }
     }
 }

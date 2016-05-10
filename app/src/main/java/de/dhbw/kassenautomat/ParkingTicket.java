@@ -12,11 +12,11 @@ public class ParkingTicket {
 
     private static SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy-HH:mm:ss");
     private static final char Delimiter = ';';
-    private static int IDcounter = 0;
 
-    private Date Created;
     private int ID;
+    private Date Created;
     private byte printQuality; //byte is enough for print quality numbers ranging from 80 to 100
+    private boolean paid;
 
     /**
     *   This is the nice constructor of the ParkingTicket class.
@@ -25,11 +25,10 @@ public class ParkingTicket {
     */
     public ParkingTicket()
     {
+        ID = -1; // some kind of dummy ID since the real one will be autoincremented by database
         Created = new Date();
-        ID = IDcounter;
         printQuality= generatePrintQuality();
-
-        IDcounter++;
+        paid = false;
     }
 
     /**
@@ -42,9 +41,17 @@ public class ParkingTicket {
         String Del = Character.toString(Delimiter);
         String[] splittedValues = savedValue.split(Del);
 
-        ID = Integer.parseInt(splittedValues[0]);
-        Created = sdf.parse(splittedValues[1]);
-        printQuality = (byte)Integer.parseInt(splittedValues[2]);
+        this.ID = Integer.parseInt(splittedValues[0]); // the real ID given by db autoincrement will be set here
+        this.Created = sdf.parse(splittedValues[1]);
+        this.printQuality = (byte)Integer.parseInt(splittedValues[2]);
+        this.paid = Boolean.parseBoolean(splittedValues[3]);
+    }
+
+    public ParkingTicket(int id, byte printQuality, Date Created)
+    {
+        this.ID = id;
+        this.printQuality = printQuality;
+        this.Created = Created;
     }
 
     /**
@@ -74,19 +81,19 @@ public class ParkingTicket {
     }
 
     /**
+     *   @return This will return the ID (Integer) of this instance.
+     */
+    public int getID()
+    {
+        return ID;
+    }
+
+    /**
     *   @return This will return the creation timestamp (Date) of this instance.
      */
     public Date getCreated()
     {
         return Created;
-    }
-
-    /**
-    *   @return This will return the ID (Integer) of this instance.
-     */
-    public int getID()
-    {
-        return ID;
     }
 
     /**
@@ -97,12 +104,19 @@ public class ParkingTicket {
         return printQuality;
     }
 
+    /**
+     * @return This will return the boolean telling you whether this ticket has been paid for already.
+     */
+    public boolean getPaid() {
+        return paid;
+    }
+
     @Override
     /**
     *   @return This will return a string that represents this instance. The string can be used for the reconstruction of an instance.
      */
     public String toString() {
-        String savedString = Integer.toString(ID) + Delimiter + sdf.format(Created) + Delimiter + Integer.toString(printQuality);
+        String savedString = Integer.toString(ID) + Delimiter + sdf.format(Created) + Delimiter + Integer.toString(printQuality)+Delimiter+Boolean.toString(paid);
         return savedString;
     }
 }
