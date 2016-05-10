@@ -55,7 +55,7 @@ public class PayFragment extends Fragment {
         /**
          * Set the layout where you can pay a ticket with the given LayoutInflater.
          */
-        View layoutPay = inflater.inflate(R.layout.fragment_pay, null);
+        View layoutPay = inflater.inflate(R.layout.fragment_pay, container, false);
 
         /**
          * Bind buttons to corresponding view element identified by their ID.

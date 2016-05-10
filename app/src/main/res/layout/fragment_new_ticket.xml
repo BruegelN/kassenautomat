@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1">
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="40dp"/>
+
+    <!-- start layout for fake-LCD -->
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/yellow_with_black_boarder"
+        android:layout_margin="5dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/strDefaultLcdText"
+            android:padding="5dp"
+            android:id="@+id/textView4"
+            android:layout_gravity="center_horizontal" />
+    </RelativeLayout>
+    <!-- end layout for fake-LCD -->
+
+    <Space
+        android:layout_width="match_parent"
+       android:layout_height="40dp"/>
+
+    <!-- start layout for start button with label -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginRight="50dp"
+        android:layout_gravity="right|end">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Ticket lösen"
+            android:layout_gravity="center_horizontal"/>
+
+        <Button
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:background="@drawable/round_green_button"
+            android:id="@+id/btnCreateTicket"/>
+    </LinearLayout>
+    <!-- end layout for start button with label -->
+
+    <!-- start layout for abort button with label -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginLeft="50dp"
+        android:layout_gravity="left|start">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@android:string/cancel"
+            android:layout_gravity="center_horizontal"/>
+
+        <Button
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="@drawable/round_red_button"
+            android:id="@+id/btnCancelNewTicket"/>
+    </LinearLayout>
+    <!-- end layout for abort button with label -->
+
+</LinearLayout>

@@ -1,25 +1,29 @@
 package de.dhbw.kassenautomat.Fragments;
 
 import android.app.Fragment;
+import android.app.ListFragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.Toast;
 
-// To access the XML layouts easily
+import java.util.ArrayList;
+import java.util.Random;
+
 import de.dhbw.kassenautomat.R;
 
 /**
  * Created by nicob on 21.04.16.
  */
-public class OverviewFragment extends Fragment{
+public class OverviewFragment extends ListFragment{
 
     // Locally used to switch to these fragments.
     private MaintenanceFragment FragmentMaintenance;
     private PayFragment FragmentPay;
+    private NewTicketFragment FragmentNewTicket;
 
     /**
      * Button to go in maintenance mode.
@@ -39,11 +43,14 @@ public class OverviewFragment extends Fragment{
      */
     private Button btnCreateTicket;
 
+    private ArrayList<String> arrayList;
+    private ArrayAdapter<String> arrayAdapter;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         /* TODO initialize missing fields before createView
-            and add elements to list form database
+            and add elements form database to list
          */
 
         /**
@@ -51,6 +58,7 @@ public class OverviewFragment extends Fragment{
          */
         FragmentMaintenance = (MaintenanceFragment) Fragment.instantiate(this.getActivity(), MaintenanceFragment.class.getName(), null);
         FragmentPay = (PayFragment) Fragment.instantiate(this.getActivity(), PayFragment.class.getName(), null);
+        FragmentNewTicket = (NewTicketFragment) Fragment.instantiate(this.getActivity(), NewTicketFragment.class.getName(), null);
 
         super.onCreate(savedInstanceState);
     }
@@ -62,13 +70,13 @@ public class OverviewFragment extends Fragment{
         /**
          * Set the overview layout with the given LayoutInflater.
          */
-        View LayoutOverview = inflater.inflate(R.layout.fragment_overview, null);
+        View LayoutOverview = inflater.inflate(R.layout.fragment_overview, container, false);
 
         /**
          * Connect the buttons the corresponding view elements in the layout.
          */
         btnMaintenance = (Button) LayoutOverview.findViewById(R.id.btnMaintenance);
-        btnCreateTicket = (Button) LayoutOverview.findViewById(R.id.btnCreateTicket);
+        btnCreateTicket = (Button) LayoutOverview.findViewById(R.id.btnStartNewTicketProcess);
         btnPayTicket = (Button) LayoutOverview.findViewById(R.id.btnEditTicket);
 
 
@@ -77,6 +85,11 @@ public class OverviewFragment extends Fragment{
         btnCreateTicket.setOnClickListener(btnCreateTicketPressed);
         btnPayTicket.setOnClickListener(btnPayTicketPressed);
 
+        // get values from database and display them
+        arrayList = fillTheList();
+
+        arrayAdapter = new ArrayAdapter<>(this.getActivity(), android.R.layout.simple_list_item_1, arrayList);
+        setListAdapter(arrayAdapter);
 
         // so it can be displayed
         return LayoutOverview;
@@ -108,9 +121,10 @@ public class OverviewFragment extends Fragment{
     private View.OnClickListener btnCreateTicketPressed = new View.OnClickListener() {
         public void onClick(View v) {
 
-            // TODO create the needed view!
-            // TODO create ticket
-            Toast.makeText(getActivity(), "TODO Ticket lösen/ create Ticket", Toast.LENGTH_SHORT).show();
+            getFragmentManager().beginTransaction()
+                    .replace(R.id.mainFragmentContainer, FragmentNewTicket)
+                    .addToBackStack(null)
+                    .commitAllowingStateLoss();
 
         }
     };
@@ -129,6 +143,27 @@ public class OverviewFragment extends Fragment{
                     .commitAllowingStateLoss();
         }
     };
+
+
+    /**
+     * Returns a new ArrayList<String> containing some values.
+     * TODO by just filled with some pseudo random values.
+     * Later values fetched from database.
+     */
+    private ArrayList<String> fillTheList()
+    {
+        ArrayList<String> theList = new ArrayList<>();
+
+        Random rand = new Random();
+        int  n = rand.nextInt(15) + 1;
+
+        // TODO get values from DB
+        for(int i = 0; i<n; i++)
+        {
+            theList.add( "Test"+i);
+        }
+        return theList;
+    }
 
 
 }

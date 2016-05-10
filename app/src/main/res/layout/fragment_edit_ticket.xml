@@ -4,7 +4,6 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#0099cc"
     android:padding="10dp">
 
     <TextView
@@ -33,7 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="&lt;ID>"
+        android:text="@string/strTicketId"
         android:id="@+id/txtTicketID"
         android:layout_alignTop="@+id/lblTicketID"
         android:layout_toRightOf="@+id/lblTicketID"

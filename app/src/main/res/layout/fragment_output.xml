@@ -4,7 +4,6 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#0099cc"
     android:padding="10dp">
 
     <ImageView
@@ -12,6 +11,7 @@
         android:layout_height="200dp"
         android:id="@+id/imageView"
         android:src="@drawable/parkmuenze"
+        android:contentDescription="@string/strDescParkingCoin"
         android:scaleType="fitCenter"
         android:minHeight="200dp" />
 
@@ -19,16 +19,34 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Quittung\n0,50€\nParkdauer: 1h"
+        android:text="@string/strQuittung"
+        android:id="@+id/textView8"
+        android:layout_gravity="center_horizontal"
+        android:padding="5dp"
+        android:background="#fff" />
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/strDefaultToPay"
+        android:id="@+id/textView9"
+        android:layout_gravity="center_horizontal"
+        android:padding="5dp"
+        android:background="#fff" />
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/strDefaultParkingTime"
         android:id="@+id/textView7"
         android:layout_gravity="center_horizontal"
-        android:padding="10dp"
+        android:padding="5dp"
         android:background="#fff" />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="OK"
+        android:text="@android:string/ok"
         android:id="@+id/button"
         android:layout_gravity="center_horizontal" />
 </LinearLayout>

@@ -4,8 +4,7 @@
     android:id="@+id/fragmentOverview"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#0099cc">
+    android:layout_height="match_parent">
 
 
     <Button
@@ -28,7 +27,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/strCreateString"
-        android:id="@+id/btnCreateTicket"
+        android:id="@+id/btnStartNewTicketProcess"
         android:layout_gravity="center_horizontal|bottom" />
 
     <TextView
@@ -41,8 +40,6 @@
     <ListView
         android:layout_width="match_parent"
         android:layout_height="342dp"
-        android:id="@+id/listView"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/textView"/>
+        android:id="@android:id/list" />
 
 </LinearLayout>

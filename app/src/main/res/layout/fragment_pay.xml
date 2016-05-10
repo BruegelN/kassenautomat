@@ -4,7 +4,6 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#0099cc"
     android:padding="10dp"
     android:weightSum="1">
 
@@ -13,15 +12,26 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:inputType="textMultiLine"
         android:ems="10"
         android:id="@+id/lblPayment"
-        android:text="Zu zahlen:\n0,50 €"
+        android:text="@string/strPleasePay"
         android:background="#acaf90"
-        android:nestedScrollingEnabled="false"
         android:textColor="#000"
-        android:fontFamily="monospace"
-        android:padding="10dp" />
+        android:padding="5dp" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:ems="10"
+        android:id="@+id/lblMoneyLeftToPay"
+        android:text="@string/strDefaultToPay"
+        android:background="#acaf90"
+        android:textColor="#000"
+        android:padding="5dp" />
+
+    <!-- Not supported by the old Android Version!
+    android:nestedScrollingEnabled="false"
+     android:fontFamily="monospace"-->
 
     <LinearLayout
         android:orientation="horizontal"
@@ -34,6 +44,7 @@
             android:layout_height="100dp"
             android:id="@+id/btnFiveCent"
             android:src="@drawable/five_cent"
+            android:contentDescription="@string/strDescFiveCent"
             android:scaleType="fitCenter" />
 
         <ImageButton
@@ -41,6 +52,7 @@
             android:layout_height="100dp"
             android:id="@+id/btnTenCent"
             android:src="@drawable/ten_cent"
+            android:contentDescription="@string/strDescTenCent"
             android:scaleType="fitCenter" />
 
         <ImageButton
@@ -48,6 +60,7 @@
             android:layout_height="100dp"
             android:id="@+id/btnTwentyCent"
             android:src="@drawable/twenty_cent"
+            android:contentDescription="@string/strDescTwentyCent"
             android:scaleType="fitCenter" />
     </LinearLayout>
 
@@ -62,6 +75,7 @@
             android:layout_height="100dp"
             android:id="@+id/btnFiftyCent"
             android:src="@drawable/fifty_cent_fun"
+            android:contentDescription="@string/strDescFiftyCent"
             android:scaleType="fitCenter" />
 
         <ImageButton
@@ -69,6 +83,7 @@
             android:layout_height="100dp"
             android:id="@+id/btnOneEuro"
             android:src="@drawable/one_euro"
+            android:contentDescription="@string/strDescOneEuro"
             android:scaleType="fitCenter" />
 
         <ImageButton
@@ -76,19 +91,20 @@
             android:layout_height="100dp"
             android:id="@+id/btnTwoEuro"
             android:src="@drawable/two_euro"
+            android:contentDescription="@string/strDescTwoEuro"
             android:scaleType="fitCenter" />
     </LinearLayout>
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Quittung"
+        android:text="@string/strBill"
         android:id="@+id/btnQuittung" />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Abbrechen"
+        android:text="@android:string/cancel"
         android:id="@+id/btnAbort" />
 
 </LinearLayout>
