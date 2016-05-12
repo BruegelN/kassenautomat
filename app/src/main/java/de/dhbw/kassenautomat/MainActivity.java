@@ -2,20 +2,29 @@ package de.dhbw.kassenautomat;
 
 
 import android.app.Fragment;
+import android.content.Context;
+import android.provider.ContactsContract;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import de.dhbw.kassenautomat.Database.DatabaseManager;
 import de.dhbw.kassenautomat.Fragments.OverviewFragment;
 
 
 public class MainActivity extends AppCompatActivity {
 
-
+    private static MainActivity instance;
+    private static DatabaseManager DBmanager;
+    private static TicketManager TicketMgr;
     private OverviewFragment FragmentOverview;
     private boolean doubleBackToExitPressedOnce = false;
 
+    public MainActivity()
+    {
+        instance = this;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +44,22 @@ public class MainActivity extends AppCompatActivity {
                             .addToBackStack(null)
                             .commit();
 
+        DBmanager = new DatabaseManager(getContext());
+        TicketMgr = new TicketManager();
+    }
+
+    public static Context getContext()
+    {
+        return instance.getApplicationContext();
+    }
+
+    public static DatabaseManager getDBmanager()
+    {
+        return DBmanager;
+    }
+    public static TicketManager getTicketMgr()
+    {
+        return TicketMgr;
     }
 
     /**
