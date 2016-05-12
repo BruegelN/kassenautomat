@@ -28,9 +28,6 @@ import de.dhbw.kassenautomat.R;
  * Created by nicob on 21.04.16.
  */
 public class PayFragment extends Fragment {
-
-    // TODO Need a data structure to save already payed money and calculate return money!
-
     // Regular buttons
     private Button btnQuittung;
     private Button btnAbort;
@@ -45,6 +42,7 @@ public class PayFragment extends Fragment {
     private TextView lblMoneyLeftToPay;
 
     private OverviewFragment FragmentOverview;
+    private OutputFragment FragmentOutput;
 
     private PaymentManager paymentmgr;
 
@@ -57,6 +55,7 @@ public class PayFragment extends Fragment {
 
         super.onCreate(savedInstanceState);
         FragmentOverview = (OverviewFragment) Fragment.instantiate(this.getActivity(), OverviewFragment.class.getName(), null);
+        FragmentOutput = (OutputFragment) Fragment.instantiate(this.getActivity(), OutputFragment.class.getName(), null);
     }
 
     @Nullable
@@ -232,6 +231,12 @@ public class PayFragment extends Fragment {
             btnAbort.setEnabled(false);
             Map<Integer, Integer> change = paymentmgr.getChange(remainingPrice);
             dropChange(change);
+
+            // change to view Output where the Parking coin is displayed and receipt stuff can be handled.
+            getFragmentManager().beginTransaction()
+                    .replace(R.id.mainFragmentContainer, FragmentOutput)
+                    .addToBackStack(null)
+                    .commitAllowingStateLoss();
         }
         else if (result != 0)
         {
