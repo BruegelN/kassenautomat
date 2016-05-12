@@ -11,6 +11,7 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 // To access the XML layouts easily
+import de.dhbw.kassenautomat.ParkingTicket;
 import de.dhbw.kassenautomat.R;
 
 /**
@@ -82,9 +83,9 @@ public class PayFragment extends Fragment {
         btnTwoEuro.setOnClickListener(btnTwoEuroPressed);
 
         Bundle args = this.getArguments();
-        int position = args.getInt("number", 0);
+        ParkingTicket tmpTicket = (ParkingTicket) args.getSerializable(ParkingTicket.SERIAL_KEY);
 
-        Toast.makeText(getActivity(), "paying #"+position, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), "Created on: "+tmpTicket.getCreated(), Toast.LENGTH_SHORT).show();
 
         // so it can be displayed
         return layoutPay;

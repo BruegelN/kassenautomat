@@ -15,6 +15,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Random;
 
+import de.dhbw.kassenautomat.ParkingTicket;
 import de.dhbw.kassenautomat.R;
 
 /**
@@ -148,11 +149,12 @@ public class OverviewFragment extends ListFragment{
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
-        // Do something when a list item is clicked
-        Toast.makeText(getActivity(), "clicked #"+position, Toast.LENGTH_SHORT).show();
+
+        // TODO tmpObject, need object from database later
+        ParkingTicket tmpTicket =new ParkingTicket();
 
         Bundle ticketData = new Bundle();
-        ticketData.putInt("number", position);
+        ticketData.putSerializable(ParkingTicket.SERIAL_KEY, tmpTicket);
 
         FragmentPay.setArguments(ticketData);
 
