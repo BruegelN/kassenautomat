@@ -177,14 +177,16 @@ public class PayFragment extends Fragment {
 
     private void insertCoin(int coinValue)
     {
-        String message;
+        btnAbort.setEnabled(false);
 
-        switch (paymentmgr.insertCoin(coinValue))
+        String message;
+        int result;
+
+        switch (result = paymentmgr.insertCoin(coinValue))
         {
             case 2:
             {
                 message = String.format("Zahlung abgeschlossen.");
-                /*TODO: Handle!*/
                 break;
             }
 
@@ -220,6 +222,17 @@ public class PayFragment extends Fragment {
         Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
         float remainingPrice = paymentmgr.calculatePrice();
         setRemainingPrice(remainingPrice);
+
+        if (result == 2)
+        {
+            btnAbort.setEnabled(false);
+            Map<Integer, Integer> change = paymentmgr.getChange(remainingPrice);
+            dropChange(change);
+        }
+        else if (result != 0)
+        {
+            btnAbort.setEnabled(true);
+        }
     }
 
     private void undoPayment()
@@ -232,6 +245,8 @@ public class PayFragment extends Fragment {
     {
         String message;
         String sChange = "";
+
+        if (change != null)
         for (int coin:COIN_DATA.COINS)
         {
             int amount = change.get(coin);
@@ -244,7 +259,7 @@ public class PayFragment extends Fragment {
         else
             message = String.format("Bitte entnehmen Sie Ihr Rückgeld aus dem Ausgabefach:\n%s", sChange);
 
-        Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
+        Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
     }
 
     private  void setRemainingPrice(float remainingPrice)

@@ -144,4 +144,80 @@ public class PaymentManager {
         Random rd = new Random();
         return rd.nextFloat()>=0.10f; //10% of coins wont be accepted #evilFace
     }
+
+
+    /**
+     * This will take the change coins out of the storage and
+     * @return it as Map<Integer, Integer>; null represents no change.
+     */
+    public Map<Integer, Integer> getChange(float Price)
+    {
+        Map<Integer, Integer> change = new HashMap<Integer, Integer>();
+        float remainingPrice = Price;
+
+        if (remainingPrice>=0)
+            return null;
+
+        // initialize change with 0 foreach coin
+        for (int coin:COIN_DATA.COINS)
+        {
+            change.put(coin, 0);
+        }
+
+        // kind of foreach the COIN-Array reverse (highest first)
+        for (int i=COIN_DATA.COINS.length-1; i>=0; i--)
+        {
+            int coin = COIN_DATA.COINS[i];
+            float coinValue = coin*0.01f;
+            int coinLevel = dbm.getCoinLevel(coin);
+
+            if (remainingPrice + coinValue <= 0
+                    && coinLevel > 0)
+            {
+                // take coin
+                dbm.setCoinLevel(coin, coinLevel-1);
+                // add to remaining price
+                remainingPrice+=coinValue;
+                // add to change money
+                change.put(coin, change.get(coin)+1);
+
+                //this means, we retry the same coinValue once more
+                i++;
+            }
+        }
+
+        // if the change fits, return it
+        if (remainingPrice == 0)
+        {
+            return change;
+        }
+        else
+        {
+            // return the so far calculated change to the storage
+            for (int coin:COIN_DATA.COINS)
+            {
+                int level = dbm.getCoinLevel(coin);
+                dbm.setCoinLevel(coin, level-change.get(coin));
+            }
+
+            // recursively try to calculate change with additional lowest coinValue
+            return getChange(Price-COIN_DATA.COINS[0]*0.01f);
+        }
+    }
+
+    /**
+     * Calculates the sum of the given coins
+     * @return sum as float
+     */
+    public static float getSum(Map<Integer, Integer> coins)
+    {
+        int sum = 0;
+
+        for (int coin:COIN_DATA.COINS)
+        {
+            sum += coin*coins.get(coin);
+        }
+
+        return sum*0.01f;
+    }
 }
