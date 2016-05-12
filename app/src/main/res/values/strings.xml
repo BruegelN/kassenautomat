@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">Kassenautomat</string>
 
-    <string name="strOneEuro" >1 €</string>
-    <string name="strTwoEuro" >2 €</string>
+    <string name="strOneEuro" >1,00 €</string>
+    <string name="strTwoEuro" >2,00 €</string>
     <string name="strEditTicket">Ticket bearbeiten</string>
     <string name="strTicketId">Ticket ID:</string>
     <string name="strDate">Datum</string>
@@ -13,10 +13,10 @@
     <string name="strPrakingTicket">Parkticket</string>
     <string name="strRefillCoins">Münzen auffüllen</string>
     <string name="strEndMaintenance">Wartung beenden</string>
-    <string name="strFiftyCent">50 ct</string>
-    <string name="strTwentyCent">20 ct</string>
-    <string name="strTenCent">10 ct</string>
-    <string name="strFiveCent">5 ct</string>
+    <string name="strFiftyCent">0,50 €</string>
+    <string name="strTwentyCent">0,20 €</string>
+    <string name="strTenCent">0,10 €</string>
+    <string name="strFiveCent">0,05 €</string>
     <string name="strMaintenanceMode">Wartungsmodus</string>
     <string name="strParkingCoins">Parkmünzen</string>
     <string name="strDescFiveCent">Eine 5ct Münze</string>
