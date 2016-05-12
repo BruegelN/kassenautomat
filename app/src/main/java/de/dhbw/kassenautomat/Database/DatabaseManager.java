@@ -223,6 +223,17 @@ public class DatabaseManager {
         return rec;
     }
 
+    /**
+     *  Sets the coin levels to default value.
+     */
+    public void setDefaultCoinLevels()
+    {
+        // empty table coins
+        dbwrite.delete("coins", null, null);
+        // set the default levels as done on DB creation
+        helper.setDefaultCoinLevels(dbwrite);
+    }
+
     public void deleteDatabase()
     {
         helper.deleteDB();

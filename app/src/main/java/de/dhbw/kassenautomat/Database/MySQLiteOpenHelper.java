@@ -15,7 +15,7 @@ import de.dhbw.kassenautomat.COIN_DATA;
 public class MySQLiteOpenHelper extends SQLiteOpenHelper {
     Context c;
     public static final String DB_NAME = "kassenautomat.db";
-    public static final int VERSION = 5; //We "start" with DB version 1
+    public static final int VERSION = 6; //We "start" with DB version 1
 
     public MySQLiteOpenHelper(Context c)
     {
@@ -35,14 +35,24 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE receipt (FKid INTEGER PRIMARY KEY, paid DateTime, price int)");
         db.execSQL("CREATE TABLE coins (value INTEGER PRIMARY KEY, level int)");
 
+        setDefaultCoinLevels(db);
+    }
+
+    public void setDefaultCoinLevels(SQLiteDatabase db) {
         // Insert all COINS into the coins table starting with MAX_COIN_LVL
         for (int coin: COIN_DATA.COINS) {
             ContentValues values = new ContentValues();
             values.put("value", coin);
-            values.put("level", COIN_DATA.MAX_COIN_LVL/5);
+            values.put("level", (int)(COIN_DATA.MAX_COIN_LVL * COIN_DATA.DEFAULT_COIN_LEVEL));
 
             db.insert("coins", null, values);
         }
+
+        // set Parking Coin level to maximum
+        ContentValues values = new ContentValues();
+        values.put("value", COIN_DATA.PARKING_COIN);
+        values.put("level", COIN_DATA.MAX_COIN_LVL);
+        db.insert("coins", null, values);
     }
 
     /**
