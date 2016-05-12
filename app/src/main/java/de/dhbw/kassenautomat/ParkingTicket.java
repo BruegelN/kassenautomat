@@ -1,5 +1,6 @@
 package de.dhbw.kassenautomat;
 
+import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -8,7 +9,11 @@ import java.util.Random;
 /**
  * Created by trugf on 31.03.2016.
  */
-public class ParkingTicket {
+public class ParkingTicket implements Serializable{
+
+    // field which is used by java serializable runtime to identify an object on deserialization.
+    private static final long serialVersionUID = 42l; // don't question it!
+    public  static final  String SERIAL_KEY = "ParkingTicketSerial";
 
     private static SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy-HH:mm:ss");
     private static final char Delimiter = ';';
