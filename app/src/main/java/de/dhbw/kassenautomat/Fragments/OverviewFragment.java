@@ -155,11 +155,13 @@ public class OverviewFragment extends ListFragment{
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
 
-        // TODO tmpObject, need object from database later
-        ParkingTicket tmpTicket =new ParkingTicket();
+        TicketManager tmr = MainActivity.getTicketMgr();
+        List<ParkingTicket> tickets = tmr.getTicketList();
 
         Bundle ticketData = new Bundle();
-        ticketData.putSerializable(ParkingTicket.SERIAL_KEY, tmpTicket);
+        // Because the tickets have the same order in the list as well as in the DB
+        // Access the [position]'s element is the ticket we want!
+        ticketData.putSerializable(ParkingTicket.SERIAL_KEY, tickets.get(position));
 
         FragmentPay.setArguments(ticketData);
 
