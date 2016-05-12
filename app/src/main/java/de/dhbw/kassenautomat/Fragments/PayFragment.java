@@ -230,7 +230,7 @@ public class PayFragment extends Fragment {
         if (result == 2)
         {
             btnAbort.setEnabled(false);
-            Map<Integer, Integer> change = paymentmgr.getChange(remainingPrice);
+            Map<Integer, Integer> change = paymentmgr.getChange((int)(remainingPrice*100));
             dropChange(change);
         }
         else if (result != 0)
