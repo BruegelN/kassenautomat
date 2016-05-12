@@ -197,7 +197,7 @@ public class PaymentManager {
             for (int coin:COIN_DATA.COINS)
             {
                 int level = dbm.getCoinLevel(coin);
-                dbm.setCoinLevel(coin, level-change.get(coin));
+                dbm.setCoinLevel(coin, level+change.get(coin));
             }
 
             // recursively try to calculate change with additional lowest coinValue

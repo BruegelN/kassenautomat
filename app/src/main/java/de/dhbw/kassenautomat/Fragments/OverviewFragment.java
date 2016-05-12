@@ -39,12 +39,6 @@ public class OverviewFragment extends ListFragment{
     private Button btnMaintenance;
 
     /**
-     * Button to go pay a ticket.
-     * Private button for elements used in overview fragment.
-     */
-    private Button btnPayTicket;
-
-    /**
      * Button to create a new Ticket.
      * Private button for elements used in overview fragment.
      */
@@ -84,13 +78,10 @@ public class OverviewFragment extends ListFragment{
          */
         btnMaintenance = (Button) LayoutOverview.findViewById(R.id.btnMaintenance);
         btnCreateTicket = (Button) LayoutOverview.findViewById(R.id.btnStartNewTicketProcess);
-        btnPayTicket = (Button) LayoutOverview.findViewById(R.id.btnEditTicket);
-
 
         // Set handlers for button click events.
         btnMaintenance.setOnClickListener(btnMaintenancePressed);
         btnCreateTicket.setOnClickListener(btnCreateTicketPressed);
-        btnPayTicket.setOnClickListener(btnPayTicketPressed);
 
         // get values from database and display them
         arrayList = fillTheList();
@@ -135,21 +126,7 @@ public class OverviewFragment extends ListFragment{
 
         }
     };
-
-
-    /**
-     * onClickListener for payTicket button.
-     * Will switch to fragment where you can pay the ticket.
-     */
-    private View.OnClickListener btnPayTicketPressed = new View.OnClickListener() {
-        public void onClick(View v) {
-
-            getFragmentManager().beginTransaction()
-                    .replace(R.id.mainFragmentContainer, FragmentPay)
-                    .addToBackStack(null)
-                    .commitAllowingStateLoss();
-        }
-    };
+    
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
