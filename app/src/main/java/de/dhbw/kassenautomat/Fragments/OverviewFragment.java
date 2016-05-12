@@ -54,6 +54,9 @@ public class OverviewFragment extends ListFragment{
     private ArrayList<String> arrayList;
     private ArrayAdapter<String> arrayAdapter;
 
+    private TicketManager tmr;
+    private List<ParkingTicket> tickets;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -92,6 +95,10 @@ public class OverviewFragment extends ListFragment{
         btnMaintenance.setOnClickListener(btnMaintenancePressed);
         btnCreateTicket.setOnClickListener(btnCreateTicketPressed);
         btnPayTicket.setOnClickListener(btnPayTicketPressed);
+
+
+        tmr = MainActivity.getTicketMgr();
+        tickets = tmr.getTicketList();
 
         // get values from database and display them
         arrayList = fillTheList();
@@ -155,9 +162,6 @@ public class OverviewFragment extends ListFragment{
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
 
-        TicketManager tmr = MainActivity.getTicketMgr();
-        List<ParkingTicket> tickets = tmr.getTicketList();
-
         Bundle ticketData = new Bundle();
         // Because the tickets have the same order in the list as well as in the DB
         // Access the [position]'s element is the ticket we want!
@@ -179,8 +183,6 @@ public class OverviewFragment extends ListFragment{
      */
     private ArrayList<String> fillTheList()
     {
-        TicketManager tmr = MainActivity.getTicketMgr();
-        List<ParkingTicket> tickets = tmr.getTicketList();
 
         ArrayList<String> sTickets = new ArrayList<String>();
 
