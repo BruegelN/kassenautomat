@@ -17,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static MainActivity instance;
     private static DatabaseManager DBmanager;
+    private static TicketManager TicketMgr;
     private OverviewFragment FragmentOverview;
     private boolean doubleBackToExitPressedOnce = false;
 
@@ -44,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
                             .commit();
 
         DBmanager = new DatabaseManager(getContext());
+        TicketMgr = new TicketManager();
     }
 
     public static Context getContext()
@@ -54,6 +56,10 @@ public class MainActivity extends AppCompatActivity {
     public static DatabaseManager getDBmanager()
     {
         return DBmanager;
+    }
+    public static TicketManager getTicketMgr()
+    {
+        return TicketMgr;
     }
 
     /**
