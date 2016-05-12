@@ -1,6 +1,9 @@
 package de.dhbw.kassenautomat.Fragments;
 
+import android.app.Activity;
+import android.app.Application;
 import android.app.Fragment;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -11,6 +14,9 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 // To access the XML layouts easily
+import de.dhbw.kassenautomat.COIN_DATA;
+import de.dhbw.kassenautomat.Database.DatabaseManager;
+import de.dhbw.kassenautomat.MainActivity;
 import de.dhbw.kassenautomat.R;
 
 /**
@@ -125,38 +131,57 @@ public class PayFragment extends Fragment {
 
     private View.OnClickListener btnFiveCentPressed = new View.OnClickListener() {
         public void onClick(View v) {
-            // TODO reduce amount of money to pay
-            Toast.makeText(getActivity(), "5 ct bezahlt", Toast.LENGTH_SHORT).show();
+            insertCoin(5);
         }
     };
     private View.OnClickListener btnTenCentPressed = new View.OnClickListener() {
         public void onClick(View v) {
-            // TODO reduce amount of money to pay
-            Toast.makeText(getActivity(), "10 ct bezahlt", Toast.LENGTH_SHORT).show();        }
+            insertCoin(10);
+        }
     };
     private View.OnClickListener btnTwentyCentPressed = new View.OnClickListener() {
         public void onClick(View v) {
-            // TODO reduce amount of money to pay
-            Toast.makeText(getActivity(), "20 ct bezahlt", Toast.LENGTH_SHORT).show();
+            insertCoin(20);
         }
     };
     private View.OnClickListener btnFiftyCentPressed = new View.OnClickListener() {
         public void onClick(View v) {
-            // TODO reduce amount of money to pay
-            Toast.makeText(getActivity(), "50 ct bezahlt", Toast.LENGTH_SHORT).show();
+            insertCoin(50);
+
         }
     };
     private View.OnClickListener btnOneEuroPressed = new View.OnClickListener() {
         public void onClick(View v) {
-            // TODO reduce amount of money to pay
-            Toast.makeText(getActivity(), "1 € bezahlt", Toast.LENGTH_SHORT).show();
+            insertCoin(100);
         }
     };
     private View.OnClickListener btnTwoEuroPressed = new View.OnClickListener() {
         public void onClick(View v) {
-            // TODO reduce amount of money to pay
-            Toast.makeText(getActivity(), "2 € bezahlt", Toast.LENGTH_SHORT).show();
+            insertCoin(200);
         }
     };
 
+    private void insertCoin(int coinValue)
+    {
+        String message;
+        DatabaseManager dbm = MainActivity.getDBmanager();
+
+        int coinLevel = dbm.getCoinLevel(coinValue);
+
+        if (coinLevel>= COIN_DATA.MAX_COIN_LVL)
+        {
+            // We can not accept more of this coins, since the storage is already full
+            message = String.format("Der Automat kann keine weiteren %,.2f € Münzen annehmen, da der Münzspeicher voll ist.", (float)coinValue/(float)100);
+        }
+        else
+        {
+            //TODO Do some payment shit like reduce remaining price etc.
+
+            // add the inserted coin to the coin level
+            dbm.setCoinLevel(coinValue, coinLevel+1);
+            message = String.format("%,.2f € bezahlt", (float)coinValue/(float)100);
+        }
+
+        Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+    }
 }
