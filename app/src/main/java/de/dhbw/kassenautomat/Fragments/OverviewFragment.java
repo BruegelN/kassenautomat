@@ -9,11 +9,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
+import android.widget.Toast;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
+import de.dhbw.kassenautomat.MainActivity;
+import de.dhbw.kassenautomat.ParkingTicket;
 import de.dhbw.kassenautomat.R;
+import de.dhbw.kassenautomat.TicketManager;
 
 /**
  * Created by nicob on 21.04.16.
@@ -144,26 +151,40 @@ public class OverviewFragment extends ListFragment{
         }
     };
 
+    @Override
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        // Do something when a list item is clicked
+        Toast.makeText(getActivity(), "clicked #"+position, Toast.LENGTH_SHORT).show();
+
+        Bundle ticketData = new Bundle();
+        ticketData.putInt("number", position);
+
+        FragmentPay.setArguments(ticketData);
+
+        getFragmentManager().beginTransaction()
+                .replace(R.id.mainFragmentContainer, FragmentPay)
+                .addToBackStack(null)
+                .commitAllowingStateLoss();
+
+    }
+
 
     /**
      * Returns a new ArrayList<String> containing some values.
-     * TODO by just filled with some pseudo random values.
      * Later values fetched from database.
      */
     private ArrayList<String> fillTheList()
     {
-        ArrayList<String> theList = new ArrayList<>();
+        TicketManager tmr = MainActivity.getTicketMgr();
+        List<ParkingTicket> tickets = tmr.getTicketList();
 
-        Random rand = new Random();
-        int  n = rand.nextInt(15) + 1;
+        ArrayList<String> sTickets = new ArrayList<String>();
 
-        // TODO get values from DB
-        for(int i = 0; i<n; i++)
+        for (ParkingTicket ticket:tickets)
         {
-            theList.add( "Test"+i);
+            sTickets.add(String.format("#%05d  |  %s", ticket.getID(), ParkingTicket.getSimpleDateFormat().format(ticket.getCreated())));
         }
-        return theList;
+
+        return sTickets;
     }
-
-
 }

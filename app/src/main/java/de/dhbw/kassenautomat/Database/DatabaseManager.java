@@ -49,7 +49,6 @@ public class DatabaseManager {
                 Date Created = ParkingTicket.getSimpleDateFormat().parse(c.getString(1)); //maybe doesn't work
                 int printQuality = Integer.parseInt(c.getString(2));
                 boolean paid = Boolean.parseBoolean(c.getString(3));
-                //TODO implement paid-value into ParkingTicket class & saved String
 
                 //This is basically the toString function of ParkingTicket
                 strings.add(Integer.toString(ID)+Delimiter+ParkingTicket.getSimpleDateFormat().format(Created)+Delimiter+Integer.toString(printQuality)+Delimiter+Boolean.toString(paid));

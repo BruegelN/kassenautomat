@@ -9,7 +9,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import de.dhbw.kassenautomat.MainActivity;
 import de.dhbw.kassenautomat.R;
+import de.dhbw.kassenautomat.TicketManager;
 
 /**
  * Created by nicob on 28.04.16.
@@ -49,7 +51,8 @@ public class NewTicketFragment extends Fragment {
     View.OnClickListener btnCreateTicketPressed = new View.OnClickListener() {
         public void onClick(View v) {
 
-            Toast.makeText(getActivity(), "TODO create Ticket", Toast.LENGTH_SHORT).show();
+            MainActivity.getTicketMgr().createTicket();
+            Toast.makeText(getActivity(), "Bitte entnehmen Sie das Ticket aus dem Ausgabefach.", Toast.LENGTH_SHORT).show();
             getFragmentManager().beginTransaction()
                     .replace(R.id.mainFragmentContainer, FragmentOverview)
                     .addToBackStack(null)
