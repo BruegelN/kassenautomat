@@ -13,16 +13,6 @@
         android:text="@string/strMaintainAutomate"
         android:id="@+id/btnMaintenance" />
 
-    <ToggleButton
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/strEditTicket"
-        android:id="@+id/btnEditTicket"
-        android:checked="false"
-        android:layout_gravity="bottom"
-        android:textOn="@string/strEditTicket"
-        android:textOff="Ticket bezahlen" />
-
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
