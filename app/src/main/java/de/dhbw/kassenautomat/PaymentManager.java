@@ -148,12 +148,13 @@ public class PaymentManager {
 
     /**
      * This will take the change coins out of the storage and
+     * @param Price: negative Integer representing the amount of cents that must be returned
      * @return it as Map<Integer, Integer>; null represents no change.
      */
-    public Map<Integer, Integer> getChange(float Price)
+    public Map<Integer, Integer> getChange(int Price)
     {
         Map<Integer, Integer> change = new HashMap<Integer, Integer>();
-        float remainingPrice = Price;
+        int remainingPrice = Price;
 
         if (remainingPrice>=0)
             return null;
@@ -168,22 +169,31 @@ public class PaymentManager {
         for (int i=COIN_DATA.COINS.length-1; i>=0; i--)
         {
             int coin = COIN_DATA.COINS[i];
-            float coinValue = coin*0.01f;
+            //float coinValue = coin*0.01f;
             int coinLevel = dbm.getCoinLevel(coin);
 
-            if (remainingPrice + coinValue <= 0
+            if (remainingPrice + coin <= 0
                     && coinLevel > 0)
             {
                 // take coin
                 dbm.setCoinLevel(coin, coinLevel-1);
                 // add to remaining price
-                remainingPrice+=coinValue;
+                remainingPrice+=coin;
                 // add to change money
                 change.put(coin, change.get(coin)+1);
 
                 //this means, we retry the same coinValue once more
                 i++;
             }
+            else
+            {
+                // try next (lower) coin
+                continue;
+            }
+
+            // stop this loop when we're done
+            if (remainingPrice == 0)
+                break;
         }
 
         // if the change fits, return it
@@ -201,7 +211,7 @@ public class PaymentManager {
             }
 
             // recursively try to calculate change with additional lowest coinValue
-            return getChange(Price-COIN_DATA.COINS[0]*0.01f);
+            return getChange(Price-COIN_DATA.COINS[0]);
         }
     }
 
