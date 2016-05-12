@@ -100,6 +100,10 @@ public class PayFragment extends Fragment {
         btnOneEuro.setOnClickListener(btnOneEuroPressed);
         btnTwoEuro.setOnClickListener(btnTwoEuroPressed);
 
+        Bundle args = this.getArguments();
+        int position = args.getInt("number", 0);
+
+        Toast.makeText(getActivity(), "paying #"+position, Toast.LENGTH_SHORT).show();
 
         // set initial remainingPrice
         setRemainingPrice(paymentmgr.calculatePrice());
