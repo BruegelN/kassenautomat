@@ -62,6 +62,14 @@ public class MaintenanceFragment extends Fragment {
             bar.setProgress(coinLevel);
             txt.setText(Integer.toString(coinLevel) + "/" + Integer.toString(COIN_DATA.MAX_COIN_LVL));
         }
+
+        // do the same for the Parking Coin
+        int coinLevel = dbm.getCoinLevel(COIN_DATA.PARKING_COIN);
+        ProgressBar bar = pgr_Bars.get(COIN_DATA.PARKING_COIN);
+        TextView txt = txt_Views.get(COIN_DATA.PARKING_COIN);
+
+        bar.setProgress(coinLevel);
+        txt.setText(Integer.toString(coinLevel) + "/" + Integer.toString(COIN_DATA.MAX_COIN_LVL));
     }
 
     @Nullable
@@ -108,9 +116,16 @@ public class MaintenanceFragment extends Fragment {
 
     private View.OnClickListener btnResetCoinsPressed = new View.OnClickListener() {
         public void onClick(View v) {
+            // reset coin levels to default
+            dbm.setDefaultCoinLevels();
+            updateLevels();
 
-            // TODO reset coin level!
-            Toast.makeText(getActivity(), "TODO Münzen auffüllen!", Toast.LENGTH_SHORT).show();
+            // inform the service worker
+            String message = String.format("Die Münzbehälter wurden geleert und mit je %d Münze(n) aufgefüllt.\n" +
+                    "Die Parkmünzen wurden wieder auf den maximalen Füllstand %d aufgefüllt.",
+                    (int)(COIN_DATA.DEFAULT_COIN_LEVEL * COIN_DATA.MAX_COIN_LVL), COIN_DATA.MAX_COIN_LVL);
+
+            Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
         }
     };
 
