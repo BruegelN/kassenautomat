@@ -10,11 +10,12 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/imageView"
+        android:id="@+id/imageViewParkingCoin"
         android:src="@drawable/parkmuenze"
         android:contentDescription="@string/strDescParkingCoin"
         android:scaleType="fitCenter"
         android:layout_gravity="center_horizontal"
+        android:background="@null"
         android:minHeight="200dp" />
 
     <GridLayout

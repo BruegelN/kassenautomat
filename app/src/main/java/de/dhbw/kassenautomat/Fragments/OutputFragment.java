@@ -7,9 +7,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import de.dhbw.kassenautomat.COIN_DATA;
 import de.dhbw.kassenautomat.Database.DatabaseManager;
 import de.dhbw.kassenautomat.MainActivity;
 import de.dhbw.kassenautomat.PaymentManager;
@@ -35,6 +37,7 @@ public class OutputFragment extends Fragment {
     private TextView txtTicketPrice;
     private TextView txtPaidPrice;
     private TextView txtReceivedChange;
+    private ImageView imageParkingCoin;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -56,6 +59,8 @@ public class OutputFragment extends Fragment {
         btnPrintReceipt = (Button) LayoutOutput.findViewById(R.id.btnPrintReceipt);
         btnPrintReceipt.setOnClickListener(btnPrintReceiptPressed);
 
+        imageParkingCoin = (ImageView) LayoutOutput.findViewById(R.id.imageViewParkingCoin);
+
         txtParkedTime = (TextView) LayoutOutput.findViewById(R.id.txtParkedTime);
         txtTicketPrice = (TextView) LayoutOutput.findViewById(R.id.txtTicketPrice);
         txtPaidPrice = (TextView) LayoutOutput.findViewById(R.id.txtPaidPrice);
@@ -69,9 +74,32 @@ public class OutputFragment extends Fragment {
         // set this ticket as paid without saving the receipt by default
         dbm.setTicketPaid(tmpReceipt, false);
 
+        // Drop out the parking coin
+        dropParkingCoin();
+
         printPaymentData();
 
         return LayoutOutput;
+    }
+
+    private void dropParkingCoin() {
+        int coinLevel = dbm.getCoinLevel(COIN_DATA.PARKING_COIN);
+
+        if (coinLevel>0)
+        {
+            // Take parking coin out of storage
+            dbm.setCoinLevel(COIN_DATA.PARKING_COIN, coinLevel-1);
+            // TODO: show dialog which tells the user to take his coin
+            Toast.makeText(getActivity(), "PARKMÜNZE!", Toast.LENGTH_SHORT).show();
+        }
+        else
+        {
+            //TODO: show dialog which tells the user that no more ParkingCoins are available, but the barrier has been opend
+            // & Worker has been informed
+            Toast.makeText(getActivity(), "NIX PARKMÜNZE!\nSchranke offen. Mitarbeiter informiert.", Toast.LENGTH_SHORT).show();
+
+            imageParkingCoin.setImageResource(R.drawable.no_parkmuenze);
+        }
     }
 
     View.OnClickListener buttonOkPressed = new View.OnClickListener() {
