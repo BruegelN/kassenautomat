@@ -1,9 +1,6 @@
 package de.dhbw.kassenautomat.Fragments;
 
-import android.app.Activity;
-import android.app.Application;
 import android.app.Fragment;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -18,8 +15,7 @@ import android.widget.Toast;
 import java.util.Map;
 
 import de.dhbw.kassenautomat.COIN_DATA;
-import de.dhbw.kassenautomat.Database.DatabaseManager;
-import de.dhbw.kassenautomat.MainActivity;
+import de.dhbw.kassenautomat.Dialogs.CustomOkDialog;
 import de.dhbw.kassenautomat.ParkingTicket;
 import de.dhbw.kassenautomat.PaymentManager;
 import de.dhbw.kassenautomat.R;
@@ -198,6 +194,7 @@ public class PayFragment extends Fragment {
 
             case 1:
             {
+                // TODO maybe sound of a coin
                 message = String.format("%,.2f € bezahlt", (float)coinValue/(float)100);
                 break;
             }
@@ -210,6 +207,7 @@ public class PayFragment extends Fragment {
 
             case -2:
             {
+                // TODO maybe Durchfallgeräusche
                 message = String.format("Die Münze konnte nicht erkannt werden...\nVersuchen Sie es erneut!");
                 break;
             }
@@ -260,12 +258,19 @@ public class PayFragment extends Fragment {
                 sChange += String.format("%d Münze(n) á %,.2f €\n", amount, (float)coin/(float)100);
         }
 
-        if (sChange.equals(""))
-            message = String.format("Kein Rückgeld.");
-        else
+        if (!sChange.equals("")) {
             message = String.format("Bitte entnehmen Sie Ihr Rückgeld aus dem Ausgabefach:\n%s", sChange);
 
-        Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+            // TODO maybe Geräusch?
+            CustomOkDialog changeMoneyDialog = new CustomOkDialog();
+            Bundle args = new Bundle();
+            String title = getActivity().getApplicationContext().getString(R.string.dropChange);
+            args.putString("title", title);
+            args.putString("message", message);
+            changeMoneyDialog.setArguments(args);
+            changeMoneyDialog.setTargetFragment(this, 0);
+            changeMoneyDialog.show(getFragmentManager(), "UniqueTagForAndroidToIdentifyReturnMoneyDialog");
+        }
     }
 
     private  void setRemainingPrice(float remainingPrice)
