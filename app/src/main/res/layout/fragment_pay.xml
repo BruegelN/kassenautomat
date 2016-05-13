@@ -7,27 +7,43 @@
     android:padding="10dp"
     android:weightSum="1">
 
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="30dp"/>
 
-    <TextView
+    <!-- start layout for fake-LCD -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:ems="10"
-        android:id="@+id/lblPayment"
-        android:text="@string/strPleasePay"
-        android:background="#acaf90"
-        android:textColor="#000"
-        android:padding="5dp" />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:ems="10"
-        android:id="@+id/lblMoneyLeftToPay"
-        android:text="@string/strDefaultToPay"
-        android:background="#acaf90"
-        android:textColor="#000"
-        android:padding="5dp" />
+        android:orientation="vertical"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/yellow_with_black_boarder"
+        android:layout_margin="5dp">
+
+        <TextView
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:ems="10"
+            android:id="@+id/lblPayment"
+            android:text="@string/strPleasePay"
+            android:padding="5dp"
+            android:layout_gravity="center_vertical" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:ems="10"
+            android:id="@+id/lblMoneyLeftToPay"
+            android:text="@string/strDefaultToPay"
+            android:padding="5dp"
+            android:layout_gravity="center_vertical"/>
+
+    </LinearLayout>
+    <!-- end layout for fake-LCD -->
+
+
 
     <!-- Not supported by the old Android Version!
     android:nestedScrollingEnabled="false"
