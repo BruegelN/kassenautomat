@@ -15,6 +15,7 @@ import android.test.suitebuilder.annotation.LargeTest;
 
 import java.lang.Exception;
 import java.lang.String;
+import java.util.Date;
 import java.util.List;
 
 import de.dhbw.kassenautomat.Database.DatabaseManager;
@@ -130,10 +131,11 @@ public class UnitTestDatabase {
 
         assertNotNull(pT);
 
-        assertTrue(dbm.setTicketPaid(pT.getID(), 1.23f, true));
+        assertTrue(dbm.setTicketPaid(new Receipt(pT.getID(), 1.50f, 1.55f, 0.05f, 89, new Date()), true));
 
         Receipt rc = dbm.getReceipt(pT.getID());
-        assertTrue(rc.getTicketPrice() == 1.23f);
+
+        assertTrue(rc.getTicketPrice() == 1.50f);
         assertTrue(rc.getFKid() == pT.getID());
     }
 

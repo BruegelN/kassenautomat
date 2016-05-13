@@ -28,6 +28,7 @@ public class PaymentManager implements Serializable {
     private float rawPrice;
     private float remainingPrice;
     private float change;
+    private int minutesParked;
 
     /**
      * Constructor
@@ -75,13 +76,15 @@ public class PaymentManager implements Serializable {
         Date now = new Date();
 
         long diff = now.getTime()- ticketCreated.getTime();
-        long minutes = TimeUnit.MILLISECONDS.toMinutes(diff);
+        int minutes = (int)TimeUnit.MILLISECONDS.toMinutes(diff);
+
+        this.minutesParked = minutes;
 
         int startedHalfHours = (int)(minutes/30)+1;
 
         int rawPrice = startedHalfHours * COIN_DATA.COST_PER_HALF_HOUR;
 
-        this.rawPrice = rawPrice; // save for later processing
+        this.rawPrice = rawPrice/(float)100; // save for later processing
         return rawPrice;
     }
 
@@ -255,7 +258,8 @@ public class PaymentManager implements Serializable {
     public Receipt getReceipt()
     {
         float paidPrice = this.rawPrice-this.remainingPrice;
-        return new Receipt(ticket.getID(), this.rawPrice, paidPrice, this.change,  new Date());
+
+        return new Receipt(ticket.getID(), this.rawPrice, paidPrice, this.change, this.minutesParked,  new Date());
     }
 
 
