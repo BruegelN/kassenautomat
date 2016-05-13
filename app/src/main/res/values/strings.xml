@@ -11,7 +11,9 @@
     <string name="strMaintainAutomate">Automat warten</string>
     <string name="strCreateString">Ticket lösen</string>
     <string name="strPrakingTicket">Parkticket</string>
-    <string name="strRefillCoins">Münzen auffüllen</string>
+    <string name="strRefillCoins">Münzbehälter leeren/füllen</string>
+    <string name="strResetDB">Automaten zurücksetzen</string>
+    <string name="strShowSettings">Einstellungen ändern</string>
     <string name="strEndMaintenance">Wartung beenden</string>
     <string name="strFiftyCent">0,50 €</string>
     <string name="strTwentyCent">0,20 €</string>
@@ -32,11 +34,14 @@
     <string name="strDefaultToPay">0,50 €</string>
     <string name="strQuittung">Quittung:</string>
     <string name="strDefaultParkingTime">1:00 h</string>
-    <string name="strDefaultLcdText">Jede angebrochene halbe Stunde kostet 50ct.</string>
-    <string name="strPressBackAgainToExit">Zum Verlassen bitte erneut drücken.</string>
     <string name="lblTicketPrice">Ticketpreis:</string>
     <string name="strParkedTime">Parkzeit:</string>
     <string name="lblPaidPrice">Bezahlt:</string>
     <string name="lblReceivedChange">Rückgeld:</string>
     <string name="btnPrintReceipt">Quittung drucken</string>
+    <string name="strDefaultLcdText">Jede angebrochene halbe Stunde kostet:</string>
+    <string name="strPressBackAgainToExit">Zum Verlassen bitte erneut drücken.</string>
+    <string name="dropChange">Geldrückgabe</string>
+    <string name="strDefaultPricePerUnit">0,50 €</string>
+    <string name="strCreateTestTicket">Test-Ticket erstellen</string>
 </resources>

@@ -7,68 +7,95 @@
     android:padding="10dp"
     android:weightSum="1">
 
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="30dp"/>
 
-    <TextView
+    <!-- start layout for fake-LCD -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:ems="10"
-        android:id="@+id/lblPayment"
-        android:text="@string/strPleasePay"
-        android:background="#acaf90"
-        android:textColor="#000"
-        android:padding="5dp" />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:ems="10"
-        android:id="@+id/lblMoneyLeftToPay"
-        android:text="@string/strDefaultToPay"
-        android:background="#acaf90"
-        android:textColor="#000"
-        android:padding="5dp" />
+        android:orientation="vertical"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/yellow_with_black_boarder"
+        android:layout_margin="5dp">
+
+        <TextView
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:ems="10"
+            android:id="@+id/lblPayment"
+            android:text="@string/strPleasePay"
+            android:padding="5dp"
+            android:layout_gravity="center_vertical" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:ems="10"
+            android:id="@+id/lblMoneyLeftToPay"
+            android:text="@string/strDefaultToPay"
+            android:padding="5dp"
+            android:layout_gravity="center_vertical"/>
+
+    </LinearLayout>
+    <!-- end layout for fake-LCD -->
+
+
 
     <!-- Not supported by the old Android Version!
     android:nestedScrollingEnabled="false"
      android:fontFamily="monospace"-->
 
+
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal">
+        android:layout_gravity="center_horizontal"
+        android:padding="5dp"
+        android:weightSum="3">
 
         <ImageButton
             android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_height="70dp"
             android:id="@+id/btnFiveCent"
             android:src="@drawable/five_cent"
             android:contentDescription="@string/strDescFiveCent"
-            android:scaleType="fitCenter" />
+            android:scaleType="fitCenter"
+            android:layout_weight="1"
+            android:background="@null"/>
 
         <ImageButton
             android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_height="85dp"
             android:id="@+id/btnTenCent"
             android:src="@drawable/ten_cent"
             android:contentDescription="@string/strDescTenCent"
-            android:scaleType="fitCenter" />
+            android:scaleType="fitCenter"
+            android:layout_weight="1"
+            android:background="@null"/>
 
         <ImageButton
             android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_height="90dp"
             android:id="@+id/btnTwentyCent"
             android:src="@drawable/twenty_cent"
             android:contentDescription="@string/strDescTwentyCent"
-            android:scaleType="fitCenter" />
+            android:scaleType="fitCenter"
+            android:layout_weight="1"
+            android:background="@null"/>
     </LinearLayout>
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal">
+        android:layout_gravity="center_horizontal"
+        android:padding="5dp"
+        android:weightSum="3">
 
         <ImageButton
             android:layout_width="100dp"
@@ -76,7 +103,9 @@
             android:id="@+id/btnFiftyCent"
             android:src="@drawable/fifty_cent_fun"
             android:contentDescription="@string/strDescFiftyCent"
-            android:scaleType="fitCenter" />
+            android:scaleType="fitCenter"
+            android:layout_weight="1"
+            android:background="@null"/>
 
         <ImageButton
             android:layout_width="100dp"
@@ -84,15 +113,19 @@
             android:id="@+id/btnOneEuro"
             android:src="@drawable/one_euro"
             android:contentDescription="@string/strDescOneEuro"
-            android:scaleType="fitCenter" />
+            android:scaleType="fitCenter"
+            android:layout_weight="1"
+            android:background="@null"/>
 
         <ImageButton
             android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_height="110dp"
             android:id="@+id/btnTwoEuro"
             android:src="@drawable/two_euro"
             android:contentDescription="@string/strDescTwoEuro"
-            android:scaleType="fitCenter" />
+            android:scaleType="fitCenter"
+            android:layout_weight="1"
+            android:background="@null"/>
     </LinearLayout>
 
     <Button
