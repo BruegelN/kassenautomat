@@ -49,42 +49,53 @@
     android:nestedScrollingEnabled="false"
      android:fontFamily="monospace"-->
 
+
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal">
+        android:layout_gravity="center_horizontal"
+        android:padding="5dp"
+        android:weightSum="3">
 
         <ImageButton
             android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_height="70dp"
             android:id="@+id/btnFiveCent"
             android:src="@drawable/five_cent"
             android:contentDescription="@string/strDescFiveCent"
-            android:scaleType="fitCenter" />
+            android:scaleType="fitCenter"
+            android:layout_weight="1"
+            android:background="@null"/>
 
         <ImageButton
             android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_height="85dp"
             android:id="@+id/btnTenCent"
             android:src="@drawable/ten_cent"
             android:contentDescription="@string/strDescTenCent"
-            android:scaleType="fitCenter" />
+            android:scaleType="fitCenter"
+            android:layout_weight="1"
+            android:background="@null"/>
 
         <ImageButton
             android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_height="90dp"
             android:id="@+id/btnTwentyCent"
             android:src="@drawable/twenty_cent"
             android:contentDescription="@string/strDescTwentyCent"
-            android:scaleType="fitCenter" />
+            android:scaleType="fitCenter"
+            android:layout_weight="1"
+            android:background="@null"/>
     </LinearLayout>
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal">
+        android:layout_gravity="center_horizontal"
+        android:padding="5dp"
+        android:weightSum="3">
 
         <ImageButton
             android:layout_width="100dp"
@@ -92,7 +103,9 @@
             android:id="@+id/btnFiftyCent"
             android:src="@drawable/fifty_cent_fun"
             android:contentDescription="@string/strDescFiftyCent"
-            android:scaleType="fitCenter" />
+            android:scaleType="fitCenter"
+            android:layout_weight="1"
+            android:background="@null"/>
 
         <ImageButton
             android:layout_width="100dp"
@@ -100,15 +113,19 @@
             android:id="@+id/btnOneEuro"
             android:src="@drawable/one_euro"
             android:contentDescription="@string/strDescOneEuro"
-            android:scaleType="fitCenter" />
+            android:scaleType="fitCenter"
+            android:layout_weight="1"
+            android:background="@null"/>
 
         <ImageButton
             android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_height="110dp"
             android:id="@+id/btnTwoEuro"
             android:src="@drawable/two_euro"
             android:contentDescription="@string/strDescTwoEuro"
-            android:scaleType="fitCenter" />
+            android:scaleType="fitCenter"
+            android:layout_weight="1"
+            android:background="@null"/>
     </LinearLayout>
 
     <Button
