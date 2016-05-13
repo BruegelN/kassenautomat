@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Random;
 
 import de.dhbw.kassenautomat.MainActivity;
+
 import de.dhbw.kassenautomat.ParkingTicket;
 import de.dhbw.kassenautomat.R;
 import de.dhbw.kassenautomat.TicketManager;
@@ -39,12 +40,6 @@ public class OverviewFragment extends ListFragment{
     private Button btnMaintenance;
 
     /**
-     * Button to go pay a ticket.
-     * Private button for elements used in overview fragment.
-     */
-    private Button btnPayTicket;
-
-    /**
      * Button to create a new Ticket.
      * Private button for elements used in overview fragment.
      */
@@ -52,6 +47,9 @@ public class OverviewFragment extends ListFragment{
 
     private ArrayList<String> arrayList;
     private ArrayAdapter<String> arrayAdapter;
+
+    private TicketManager tmr;
+    private List<ParkingTicket> tickets;
 
 
     @Override
@@ -84,13 +82,14 @@ public class OverviewFragment extends ListFragment{
          */
         btnMaintenance = (Button) LayoutOverview.findViewById(R.id.btnMaintenance);
         btnCreateTicket = (Button) LayoutOverview.findViewById(R.id.btnStartNewTicketProcess);
-        btnPayTicket = (Button) LayoutOverview.findViewById(R.id.btnEditTicket);
-
 
         // Set handlers for button click events.
         btnMaintenance.setOnClickListener(btnMaintenancePressed);
         btnCreateTicket.setOnClickListener(btnCreateTicketPressed);
-        btnPayTicket.setOnClickListener(btnPayTicketPressed);
+
+
+        tmr = MainActivity.getTicketMgr();
+        tickets = tmr.getTicketList();
 
         // get values from database and display them
         arrayList = fillTheList();
@@ -135,29 +134,15 @@ public class OverviewFragment extends ListFragment{
 
         }
     };
-
-
-    /**
-     * onClickListener for payTicket button.
-     * Will switch to fragment where you can pay the ticket.
-     */
-    private View.OnClickListener btnPayTicketPressed = new View.OnClickListener() {
-        public void onClick(View v) {
-
-            getFragmentManager().beginTransaction()
-                    .replace(R.id.mainFragmentContainer, FragmentPay)
-                    .addToBackStack(null)
-                    .commitAllowingStateLoss();
-        }
-    };
+    
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
-        // Do something when a list item is clicked
-        Toast.makeText(getActivity(), "clicked #"+position, Toast.LENGTH_SHORT).show();
 
         Bundle ticketData = new Bundle();
-        ticketData.putInt("number", position);
+        // Because the tickets have the same order in the list as well as in the DB
+        // Access the [position]'s element is the ticket we want!
+        ticketData.putSerializable(ParkingTicket.SERIAL_KEY, tickets.get(position));
 
         FragmentPay.setArguments(ticketData);
 
@@ -175,8 +160,6 @@ public class OverviewFragment extends ListFragment{
      */
     private ArrayList<String> fillTheList()
     {
-        TicketManager tmr = MainActivity.getTicketMgr();
-        List<ParkingTicket> tickets = tmr.getTicketList();
 
         ArrayList<String> sTickets = new ArrayList<String>();
 
