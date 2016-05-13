@@ -32,7 +32,8 @@
     <string name="strDefaultToPay">0,50 €</string>
     <string name="strQuittung">Quittung:</string>
     <string name="strDefaultParkingTime">Parkdauer 1h</string>
-    <string name="strDefaultLcdText">Jede angebrochene halbe Stunde kostet 50ct.</string>
+    <string name="strDefaultLcdText">Jede angebrochene halbe Stunde kostet:</string>
     <string name="strPressBackAgainToExit">Zum Verlassen bitte erneut drücken.</string>
     <string name="dropChange">Geldrückgabe</string>
+    <string name="strDefaultPricePerUnit">0,50 €</string>
 </resources>
