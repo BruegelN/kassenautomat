@@ -2,6 +2,7 @@ package de.dhbw.kassenautomat;
 
 import org.junit.Test;
 
+import java.lang.Boolean;
 import java.lang.Integer;
 import java.lang.String;
 import java.text.ParseException;
@@ -27,25 +28,10 @@ public class UnitTestParkingTicket
     }
 
     @Test
-    public void CheckPositiveID()
-    {
-        assertTrue(TestTicket.getID() >= 0);
-    }
-
-    @Test
-    public void CheckIDcounter()
-    {
-        int ID = TestTicket.getID();
-        int ID2 = TestTicket2.getID();
-
-        assertTrue(ID2 == ID+1);
-    }
-
-    @Test
     public void CheckToStringMethod()
     {
         char Delimeter = ParkingTicket.getDelimiter();
-        String saved = Integer.toString(TestTicket.getID())+Delimeter+ParkingTicket.getSimpleDateFormat().format(TestTicket.getCreated())+Delimeter+Integer.toString(TestTicket.getPrintQuality());
+        String saved = Integer.toString(TestTicket.getID())+Delimeter+ParkingTicket.getSimpleDateFormat().format(TestTicket.getCreated())+Delimeter+Integer.toString(TestTicket.getPrintQuality())+Delimeter+ Boolean.toString(TestTicket.getPaid());
 
         assertTrue(TestTicket.toString() + "<>" + saved, TestTicket.toString().equals(saved));
     }
@@ -59,8 +45,6 @@ public class UnitTestParkingTicket
 
         assertTrue(ReloadedTicket.toString() + " " + TestTicket.toString(),
                 ParkingTicket.getSimpleDateFormat().format(ReloadedTicket.getCreated()).equals(ParkingTicket.getSimpleDateFormat().format(TestTicket.getCreated())));
-
-        assertTrue(ReloadedTicket.getID() == TestTicket.getID());
 
         assertTrue(ReloadedTicket.getPrintQuality() == TestTicket.getPrintQuality());
     }

@@ -9,5 +9,9 @@
 
     <color name="yellow_lcd"> #FFFFFF40 </color>
     <color name="black"> #FF000000 </color>
+    <color name="newTicketBtnGreen">#00CD00</color>
+    <color name="newTicketBtnGreenPressed">#008B00</color>
+    <color name="abortBtnRed">#E82C2C</color>
+    <color name="abortBtnRedPressed">#CD0000</color>
 
 </resources>

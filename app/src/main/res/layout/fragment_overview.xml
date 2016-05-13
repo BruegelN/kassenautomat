@@ -13,21 +13,11 @@
         android:text="@string/strMaintainAutomate"
         android:id="@+id/btnMaintenance" />
 
-    <ToggleButton
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/strEditTicket"
-        android:id="@+id/btnEditTicket"
-        android:checked="false"
-        android:layout_gravity="bottom"
-        android:textOn="@string/strEditTicket"
-        android:textOff="Ticket bezahlen" />
-
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/strCreateString"
-        android:id="@+id/btnCreateTicket"
+        android:id="@+id/btnStartNewTicketProcess"
         android:layout_gravity="center_horizontal|bottom" />
 
     <TextView
@@ -40,6 +30,6 @@
     <ListView
         android:layout_width="match_parent"
         android:layout_height="342dp"
-        android:id="@+id/listView" />
+        android:id="@android:id/list" />
 
 </LinearLayout>

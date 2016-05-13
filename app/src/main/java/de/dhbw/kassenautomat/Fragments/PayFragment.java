@@ -1,6 +1,9 @@
 package de.dhbw.kassenautomat.Fragments;
 
+import android.app.Activity;
+import android.app.Application;
 import android.app.Fragment;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -8,18 +11,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 // To access the XML layouts easily
+import java.util.Map;
+
+import de.dhbw.kassenautomat.COIN_DATA;
+import de.dhbw.kassenautomat.Database.DatabaseManager;
+import de.dhbw.kassenautomat.MainActivity;
+import de.dhbw.kassenautomat.ParkingTicket;
+import de.dhbw.kassenautomat.PaymentManager;
 import de.dhbw.kassenautomat.R;
 
 /**
  * Created by nicob on 21.04.16.
  */
 public class PayFragment extends Fragment {
-
-    // TODO Need a data structure to save already payed money and calculate return money!
-
     // Regular buttons
     private Button btnQuittung;
     private Button btnAbort;
@@ -31,15 +39,20 @@ public class PayFragment extends Fragment {
     private ImageButton btnFiftyCent;
     private ImageButton btnOneEuro;
     private ImageButton btnTwoEuro;
+    private TextView lblMoneyLeftToPay;
 
     private OverviewFragment FragmentOverview;
+    private OutputFragment FragmentOutput;
+
+    private PaymentManager paymentmgr;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         // TODO initialize fields before createView
-        super.onCreate(savedInstanceState);
 
+        super.onCreate(savedInstanceState);
         FragmentOverview = (OverviewFragment) Fragment.instantiate(this.getActivity(), OverviewFragment.class.getName(), null);
+        FragmentOutput = (OutputFragment) Fragment.instantiate(this.getActivity(), OutputFragment.class.getName(), null);
     }
 
     @Nullable
@@ -70,6 +83,8 @@ public class PayFragment extends Fragment {
         btnOneEuro = (ImageButton) layoutPay.findViewById(R.id.btnOneEuro);
         btnTwoEuro = (ImageButton) layoutPay.findViewById(R.id.btnTwoEuro);
 
+        lblMoneyLeftToPay = (TextView) layoutPay.findViewById(R.id.lblMoneyLeftToPay);
+
         /**
          * Register onClick handlers for money button.
          * Those are called when someone "pays" a amount of money.
@@ -81,6 +96,14 @@ public class PayFragment extends Fragment {
         btnOneEuro.setOnClickListener(btnOneEuroPressed);
         btnTwoEuro.setOnClickListener(btnTwoEuroPressed);
 
+
+        // unpack the selected ticket
+        Bundle args = this.getArguments();
+        ParkingTicket tmpTicket = (ParkingTicket) args.getSerializable(ParkingTicket.SERIAL_KEY);
+        // and prepare it for further usage
+        paymentmgr = new PaymentManager(tmpTicket);
+        // set initial remainingPrice
+        setRemainingPrice(paymentmgr.calculatePrice());
 
         // so it can be displayed
         return layoutPay;
@@ -109,6 +132,7 @@ public class PayFragment extends Fragment {
      */
     private View.OnClickListener btnAbortPressed = new View.OnClickListener() {
         public void onClick(View v) {
+            undoPayment();
 
             getFragmentManager().beginTransaction()
                     .replace(R.id.mainFragmentContainer, FragmentOverview)
@@ -121,38 +145,132 @@ public class PayFragment extends Fragment {
 
     private View.OnClickListener btnFiveCentPressed = new View.OnClickListener() {
         public void onClick(View v) {
-            // TODO reduce amount of money to pay
-            Toast.makeText(getActivity(), "5 ct bezahlt", Toast.LENGTH_SHORT).show();
+            insertCoin(5);
         }
     };
     private View.OnClickListener btnTenCentPressed = new View.OnClickListener() {
         public void onClick(View v) {
-            // TODO reduce amount of money to pay
-            Toast.makeText(getActivity(), "10 ct bezahlt", Toast.LENGTH_SHORT).show();        }
+            insertCoin(10);
+        }
     };
     private View.OnClickListener btnTwentyCentPressed = new View.OnClickListener() {
         public void onClick(View v) {
-            // TODO reduce amount of money to pay
-            Toast.makeText(getActivity(), "20 ct bezahlt", Toast.LENGTH_SHORT).show();
+            insertCoin(20);
         }
     };
     private View.OnClickListener btnFiftyCentPressed = new View.OnClickListener() {
         public void onClick(View v) {
-            // TODO reduce amount of money to pay
-            Toast.makeText(getActivity(), "50 ct bezahlt", Toast.LENGTH_SHORT).show();
+            insertCoin(50);
+
         }
     };
     private View.OnClickListener btnOneEuroPressed = new View.OnClickListener() {
         public void onClick(View v) {
-            // TODO reduce amount of money to pay
-            Toast.makeText(getActivity(), "1 € bezahlt", Toast.LENGTH_SHORT).show();
+            insertCoin(100);
         }
     };
     private View.OnClickListener btnTwoEuroPressed = new View.OnClickListener() {
         public void onClick(View v) {
-            // TODO reduce amount of money to pay
-            Toast.makeText(getActivity(), "2 € bezahlt", Toast.LENGTH_SHORT).show();
+            insertCoin(200);
         }
     };
 
+    private void insertCoin(int coinValue)
+    {
+        btnAbort.setEnabled(false);
+
+        String message;
+        int result;
+
+        switch (result = paymentmgr.insertCoin(coinValue))
+        {
+            case 2:
+            {
+                message = String.format("Zahlung abgeschlossen.");
+                break;
+            }
+
+            case 0:
+            {
+                message = String.format("Es ist keine weitere Geldeingabe erforderlich.");
+                break;
+            }
+
+            case 1:
+            {
+                message = String.format("%,.2f € bezahlt", (float)coinValue/(float)100);
+                break;
+            }
+
+            case -1:
+            {
+                message = String.format("Der Automat kann keine weiteren %,.2f € Münzen annehmen, da der Münzspeicher voll ist.", (float)coinValue/(float)100);
+                break;
+            }
+
+            case -2:
+            {
+                message = String.format("Die Münze konnte nicht erkannt werden...\nVersuchen Sie es erneut!");
+                break;
+            }
+            default:
+            {
+                message = String.format("Unerwarter Rückgabewert. Wenden Sie sich an den Administrator!");
+            }
+        }
+
+        Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+        float remainingPrice = paymentmgr.calculatePrice();
+        setRemainingPrice(remainingPrice);
+
+        if (result == 2)
+        {
+            btnAbort.setEnabled(false);
+            Map<Integer, Integer> change = paymentmgr.getChange((int)(remainingPrice*100));
+            dropChange(change);
+
+            // change to view Output where the Parking coin is displayed and receipt stuff can be handled.
+            getFragmentManager().beginTransaction()
+                    .replace(R.id.mainFragmentContainer, FragmentOutput)
+                    .addToBackStack(null)
+                    .commitAllowingStateLoss();
+        }
+        else if (result != 0)
+        {
+            btnAbort.setEnabled(true);
+        }
+    }
+
+    private void undoPayment()
+    {
+        Map<Integer, Integer> changeMoney = paymentmgr.undoPayment();
+        dropChange(changeMoney);
+    }
+
+    private void dropChange(Map<Integer, Integer> change)
+    {
+        String message;
+        String sChange = "";
+
+        if (change != null)
+        for (int coin:COIN_DATA.COINS)
+        {
+            int amount = change.get(coin);
+            if (amount>0)
+                sChange += String.format("%d Münze(n) á %,.2f €\n", amount, (float)coin/(float)100);
+        }
+
+        if (sChange.equals(""))
+            message = String.format("Kein Rückgeld.");
+        else
+            message = String.format("Bitte entnehmen Sie Ihr Rückgeld aus dem Ausgabefach:\n%s", sChange);
+
+        Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+    }
+
+    private  void setRemainingPrice(float remainingPrice)
+    {
+        String sRemaingPrice = String.format("%,.2f €", remainingPrice);
+        lblMoneyLeftToPay.setText(sRemaingPrice);
+    }
 }
