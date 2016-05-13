@@ -97,6 +97,9 @@ public class PayFragment extends Fragment {
         btnTwoEuro.setOnClickListener(btnTwoEuroPressed);
 
 
+        // reset the image every time the fragment is created
+        btnFiftyCent.setImageResource(R.drawable.fifty_cent);
+
         // unpack the selected ticket
         Bundle args = this.getArguments();
         ParkingTicket tmpTicket = (ParkingTicket) args.getSerializable(ParkingTicket.SERIAL_KEY);
