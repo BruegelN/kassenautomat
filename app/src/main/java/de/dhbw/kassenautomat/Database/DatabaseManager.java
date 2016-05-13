@@ -218,7 +218,8 @@ public class DatabaseManager {
         }
         float price = (float)Integer.parseInt(c.getString(2))/100;
 
-        Receipt rec = new Receipt(FKid, price, paid);
+        // TODO change db to save and load paidPrice and receivedChange
+        Receipt rec = new Receipt(FKid, price, 0f, 0f, paid);
 
         return rec;
     }

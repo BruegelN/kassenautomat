@@ -19,7 +19,6 @@ import java.util.List;
 
 import de.dhbw.kassenautomat.Database.DatabaseManager;
 import de.dhbw.kassenautomat.Database.MySQLiteOpenHelper;
-import de.dhbw.kassenautomat.MainActivity;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
@@ -134,7 +133,7 @@ public class UnitTestDatabase {
         assertTrue(dbm.setTicketPaid(pT.getID(), 1.23f, true));
 
         Receipt rc = dbm.getReceipt(pT.getID());
-        assertTrue(rc.getPrice() == 1.23f);
+        assertTrue(rc.getTicketPrice() == 1.23f);
         assertTrue(rc.getFKid() == pT.getID());
     }
 

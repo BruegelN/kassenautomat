@@ -7,13 +7,19 @@ import java.util.Date;
  */
 public class Receipt {
     private int FKid;
-    private float Price;
+    private float ticketPrice;
+    private float paidPrice;
+    private float receivedChange;
     private Date paid;
 
-    public Receipt(int FKid, float Price, Date paid)
+    public Receipt(int FKid, float ticketPrice, float paidPrice, float receivedChange, Date paid)
     {
         this.FKid = FKid;
-        this.Price = Price;
+
+        this.ticketPrice = ticketPrice;
+        this.paidPrice = paidPrice;
+        this.receivedChange = receivedChange;
+
         this.paid = paid;
     }
 
@@ -21,8 +27,8 @@ public class Receipt {
         return FKid;
     }
 
-    public float getPrice() {
-        return Price;
+    public float getTicketPrice() {
+        return ticketPrice;
     }
 
     public Date getPaid() {

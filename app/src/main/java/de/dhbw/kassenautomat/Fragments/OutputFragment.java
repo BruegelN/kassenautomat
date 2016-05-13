@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import de.dhbw.kassenautomat.PaymentManager;
 import de.dhbw.kassenautomat.R;
 
 /**
@@ -18,6 +19,8 @@ public class OutputFragment extends Fragment {
     private Button buttonOK;
 
     private OverviewFragment FragmentOverview;
+
+    private PaymentManager paymentmgr;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -36,6 +39,11 @@ public class OutputFragment extends Fragment {
         buttonOK = (Button) LayoutOutput.findViewById(R.id.buttonOK);
         buttonOK.setOnClickListener(buttonOkPressed);
 
+        Bundle arguments = this.getArguments();
+        this.paymentmgr = (PaymentManager) arguments.getSerializable(PaymentManager.SERIAL_KEY);
+
+        updatePaymentData();
+
         return LayoutOutput;
     }
 
@@ -47,4 +55,9 @@ public class OutputFragment extends Fragment {
                     .commitAllowingStateLoss();
         }
     };
+
+    private void updatePaymentData()
+    {
+        
+    }
 }
