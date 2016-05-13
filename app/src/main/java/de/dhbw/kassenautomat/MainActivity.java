@@ -31,6 +31,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // create the objects before switching views
+        DBmanager = new DatabaseManager(getContext());
+        TicketMgr = new TicketManager();
+
         /**
          * Instantiate the overview fragment so it can be displayed.
          */
@@ -43,9 +47,6 @@ public class MainActivity extends AppCompatActivity {
                             .replace(R.id.mainFragmentContainer, FragmentOverview)
                             .addToBackStack(null)
                             .commit();
-
-        DBmanager = new DatabaseManager(getContext());
-        TicketMgr = new TicketManager();
     }
 
     public static Context getContext()

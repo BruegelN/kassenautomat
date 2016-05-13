@@ -50,9 +50,6 @@ public class PayFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         // TODO initialize fields before createView
 
-        //TODO: get the ticket selected in the list
-        paymentmgr = new PaymentManager(new ParkingTicket());
-
         super.onCreate(savedInstanceState);
         FragmentOverview = (OverviewFragment) Fragment.instantiate(this.getActivity(), OverviewFragment.class.getName(), null);
         FragmentOutput = (OutputFragment) Fragment.instantiate(this.getActivity(), OutputFragment.class.getName(), null);
@@ -99,14 +96,14 @@ public class PayFragment extends Fragment {
         btnOneEuro.setOnClickListener(btnOneEuroPressed);
         btnTwoEuro.setOnClickListener(btnTwoEuroPressed);
 
+
+        // unpack the selected ticket
         Bundle args = this.getArguments();
-        int position = args.getInt("number", 0);
-
-        Toast.makeText(getActivity(), "paying #"+position, Toast.LENGTH_SHORT).show();
-
+        ParkingTicket tmpTicket = (ParkingTicket) args.getSerializable(ParkingTicket.SERIAL_KEY);
+        // and prepare it for further usage
+        paymentmgr = new PaymentManager(tmpTicket);
         // set initial remainingPrice
         setRemainingPrice(paymentmgr.calculatePrice());
-
 
         // so it can be displayed
         return layoutPay;
