@@ -42,6 +42,10 @@ public class PayFragment extends Fragment {
 
     private PaymentManager paymentmgr;
 
+    // The most important feature
+    private int easterEggCounter = 0;
+    private static final int easterEggFunLevel = 5;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         // TODO initialize fields before createView
@@ -156,6 +160,16 @@ public class PayFragment extends Fragment {
     };
     private View.OnClickListener btnFiftyCentPressed = new View.OnClickListener() {
         public void onClick(View v) {
+            easterEggCounter++;
+            if(easterEggCounter >= easterEggFunLevel)
+            {
+                btnFiftyCent.setImageResource(R.drawable.fifty_cent_fun);
+            }
+
+            if (easterEggCounter >= 5)
+            {
+                //
+            }
             insertCoin(50);
 
         }

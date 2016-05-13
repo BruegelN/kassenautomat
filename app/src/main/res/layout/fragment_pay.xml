@@ -101,7 +101,7 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:id="@+id/btnFiftyCent"
-            android:src="@drawable/fifty_cent_fun"
+            android:src="@drawable/fifty_cent"
             android:contentDescription="@string/strDescFiftyCent"
             android:scaleType="fitCenter"
             android:layout_weight="1"
