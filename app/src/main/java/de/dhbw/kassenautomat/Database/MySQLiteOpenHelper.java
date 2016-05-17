@@ -15,7 +15,7 @@ import de.dhbw.kassenautomat.COIN_DATA;
 public class MySQLiteOpenHelper extends SQLiteOpenHelper {
     Context c;
     public static final String DB_NAME = "kassenautomat.db";
-    public static final int VERSION = 9; //We "start" with DB version 1
+    public static final int VERSION = 10; //We "start" with DB version 1
 
     public MySQLiteOpenHelper(Context c)
     {

@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
         // create the objects before switching views
         DBmanager = new DatabaseManager(getContext());
         TicketMgr = new TicketManager();
+        COIN_DATA.readConfig(DBmanager);
 
         /**
          * Instantiate the overview fragment so it can be displayed.

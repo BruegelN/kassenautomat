@@ -39,19 +39,16 @@ public class MaintenanceFragment extends Fragment {
     private DatabaseManager dbm;
 
     private OverviewFragment FragmentOverview;
+    private EditSettingsFragment FragmentEditSettings;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         /**
          * Instantiate fragment to return to overview.
          */
+        FragmentEditSettings = (EditSettingsFragment) Fragment.instantiate(this.getActivity(), EditSettingsFragment.class.getName(), null);
         FragmentOverview = (OverviewFragment) Fragment.instantiate(this.getActivity(), OverviewFragment.class.getName(), null);
         dbm = MainActivity.getDBmanager();
-
-        /* TODO initialize fields before createView
-           TODO read coin level from DB an set coresponding view elements
-            and add elements to list form database
-         */
 
         super.onCreate(savedInstanceState);
     }
@@ -130,6 +127,8 @@ public class MaintenanceFragment extends Fragment {
             //TODO add dialog to ask maintenance worker whether he is sure about this 'n stuff
 
             MainActivity.getDBmanager().resetDatabase();
+            COIN_DATA.readConfig(dbm);
+
             updateLevels();
 
             String message = String.format("Der Automat wurde auf den Werkszustand zurückgesetzt.");
@@ -142,7 +141,11 @@ public class MaintenanceFragment extends Fragment {
         @Override
         public void onClick(View v) {
             //TODO change view to Settings overview
-            Toast.makeText(getActivity(), "TODO: Einstellungen anzeigen", Toast.LENGTH_SHORT).show();
+
+            getFragmentManager().beginTransaction()
+                    .replace(R.id.mainFragmentContainer, FragmentEditSettings)
+                    .addToBackStack(null)
+                    .commitAllowingStateLoss();
         }
     };
 
