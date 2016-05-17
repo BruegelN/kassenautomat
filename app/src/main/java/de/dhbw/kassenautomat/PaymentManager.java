@@ -161,7 +161,7 @@ public class PaymentManager implements Serializable {
     private boolean acceptCoin()
     {
         Random rd = new Random();
-        return rd.nextFloat()>=0.10f; //10% of coins wont be accepted #evilFace
+        return rd.nextFloat()>=COIN_DATA.REJECTED_COINS_SHARE; //10% of coins wont be accepted #evilFace
     }
 
 

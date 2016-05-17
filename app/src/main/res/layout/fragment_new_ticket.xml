@@ -10,10 +10,11 @@
         android:layout_height="40dp"/>
 
     <!-- start layout for fake-LCD -->
-    <RelativeLayout
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
+        android:orientation="vertical"
+        android:layout_gravity="center_vertical"
         android:background="@drawable/yellow_with_black_boarder"
         android:layout_margin="5dp">
 
@@ -23,9 +24,18 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/strDefaultLcdText"
             android:padding="5dp"
-            android:id="@+id/textView4"
-            android:layout_gravity="center_horizontal" />
-    </RelativeLayout>
+            android:layout_gravity="center_vertical"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/strDefaultPricePerUnit"
+            android:padding="5dp"
+            android:id="@+id/lblPricePerUnit"
+            android:layout_gravity="center_vertical"
+            />
+    </LinearLayout>
     <!-- end layout for fake-LCD -->
 
     <Space
