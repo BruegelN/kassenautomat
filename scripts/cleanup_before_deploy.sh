@@ -26,9 +26,9 @@ mv $APP_BUILD_PATH/outputs/lint-results-release-fatal.html $APP_LINTER_PATH/lint
 mv $APP_BUILD_PATH/outputs/lint-results-release-fatal_files ./app/build/linter/lint-results-release-fatal/
 
 # then regular linter-results
-mkdir -p $APP_LINTER_PATH/lint-results/lint-results_files
-mv $APP_BUILD_PATH/outputs/lint-results.html $APP_LINTER_PATH/lint-results/index.html
-mv $APP_BUILD_PATH/outputs/lint-results_files $APP_LINTER_PATH/lint-results/
+mkdir -p $APP_LINTER_PATH/lint-results-debug/lint-results-debug_files
+mv $APP_BUILD_PATH/outputs/lint-results-debug.html $APP_LINTER_PATH/lint-results-debug/index.html
+mv $APP_BUILD_PATH/outputs/lint-results-debug_files $APP_LINTER_PATH/lint-results-debug/
 
 ## remove output folder because we allread moved the important things elsewhere
 rm -rf $APP_BUILD_PATH/outputs

@@ -24,9 +24,11 @@ import de.dhbw.kassenautomat.Receipt;
 public class DatabaseManager {
     private SQLiteDatabase dbread, dbwrite;
     private MySQLiteOpenHelper helper;
+    private Context c;
 
     public DatabaseManager(Context c)
     {
+        this.c = c;
         helper = new MySQLiteOpenHelper(c);
 
         dbread = helper.getReadableDatabase();
@@ -274,8 +276,24 @@ public class DatabaseManager {
         return true;
     }
 
+    /*
+    * This should only be used for tests
+     */
     public void deleteDatabase()
     {
         helper.deleteDB();
+    }
+
+    /*
+    * Delete the Database and create a new one
+     */
+    public void resetDatabase()
+    {
+        // delete DB as above
+        deleteDatabase();
+        // Acquire a new helper which creates a new DB since the old one was deleted.
+        this.helper = new MySQLiteOpenHelper(c);
+        this.dbwrite = helper.getWritableDatabase();
+        this.dbread = helper.getReadableDatabase();
     }
 }

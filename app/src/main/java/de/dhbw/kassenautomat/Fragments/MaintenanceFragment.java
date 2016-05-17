@@ -1,5 +1,6 @@
 package de.dhbw.kassenautomat.Fragments;
 
+import android.app.Dialog;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -28,6 +29,9 @@ public class MaintenanceFragment extends Fragment {
 
     private Button btnResetCoins;
     private Button btnEndMaintenance;
+    private Button btnResetDB;
+    private Button btnShowSettings;
+    private Button btnCreateTestTicket;
 
     Map<Integer, ProgressBar> pgr_Bars = new HashMap<Integer, ProgressBar>();
     Map<Integer, TextView> txt_Views = new HashMap<Integer, TextView>();
@@ -83,6 +87,9 @@ public class MaintenanceFragment extends Fragment {
 
         btnResetCoins = (Button) layoutMaintenance.findViewById(R.id.btnResetCoins);
         btnEndMaintenance = (Button) layoutMaintenance.findViewById(R.id.btnEndMaintenance);
+        btnResetDB = (Button) layoutMaintenance.findViewById(R.id.btnResetDB);
+        btnShowSettings = (Button) layoutMaintenance.findViewById(R.id.btnShowSettings);
+        btnCreateTestTicket = (Button) layoutMaintenance.findViewById(R.id.btnCreateTestTicket);
 
         pgr_Bars.put(0, (ProgressBar) layoutMaintenance.findViewById(R.id.prog0));
         pgr_Bars.put(5, (ProgressBar) layoutMaintenance.findViewById(R.id.prog5));
@@ -102,6 +109,9 @@ public class MaintenanceFragment extends Fragment {
 
         btnResetCoins.setOnClickListener(btnResetCoinsPressed);
         btnEndMaintenance.setOnClickListener(btnEndMaintenancePressed);
+        btnResetDB.setOnClickListener(btnResetDbPressed);
+        btnShowSettings.setOnClickListener(btnShowSettingsPressed);
+        btnCreateTestTicket.setOnClickListener(btnCreateTestTicketPressed);
 
         updateLevels();
         // so it can be displayed
@@ -113,6 +123,36 @@ public class MaintenanceFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
     }
+
+    private View.OnClickListener btnResetDbPressed  = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            //TODO add dialog to ask maintenance worker whether he is sure about this 'n stuff
+
+            MainActivity.getDBmanager().resetDatabase();
+            updateLevels();
+
+            String message = String.format("Der Automat wurde auf den Werkszustand zurückgesetzt.");
+
+            Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+        }
+    };
+
+    private View.OnClickListener btnShowSettingsPressed = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            //TODO change view to Settings overview
+            Toast.makeText(getActivity(), "TODO: Einstellungen anzeigen", Toast.LENGTH_SHORT).show();
+        }
+    };
+
+    private View.OnClickListener btnCreateTestTicketPressed = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            //TODO change view to Create TestTicket
+            Toast.makeText(getActivity(), "TODO: View TestTicket anzeigen", Toast.LENGTH_SHORT).show();
+        }
+    };
 
     private View.OnClickListener btnResetCoinsPressed = new View.OnClickListener() {
         public void onClick(View v) {
