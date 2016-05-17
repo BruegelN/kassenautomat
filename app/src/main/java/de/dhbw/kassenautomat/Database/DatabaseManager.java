@@ -251,6 +251,50 @@ public class DatabaseManager {
         helper.setDefaultCoinLevels(dbwrite);
     }
 
+    /**
+    *   reads a setting from the database
+    *   @return String representing the value read
+     */
+    public String read_setting(String setting)
+    {
+        Cursor c = dbread.rawQuery("SELECT value from settings WHERE setting = '" + setting+"'", null);
+
+        if (c.getCount()!=1)
+            return null;
+
+        c.moveToFirst();
+        String result = c.getString(0);
+        c.close();
+        return result;
+    }
+
+    /**
+     *   sets a setting to the database
+     *   @return true if successfully set
+     */
+    public boolean set_setting(String setting, String value)
+    {
+        if (read_setting(setting) == null)
+        { // setting is not in db yet; insert new setting
+            ContentValues values = new ContentValues();
+            values.put("setting", setting);
+            values.put("value", value);
+
+            if (-1 != dbwrite.insert("settings", null, values))
+                return true;
+        }
+        else
+        { // setting has been in db before; update it
+            ContentValues values = new ContentValues();
+            values.put("value", value);
+
+            if (1 == dbwrite.update("settings", values, "setting=?", new String[]{ setting }))
+                return true;
+        }
+
+        return false;
+    }
+
     /*
     * This should only be used for tests
      */
