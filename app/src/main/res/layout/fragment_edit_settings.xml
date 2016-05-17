@@ -78,6 +78,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/lbl_AbortSettings"
-        android:id="@+id/btn_Abord" />
+        android:id="@+id/btn_Abort" />
 
 </LinearLayout>
