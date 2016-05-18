@@ -53,7 +53,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Ticket lösen"
+            android:text="@string/strCreateTicket"
             android:layout_gravity="center_horizontal"/>
 
         <Button

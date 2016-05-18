@@ -9,7 +9,7 @@
     <string name="strStartTime">Start der Parkzeit:</string>
     <string name="strTime">Uhrzeit</string>
     <string name="strMaintainAutomate">Automat warten</string>
-    <string name="strCreateString">Ticket lösen</string>
+    <string name="strCreateTicket">Ticket lösen</string>
     <string name="strPrakingTicket">Parkticket</string>
     <string name="strRefillCoins">Münzbehälter leeren/füllen</string>
     <string name="strResetDB">Automaten zurücksetzen</string>
