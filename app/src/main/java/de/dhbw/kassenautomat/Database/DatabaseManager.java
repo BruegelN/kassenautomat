@@ -257,11 +257,12 @@ public class DatabaseManager {
      */
     public String read_setting(String setting)
     {
-        Cursor c = dbread.rawQuery("SELECT value from settings WHERE setting = " + setting, null);
+        Cursor c = dbread.rawQuery("SELECT value from settings WHERE setting = '" + setting+"'", null);
 
         if (c.getCount()!=1)
             return null;
 
+        c.moveToFirst();
         String result = c.getString(0);
         c.close();
         return result;
@@ -273,7 +274,25 @@ public class DatabaseManager {
      */
     public boolean set_setting(String setting, String value)
     {
-        return true;
+        if (read_setting(setting) == null)
+        { // setting is not in db yet; insert new setting
+            ContentValues values = new ContentValues();
+            values.put("setting", setting);
+            values.put("value", value);
+
+            if (-1 != dbwrite.insert("settings", null, values))
+                return true;
+        }
+        else
+        { // setting has been in db before; update it
+            ContentValues values = new ContentValues();
+            values.put("value", value);
+
+            if (1 == dbwrite.update("settings", values, "setting=?", new String[]{ setting }))
+                return true;
+        }
+
+        return false;
     }
 
     /*
