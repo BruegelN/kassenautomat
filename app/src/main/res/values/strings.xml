@@ -39,4 +39,5 @@
     <string name="dropChange">Geldrückgabe</string>
     <string name="strDefaultPricePerUnit">0,50 €</string>
     <string name="strCreateTestTicket">Test-Ticket erstellen</string>
+    <string name="strWarningTicketInFuture">Zeitpunk in der Zunkuft!\nAktueller Zeitpunkt genommen.</string>
 </resources>
