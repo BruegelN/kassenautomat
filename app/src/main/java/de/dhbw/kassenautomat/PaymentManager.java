@@ -2,6 +2,7 @@ package de.dhbw.kassenautomat;
 
 import android.widget.Toast;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -13,10 +14,20 @@ import de.dhbw.kassenautomat.Database.DatabaseManager;
 /**
  * Created by trugf on 10.05.2016.
  */
-public class PaymentManager {
+public class PaymentManager implements Serializable {
+
+    // field which is used by java serializable runtime to identify an object on deserialization.
+    private static final long serialVersionUID = 43l; // don't question it!
+    public  static final  String SERIAL_KEY = "PaymentManagerSerial";
+
     private ParkingTicket ticket;
     private Map<Integer,Integer> paidCoins;
-    private DatabaseManager dbm;
+
+    //this info will be saved for later use (display payment data & create receipt)
+    private float rawPrice;
+    private float remainingPrice;
+    private float change;
+    private int minutesParked;
 
     /**
      * Constructor
@@ -24,7 +35,6 @@ public class PaymentManager {
      */
     public PaymentManager(ParkingTicket ticket)
     {
-        dbm = MainActivity.getDBmanager();
         this.ticket = ticket;
         paidCoins = new HashMap<>();
 
@@ -50,7 +60,8 @@ public class PaymentManager {
             remainingPrice = remainingPrice - coin * paidCoins.get(coin);
         }
 
-        return (float)remainingPrice/(float)100;
+        float FremainingPrice = (float)remainingPrice/(float)100;
+        return FremainingPrice;
     }
 
     /**
@@ -63,12 +74,15 @@ public class PaymentManager {
         Date now = new Date();
 
         long diff = now.getTime()- ticketCreated.getTime();
-        long minutes = TimeUnit.MILLISECONDS.toMinutes(diff);
+        int minutes = (int)TimeUnit.MILLISECONDS.toMinutes(diff);
+
+        this.minutesParked = minutes;
 
         int startedHalfHours = (int)(minutes/30)+1;
 
         int rawPrice = startedHalfHours * COIN_DATA.COST_PER_HALF_HOUR;
 
+        this.rawPrice = rawPrice/(float)100; // save for later processing
         return rawPrice;
     }
 
@@ -83,6 +97,7 @@ public class PaymentManager {
      */
     public int insertCoin(int value)
     {
+        DatabaseManager dbm = MainActivity.getDBmanager();
         String message;
         int result;
 
@@ -112,7 +127,10 @@ public class PaymentManager {
         dbm.setCoinLevel(value, coinLevel+1);
 
         if (calculatePrice()<=0)
+        {
+            this.remainingPrice = calculatePrice();
             return 2; // last coin inserted
+        }
         return 1; // coin successfully inserted
 
     }
@@ -123,6 +141,7 @@ public class PaymentManager {
      */
     public Map<Integer, Integer> undoPayment()
     {
+        DatabaseManager dbm = MainActivity.getDBmanager();
         for (int coin:COIN_DATA.COINS)
         {
             int lvlBefore = dbm.getCoinLevel(coin);
@@ -142,7 +161,7 @@ public class PaymentManager {
     private boolean acceptCoin()
     {
         Random rd = new Random();
-        return rd.nextFloat()>=0.10f; //10% of coins wont be accepted #evilFace
+        return rd.nextFloat()>=COIN_DATA.REJECTED_COINS_SHARE; //10% of coins wont be accepted #evilFace
     }
 
 
@@ -153,6 +172,7 @@ public class PaymentManager {
      */
     public Map<Integer, Integer> getChange(int Price)
     {
+        DatabaseManager dbm = MainActivity.getDBmanager();
         Map<Integer, Integer> change = new HashMap<Integer, Integer>();
         int remainingPrice = Price;
 
@@ -199,6 +219,7 @@ public class PaymentManager {
         // if the change fits, return it
         if (remainingPrice == 0)
         {
+            this.change = getSum(change);
             return change;
         }
         else
@@ -229,5 +250,16 @@ public class PaymentManager {
         }
 
         return sum*0.01f;
+    }
+
+    /**
+     * Get a receipt for this ticket.
+     * @return Receipt object.
+     */
+    public Receipt getReceipt()
+    {
+        float paidPrice = this.rawPrice-this.remainingPrice;
+
+        return new Receipt(ticket.getID(), this.rawPrice, paidPrice, this.change, this.minutesParked,  new Date());
     }
 }
