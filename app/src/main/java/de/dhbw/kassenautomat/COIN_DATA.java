@@ -14,15 +14,19 @@ public class COIN_DATA {
     // Default settings for the automaton, which can be set by maintenance worker
     private static String LBL_REJ_C_SHARE = "rejected_coins_share";
     public static float REJECTED_COINS_SHARE = 0.1f;
+    private static final float defaultValueRejectedCoinsShare = 0.1f;
 
     private static String LBL_MAX_C_LVL = "maximum_coin_level";
     public static int MAX_COIN_LVL = 200;
+    private static final int defaultValueMaxCoinLevel= 200;
 
     private static String LBL_COST_P_HH = "cost_per_half_hour";
     public static int COST_PER_HALF_HOUR = 50; // euro cents
+    private static final int defaultValueCostPerHalfHour = 50;
 
     private static String LBL_DEF_COIN_LVL = "def_coin_level";
     public static float DEFAULT_COIN_LEVEL = 0.2f;
+    private static final float defaultValueDefaultCoinLevel = 0.2f;
 
     public static void readConfig(DatabaseManager dbm)
     {
@@ -87,5 +91,13 @@ public class COIN_DATA {
             message+="Prüfen Sie ihre Eingaben!";
 
         return message;
+    }
+
+    public static void setDefaults()
+    {
+        MAX_COIN_LVL = defaultValueMaxCoinLevel;
+        DEFAULT_COIN_LEVEL = defaultValueDefaultCoinLevel;
+        COST_PER_HALF_HOUR = defaultValueCostPerHalfHour;
+        REJECTED_COINS_SHARE = defaultValueRejectedCoinsShare;
     }
 }
