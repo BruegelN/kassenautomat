@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import de.dhbw.kassenautomat.COIN_DATA;
+import de.dhbw.kassenautomat.Database.DatabaseManager;
 import de.dhbw.kassenautomat.MainActivity;
 import de.dhbw.kassenautomat.R;
 
@@ -77,19 +78,24 @@ public class EditSettingsFragment extends Fragment{
 
     private void saveSettings()
     {
+        DatabaseManager dbm = MainActivity.getDBmanager();
+
         int maxCoinLevel = Integer.parseInt(txt_maxCoinLevel.getText().toString());
         float defaultCoinLevel = Integer.parseInt(txt_defaultCoinLevel.getText().toString())/(float)100;
         float pricePerHalfHour = Float.parseFloat(txt_PricePerHalfHour.getText().toString());
         float rejectedCoinsShare = Integer.parseInt(txt_RejectedCoinsShare.getText().toString())/(float)100;
 
-        String message = COIN_DATA.setSettings(MainActivity.getDBmanager(), maxCoinLevel, defaultCoinLevel, pricePerHalfHour, rejectedCoinsShare);
+        //TODO ask user whether he is sure to reset coin levels after setting the new settings
+
+        String message = COIN_DATA.setSettings(dbm, maxCoinLevel, defaultCoinLevel, pricePerHalfHour, rejectedCoinsShare);
 
         if (message == "")
             message = "Einstellungen gespeichert";
 
         Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
 
-        COIN_DATA.readConfig(MainActivity.getDBmanager());
+        COIN_DATA.readConfig(dbm);
+        dbm.setDefaultCoinLevels();
 
         goBackToMaintenance();
     }

@@ -22,7 +22,6 @@ public class PaymentManager implements Serializable {
 
     private ParkingTicket ticket;
     private Map<Integer,Integer> paidCoins;
-    private DatabaseManager dbm;
 
     //this info will be saved for later use (display payment data & create receipt)
     private float rawPrice;
@@ -36,7 +35,6 @@ public class PaymentManager implements Serializable {
      */
     public PaymentManager(ParkingTicket ticket)
     {
-        dbm = MainActivity.getDBmanager();
         this.ticket = ticket;
         paidCoins = new HashMap<>();
 
@@ -99,6 +97,7 @@ public class PaymentManager implements Serializable {
      */
     public int insertCoin(int value)
     {
+        DatabaseManager dbm = MainActivity.getDBmanager();
         String message;
         int result;
 
@@ -142,6 +141,7 @@ public class PaymentManager implements Serializable {
      */
     public Map<Integer, Integer> undoPayment()
     {
+        DatabaseManager dbm = MainActivity.getDBmanager();
         for (int coin:COIN_DATA.COINS)
         {
             int lvlBefore = dbm.getCoinLevel(coin);
@@ -172,6 +172,7 @@ public class PaymentManager implements Serializable {
      */
     public Map<Integer, Integer> getChange(int Price)
     {
+        DatabaseManager dbm = MainActivity.getDBmanager();
         Map<Integer, Integer> change = new HashMap<Integer, Integer>();
         int remainingPrice = Price;
 
@@ -261,6 +262,4 @@ public class PaymentManager implements Serializable {
 
         return new Receipt(ticket.getID(), this.rawPrice, paidPrice, this.change, this.minutesParked,  new Date());
     }
-
-
 }
