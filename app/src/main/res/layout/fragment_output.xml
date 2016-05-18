@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/fragmentOutput"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    android:columnCount="2">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageViewParkingCoin"
+        android:src="@drawable/parkmuenze"
+        android:contentDescription="@string/strDescParkingCoin"
+        android:scaleType="fitCenter"
+        android:layout_gravity="center_horizontal"
+        android:background="@null"
+        android:minHeight="200dp" />
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/yellow_with_black_boarder"
+        android:padding="5dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/strQuittung"
+            android:id="@+id/txtQuittung"
+            android:layout_gravity="left"
+            android:padding="5dp"
+            android:layout_row="0"
+            android:layout_column="0"
+            android:layout_columnSpan="1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/strParkedTime"
+            android:id="@+id/lblParkedTime"
+            android:layout_gravity="left"
+            android:padding="5dp"
+            android:layout_row="1"
+            android:layout_column="0"
+            android:layout_columnSpan="1" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/strDefaultParkingTime"
+            android:id="@+id/txtParkedTime"
+            android:layout_gravity="left"
+            android:padding="5dp"
+            android:layout_row="1"
+            android:layout_column="1"
+            android:layout_columnSpan="1" />
+
+        <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/lblTicketPrice"
+        android:id="@+id/lblTicketPrice"
+        android:layout_gravity="left"
+        android:padding="5dp"
+        android:layout_row="2"
+        android:layout_column="0"
+        android:layout_columnSpan="1" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/strDefaultToPay"
+            android:id="@+id/txtTicketPrice"
+            android:layout_gravity="left"
+            android:padding="5dp"
+            android:layout_row="2"
+            android:layout_column="1"
+            android:layout_columnSpan="1"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/lblPaidPrice"
+            android:id="@+id/lblPaidPrice"
+            android:layout_gravity="left"
+            android:padding="5dp"
+            android:layout_row="3"
+            android:layout_column="0"
+            android:layout_columnSpan="1" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/strDefaultToPay"
+            android:id="@+id/txtPaidPrice"
+            android:layout_gravity="left"
+            android:padding="5dp"
+            android:layout_row="3"
+            android:layout_column="1"
+            android:layout_columnSpan="1"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/lblReceivedChange"
+            android:id="@+id/lblReceivedChange"
+            android:layout_gravity="left"
+            android:padding="5dp"
+            android:layout_row="4"
+            android:layout_column="0"
+            android:layout_columnSpan="1" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/strDefaultToPay"
+            android:id="@+id/txtReceivedChange"
+            android:layout_gravity="left"
+            android:padding="5dp"
+            android:layout_row="4"
+            android:layout_column="1"
+            android:layout_columnSpan="1"/>
+    </GridLayout>
+
+<Button
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="@string/btnPrintReceipt"
+    android:id="@+id/btnPrintReceipt"
+    android:layout_gravity="center_horizontal" />
+
+
+<Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@android:string/ok"
+        android:id="@+id/buttonOK"
+        android:layout_gravity="center_horizontal" />
+
+</LinearLayout>
