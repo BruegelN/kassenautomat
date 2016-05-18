@@ -9,7 +9,7 @@
     <string name="strStartTime">Start der Parkzeit:</string>
     <string name="strTime">Uhrzeit</string>
     <string name="strMaintainAutomate">Automat warten</string>
-    <string name="strCreateString">Ticket lösen</string>
+    <string name="strCreateTicket">Ticket lösen</string>
     <string name="strPrakingTicket">Parkticket</string>
     <string name="strRefillCoins">Münzbehälter leeren/füllen</string>
     <string name="strResetDB">Automaten zurücksetzen</string>
@@ -46,6 +46,7 @@
     <string name="dropChange">Geldrückgabe</string>
     <string name="strDefaultPricePerUnit">0,50 €</string>
     <string name="strCreateTestTicket">Test-Ticket erstellen</string>
+    <string name="strWarningTicketInFuture">Zeitpunk in der Zunkuft!\nAktueller Zeitpunkt genommen.</string>
     <string name="lbl_maxCoinLevel">Größe der Münzbehälter:</string>
     <string name="lbl_defaultCoinLevel">Auffüllen/Leeren bis wie viel Prozent?</string>
     <string name="lbl_RejectedCoinsShare">Wie viel Prozent der Münzen kann der Automat nicht erkennen?</string>

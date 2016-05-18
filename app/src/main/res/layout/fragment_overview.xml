@@ -16,7 +16,7 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/strCreateString"
+        android:text="@string/strCreateTicket"
         android:id="@+id/btnStartNewTicketProcess"
         android:layout_gravity="center_horizontal|bottom" />
 
@@ -29,7 +29,8 @@
 
     <ListView
         android:layout_width="match_parent"
-        android:layout_height="342dp"
-        android:id="@android:id/list" />
+        android:layout_height="wrap_content"
+        android:id="@android:id/list"
+        android:fadeScrollbars="false"/>
 
 </LinearLayout>
