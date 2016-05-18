@@ -1,9 +1,7 @@
 package de.dhbw.kassenautomat.Fragments;
 
-import android.app.Dialog;
 import android.app.Fragment;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +17,7 @@ import java.util.Map;
 
 import de.dhbw.kassenautomat.COIN_DATA;
 import de.dhbw.kassenautomat.Database.DatabaseManager;
+import de.dhbw.kassenautomat.Dialogs.CustomYesNoDialog;
 import de.dhbw.kassenautomat.MainActivity;
 import de.dhbw.kassenautomat.R;
 
@@ -125,16 +124,34 @@ public class MaintenanceFragment extends Fragment {
     private View.OnClickListener btnResetDbPressed  = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            //TODO add dialog to ask maintenance worker whether he is sure about this 'n stuff
-            COIN_DATA.setDefaults();
-            dbm.resetDatabase();
-
-            updateLevels();
-            String message = String.format("Der Automat wurde auf den Werkszustand zurückgesetzt.");
-
-            Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+            askReset();
         }
     };
+
+    private class askReset extends CustomYesNoDialog
+    {
+        @Override
+        protected void doThingsForYes() {
+            doReset();
+        }
+    }
+
+    void askReset()
+    {
+        String title = "Automaten zurücksetzen?";
+        String message = "Wenn Sie den Automaten zurücksetzen werden alle Einstellungen und Tickets gelöscht bzw. auf den Werkszustand gesetzt. Sind Sie sicher?";
+        askReset.ShowDialog(getFragmentManager(), this, new askReset(), title, message);
+    }
+
+    void doReset()
+    {
+        COIN_DATA.setDefaults();
+        dbm.resetDatabase();
+
+        updateLevels();
+        String message = String.format("Der Automat wurde auf den Werkszustand zurückgesetzt.");
+        Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+    }
 
     private View.OnClickListener btnShowSettingsPressed = new View.OnClickListener() {
         @Override
