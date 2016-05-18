@@ -60,7 +60,6 @@ public class MaintenanceFragment extends Fragment {
             ProgressBar bar = pgr_Bars.get(coin);
             TextView txt = txt_Views.get(coin);
 
-            bar.setMax(COIN_DATA.MAX_COIN_LVL);
             bar.setProgress(coinLevel);
             txt.setText(Integer.toString(coinLevel) + "/" + Integer.toString(COIN_DATA.MAX_COIN_LVL));
         }
@@ -126,10 +125,12 @@ public class MaintenanceFragment extends Fragment {
         @Override
         public void onClick(View v) {
             //TODO add dialog to ask maintenance worker whether he is sure about this 'n stuff
-            COIN_DATA.setDefaults();
-            dbm.resetDatabase();
+
+            MainActivity.getDBmanager().resetDatabase();
+            COIN_DATA.readConfig(dbm);
 
             updateLevels();
+
             String message = String.format("Der Automat wurde auf den Werkszustand zurückgesetzt.");
 
             Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
@@ -139,6 +140,8 @@ public class MaintenanceFragment extends Fragment {
     private View.OnClickListener btnShowSettingsPressed = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            //TODO change view to Settings overview
+
             getFragmentManager().beginTransaction()
                     .replace(R.id.mainFragmentContainer, FragmentEditSettings)
                     .addToBackStack(null)
