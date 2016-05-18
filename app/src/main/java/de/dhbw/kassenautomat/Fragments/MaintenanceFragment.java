@@ -39,6 +39,7 @@ public class MaintenanceFragment extends Fragment {
     private DatabaseManager dbm;
 
     private OverviewFragment FragmentOverview;
+    private TestTicketFragment FragmentTestTicket;
     private EditSettingsFragment FragmentEditSettings;
 
     @Override
@@ -48,6 +49,7 @@ public class MaintenanceFragment extends Fragment {
          */
         FragmentEditSettings = (EditSettingsFragment) Fragment.instantiate(this.getActivity(), EditSettingsFragment.class.getName(), null);
         FragmentOverview = (OverviewFragment) Fragment.instantiate(this.getActivity(), OverviewFragment.class.getName(), null);
+        FragmentTestTicket = (TestTicketFragment) Fragment.instantiate(this.getActivity(), TestTicketFragment.class.getName(), null);
         dbm = MainActivity.getDBmanager();
 
         super.onCreate(savedInstanceState);
@@ -153,7 +155,10 @@ public class MaintenanceFragment extends Fragment {
         @Override
         public void onClick(View v) {
             //TODO change view to Create TestTicket
-            Toast.makeText(getActivity(), "TODO: View TestTicket anzeigen", Toast.LENGTH_SHORT).show();
+            getFragmentManager().beginTransaction()
+                    .replace(R.id.mainFragmentContainer, FragmentTestTicket)
+                    .addToBackStack(null)
+                    .commitAllowingStateLoss();
         }
     };
 

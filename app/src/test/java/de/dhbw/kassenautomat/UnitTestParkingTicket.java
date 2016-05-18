@@ -50,6 +50,22 @@ public class UnitTestParkingTicket
     }
 
     @Test
+    public void CreateParkingTicketWithDate() throws ParseException
+    {
+        Date validDate = new Date();
+
+        ParkingTicket validTicket = new ParkingTicket(validDate);
+
+        assertTrue(validTicket.getCreated() == validDate);
+
+        Date invalidDate  = new Date();
+        // quite some time in the future!
+        invalidDate.setTime(validDate.getTime()+10000);
+        ParkingTicket  invalidTicket = new ParkingTicket(invalidDate);
+        assertTrue(invalidTicket.getCreated() != invalidDate);
+    }
+
+    @Test
     public void CheckRandomNumberGeneration()
     {
         for (int i = 0; i<100; i++) //create some 100 new Tickets and check whether the print Quality is in range...
