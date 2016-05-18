@@ -128,7 +128,7 @@ public class MaintenanceFragment extends Fragment {
         }
     };
 
-    private class askReset extends CustomYesNoDialog
+    public class askReset extends CustomYesNoDialog
     {
         @Override
         protected void doThingsForYes() {
