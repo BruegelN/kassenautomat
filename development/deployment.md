@@ -17,10 +17,10 @@ fi
 ```
 Möglicherweise ist es sinnvoll die Testergebnisse immer auf den DHBW Server zu laden!
 
-#### Upload (TODO)
-Mit folgendem Kommando soll der Output von TravisCI auf das User-Laufwerk geladen werden, wobei Nutzername, Passwort (evtl. Host und Pfad) mit ```travis encrypt```(1) verschlüsselt werden sollten.
-
-In ```.travis.yml```ergänzen:
+#### Upload
+Mit folgendem Kommando wird der Output von TravisCI auf das User-Laufwerk (http://wwwlehre.dhbw-stuttgart.de/~it14142/kassenautomat/) geladen werden.
+sshpass erlaubt mit Nutzername und Passwort per ssh die Daten zu übertragen.
+Das sshpass auf dem TravisCI-Server installiert wird in ```.travis.yml```ergänzen:
 ```yaml
 addons:
     apt:
@@ -28,11 +28,33 @@ addons:
             - sshpass
 ```
 
-Und dann mit ```sshpass```(5) uploaden:
-```bash
-- export SSHPASS=meinVerschlüsseltesPasswort
-- sshpass -e scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null /path/to/output/which/should/be/uploaded USERNAME@nimwen.dhbw-stuttgart.de:~/public-html/kassenautomat/$TRAVIS_BUILD_NUMBER/
+Diese privaten Daten werden mithilfe von ```travis encrypt```(1) verschlüsselt, sodass diese nicht im Klartext angegeben werden müssen. Diese Daten werden dann als Umgebungsvariablen gesetzt und erst bei jedem Buildprozess wieder entschlüsselt.
+```yaml
+env:
+  global:
+    - secure: KwBSu+wmC632kqnO1Kn2 [...]
+    - secure: Ula6twtS6IwLd96      [...]
+    - secure: VLVhFxhZumHluGeUx    [...]
+    - secure: KTWAUDF7             [...]
 ```
+
+Und dann mit ```sshpass```(5) uploaden im Script ```deploy_app_build.sh```:
+```bash
+## upload to ssh page
+export SSHPASS=$SSH_PASSWD
+sshpass -e scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -r ./app/build $SSH_USER@$SSH_DOMAIN:${OUTPUT_PATH}
+```
+
+Auf dem User-Laufwerk wird für jeden Build eine neuer Order erstellt bestehend aus Build-Nummer und dem Namen des git branches z.b. ```69_TicketManager_Implementation```.
+In jedem Ordner befindet sich die Unterorder:
+* apk
+* linter
+* reports
+
+Im Unterordner ```apk``` befindet sich ```app-debug.apk``` welche für Testzwecke auf dem Handy installiert werden kann.
+Die Ergebnisse von Android Lint sind in unter ```linter``` abgelegt. Android Lint ist ein Tool zu statischen Code Analyse von Android.
+Unter ```reports``` werden die Testergebnisse der Unit-Test gespeichert.
+
 
 Reference:
   - (1) travis encrypt: https://docs.travis-ci.com/user/encryption-keys/
