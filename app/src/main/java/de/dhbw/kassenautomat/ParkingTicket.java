@@ -37,6 +37,29 @@ public class ParkingTicket implements Serializable{
     }
 
     /**
+     *   An alternative constructor to create a ticket with a give Date.
+     *   It sets the creation timestamp to the given date, id and generates the print quality of the new ParkingTicket.
+     *   @return Object of type ParkingTicket
+     */
+    public ParkingTicket(Date timestamp)
+    {
+        ID = -1; // some kind of dummy ID since the real one will be autoincremented by database
+        printQuality= generatePrintQuality();
+        paid = false;
+
+        Date now = new Date();
+        if(now.before(timestamp))
+        {
+            // it not possible to create a ticket in future!
+            Created = now;
+        }
+        else
+        {
+            Created = timestamp;
+        }
+    }
+
+    /**
     *   This is an alternative constructor of the ParkingTicket class.
     *   It will recreate a ParkingTicket instance by the given saved value.
     *   @param  savedValue (string) - The saved string of another instance of ParkingTicket. Usually created by the toString-method of this class.

@@ -7,8 +7,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import de.dhbw.kassenautomat.COIN_DATA;
 import de.dhbw.kassenautomat.MainActivity;
 import de.dhbw.kassenautomat.R;
 import de.dhbw.kassenautomat.TicketManager;
@@ -24,6 +26,7 @@ public class NewTicketFragment extends Fragment {
     private Button btnCancelNewTicket;
     private Button btnCreateTicket;
 
+    private TextView tvPrivePerUnit;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -45,7 +48,16 @@ public class NewTicketFragment extends Fragment {
         btnCreateTicket.setOnClickListener(btnCreateTicketPressed);
         btnCancelNewTicket.setOnClickListener(btnCancelNewTicketPressed);
 
+        tvPrivePerUnit = (TextView) newTicketLayout.findViewById(R.id.lblPricePerUnit);
+
         return newTicketLayout ;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        tvPrivePerUnit.setText(String.format("%,.2f €",COIN_DATA.COST_PER_HALF_HOUR/(float)100));
     }
 
     View.OnClickListener btnCreateTicketPressed = new View.OnClickListener() {
