@@ -68,9 +68,7 @@ public class PayFragment extends Fragment {
          * Bind buttons to corresponding view element identified by their ID.
          * And register button-click handlers.
          */
-        btnQuittung = (Button) layoutPay.findViewById(R.id.btnQuittung);
         btnAbort = (Button) layoutPay.findViewById(R.id.btnAbort);
-        btnQuittung.setOnClickListener(btnQuittungPressed);
         btnAbort.setOnClickListener(btnAbortPressed);
 
         /**
@@ -117,17 +115,6 @@ public class PayFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
     }
 
-    /**
-     * onClickListener to get the bill after payed ticket!
-     *
-     */
-    private View.OnClickListener btnQuittungPressed = new View.OnClickListener() {
-        public void onClick(View v) {
-
-            // TODO check already enough payed!
-            Toast.makeText(getActivity(), "TODO Quittung", Toast.LENGTH_SHORT).show();
-        }
-    };
 
     /**
      * onClickListener to abort pay ticket process.

@@ -54,7 +54,8 @@ public class DatabaseManager {
                 boolean paid = Boolean.parseBoolean(c.getString(3));
 
                 //This is basically the toString function of ParkingTicket
-                strings.add(Integer.toString(ID)+Delimiter+ParkingTicket.getSimpleDateFormat().format(Created)+Delimiter+Integer.toString(printQuality)+Delimiter+Boolean.toString(paid));
+                if (!paid) // return only unpaid tickets
+                    strings.add(Integer.toString(ID)+Delimiter+ParkingTicket.getSimpleDateFormat().format(Created)+Delimiter+Integer.toString(printQuality)+Delimiter+Boolean.toString(paid));
                 c.moveToNext();
         }
         c.close();

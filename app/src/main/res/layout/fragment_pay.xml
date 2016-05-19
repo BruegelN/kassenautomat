@@ -135,12 +135,6 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/strBill"
-        android:id="@+id/btnQuittung" />
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:text="@android:string/cancel"
         android:id="@+id/btnAbort" />
 
