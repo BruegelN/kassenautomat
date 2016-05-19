@@ -244,6 +244,11 @@ public class PayFragment extends Fragment {
             Map<Integer, Integer> change = paymentmgr.getChange((int)(remainingPrice*100));
             dropChange(change);
 
+            Bundle paymentData = new Bundle();
+            paymentData.putSerializable(PaymentManager.SERIAL_KEY, paymentmgr);
+
+            FragmentOutput.setArguments(paymentData);
+
             // change to view Output where the Parking coin is displayed and receipt stuff can be handled.
             getFragmentManager().beginTransaction()
                     .replace(R.id.mainFragmentContainer, FragmentOutput)

@@ -3,6 +3,7 @@ package de.dhbw.kassenautomat.Database;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.SearchRecentSuggestionsProvider;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -23,9 +24,11 @@ import de.dhbw.kassenautomat.Receipt;
 public class DatabaseManager {
     private SQLiteDatabase dbread, dbwrite;
     private MySQLiteOpenHelper helper;
+    private Context c;
 
     public DatabaseManager(Context c)
     {
+        this.c = c;
         helper = new MySQLiteOpenHelper(c);
 
         dbread = helper.getReadableDatabase();
@@ -166,27 +169,36 @@ public class DatabaseManager {
 
     /**
      * This will set the paid-status of a ticket and save an receipt into the DB if requested.
-     * @param id ID of the ticket.
-     * @param price Price that has been paid, only if receipt is requested
+     * @param tmpReceipt: Receipt object of ticket to be set paid
      * @param saveReceipt true if receipt should be saved, else false.
      * @return false on error, else true.
      */
-    public boolean setTicketPaid(int id, float price, boolean saveReceipt) throws Exception {
+    public boolean setTicketPaid(Receipt tmpReceipt, boolean saveReceipt) {
+        int id = tmpReceipt.getFKid();
+        int ticketPrice = (int)(tmpReceipt.getTicketPrice()*100);
+        int paidPrice = (int)(tmpReceipt.getPaidPrice()*100);
+        int receivedChange = (int)(tmpReceipt.getReceivedChange()*100);
+        int minutesParked = tmpReceipt.getMinutesParked();
+        Date date = tmpReceipt.getPaid();
+
         //STEP 1: Set ticket paid in tickets table.
         ContentValues update = new ContentValues();
         update.put("paid", true);
 
         if (1 != dbwrite.update("tickets", update, "id=?", new String[]{Integer.toString(id)}))
-            throw new Exception("NOPE1");
+            return false;
 
         if (saveReceipt) {
             //STEP 2: Save the receipt
             ContentValues values = new ContentValues();
             values.put("FKid", id);
-            values.put("price", (int) (price * 100));
-            values.put("paid", new SimpleDateFormat().format(new Date()));
+            values.put("ticketPrice", ticketPrice);
+            values.put("paidPrice", paidPrice);
+            values.put("receivedChange", receivedChange);
+            values.put("minutesParked", minutesParked);
+            values.put("paid", new SimpleDateFormat().format(date));
             if (-1 == dbwrite.insert("receipt", null, values))
-                throw new Exception("NOPE2");
+                return false;
         }
 
         return true;
@@ -199,7 +211,7 @@ public class DatabaseManager {
      */
     public Receipt getReceipt(int ID)
     {
-        Cursor c = dbread.rawQuery("SELECT FKid, paid, price from receipt WHERE FKid = " + ID, null);
+        Cursor c = dbread.rawQuery("SELECT FKid, paid, ticketPrice, paidPrice, receivedChange, minutesParked from receipt WHERE FKid = " + ID, null);
 
         if (c.getCount()!=1)
             return null;
@@ -216,9 +228,14 @@ public class DatabaseManager {
         {
             return null;
         }
-        float price = (float)Integer.parseInt(c.getString(2))/100;
+        float ticketPrice = (float)Integer.parseInt(c.getString(2))/100;
+        float paidPrice = (float)Integer.parseInt(c.getString(3))/100;
+        float receivedChange = (float)Integer.parseInt(c.getString(4))/100;
+        int minutesParked = Integer.parseInt(c.getString(5));
 
-        Receipt rec = new Receipt(FKid, price, paid);
+        c.close();
+
+        Receipt rec = new Receipt(FKid, ticketPrice, paidPrice, receivedChange, minutesParked, paid);
 
         return rec;
     }
@@ -234,8 +251,68 @@ public class DatabaseManager {
         helper.setDefaultCoinLevels(dbwrite);
     }
 
+    /**
+    *   reads a setting from the database
+    *   @return String representing the value read
+     */
+    public String read_setting(String setting)
+    {
+        Cursor c = dbread.rawQuery("SELECT value from settings WHERE setting = '" + setting+"'", null);
+
+        if (c.getCount()!=1)
+            return null;
+
+        c.moveToFirst();
+        String result = c.getString(0);
+        c.close();
+        return result;
+    }
+
+    /**
+     *   sets a setting to the database
+     *   @return true if successfully set
+     */
+    public boolean set_setting(String setting, String value)
+    {
+        if (read_setting(setting) == null)
+        { // setting is not in db yet; insert new setting
+            ContentValues values = new ContentValues();
+            values.put("setting", setting);
+            values.put("value", value);
+
+            if (-1 != dbwrite.insert("settings", null, values))
+                return true;
+        }
+        else
+        { // setting has been in db before; update it
+            ContentValues values = new ContentValues();
+            values.put("value", value);
+
+            if (1 == dbwrite.update("settings", values, "setting=?", new String[]{ setting }))
+                return true;
+        }
+
+        return false;
+    }
+
+    /*
+    * This should only be used for tests
+     */
     public void deleteDatabase()
     {
         helper.deleteDB();
+    }
+
+    /*
+    * Delete the Database and create a new one
+     */
+    public void resetDatabase()
+    {
+        // delete DB as above
+        deleteDatabase();
+        // Acquire a new helper which creates a new DB since the old one was deleted.
+        this.helper = new MySQLiteOpenHelper(c);
+        this.dbwrite = helper.getWritableDatabase();
+        this.dbread = helper.getReadableDatabase();
     }
 }
