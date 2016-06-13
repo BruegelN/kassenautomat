@@ -61,12 +61,12 @@ public class UnitTestDatabase {
     @Test
     public void test_saveTicket() throws Exception
     {
-        int ticket_count_before = dbm.getTickets().size();
+        int ticket_count_before = dbm.getUnpaidTickets().size();
 
         ParkingTicket Ticket = new ParkingTicket();
         assertTrue(dbm.saveTicket(Ticket));
 
-        int ticket_count_after =  dbm.getTickets().size();
+        int ticket_count_after =  dbm.getUnpaidTickets().size();
 
         assertTrue(Integer.toString(ticket_count_after) + "<after before>" + Integer.toString(ticket_count_before),ticket_count_after-1 == ticket_count_before);
     }
@@ -75,7 +75,7 @@ public class UnitTestDatabase {
     public void test_reinstantiateTicket() throws Exception
     {
         test_saveTicket();
-        List<String> savedTickets = dbm.getTickets();
+        List<String> savedTickets = dbm.getUnpaidTickets();
 
         assertTrue(savedTickets.size() > 0); //There must be at least one saved ticket for this test. This should be given from the test above
 
@@ -89,25 +89,25 @@ public class UnitTestDatabase {
     {
         //get some Ticket from the DB or create and save a new one if DB is empty
         ParkingTicket pT;
-        if (dbm.getTickets().size()>0)
+        if (dbm.getUnpaidTickets().size()>0)
         {
-            pT = new ParkingTicket(dbm.getTickets().get(0));
+            pT = new ParkingTicket(dbm.getUnpaidTickets().get(0));
         }
         else
         {
             pT= new ParkingTicket();
             assertTrue(dbm.saveTicket(pT));
-            pT = new ParkingTicket(dbm.getTickets().get(0));
+            pT = new ParkingTicket(dbm.getUnpaidTickets().get(0));
             //pT must be read from DB, since its ID is created by DB
         }
 
         assertNotNull(pT);
 
-        int ticket_count_before = dbm.getTickets().size();
+        int ticket_count_before = dbm.getUnpaidTickets().size();
 
         assertTrue(dbm.removeTicket(pT.getID()));
 
-        int ticket_count_after = dbm.getTickets().size();
+        int ticket_count_after = dbm.getUnpaidTickets().size();
 
         assertTrue(ticket_count_after + 1 == ticket_count_before); //some kind of double check, just to be sure
     }
@@ -117,15 +117,15 @@ public class UnitTestDatabase {
     {
         //get some Ticket from the DB or create and save a new one if DB is empty
         ParkingTicket pT;
-        if (dbm.getTickets().size()>0)
+        if (dbm.getUnpaidTickets().size()>0)
         {
-            pT = new ParkingTicket(dbm.getTickets().get(0));
+            pT = new ParkingTicket(dbm.getUnpaidTickets().get(0));
         }
         else
         {
             pT= new ParkingTicket();
             assertTrue(dbm.saveTicket(pT));
-            pT = new ParkingTicket(dbm.getTickets().get(0));
+            pT = new ParkingTicket(dbm.getUnpaidTickets().get(0));
             //pT must be read from DB, since its ID is created by DB
         }
 
