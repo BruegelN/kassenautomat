@@ -39,7 +39,7 @@ public class DatabaseManager {
      * This will return all tickets in Database as String-ArrayList.
      * @return String-ArrayList with saved tickets
      */
-    public List<String> getTickets() throws ParseException {
+    public List<String> getUnpaidTickets() throws ParseException {
         List<String> strings = new ArrayList<String>();
 
         Cursor c = dbread.rawQuery("select id, created, print_quality, paid from tickets", null);
@@ -183,7 +183,7 @@ public class DatabaseManager {
 
         //STEP 1: Set ticket paid in tickets table.
         ContentValues update = new ContentValues();
-        update.put("paid", true);
+        update.put("paid", "true");
 
         if (1 != dbwrite.update("tickets", update, "id=?", new String[]{Integer.toString(id)}))
             return false;
