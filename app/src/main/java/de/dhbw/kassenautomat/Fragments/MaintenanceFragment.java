@@ -1,10 +1,10 @@
 package de.dhbw.kassenautomat.Fragments;
 
-import android.app.Dialog;
 import android.app.Fragment;
+import android.content.DialogInterface;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -126,18 +126,41 @@ public class MaintenanceFragment extends Fragment {
     private View.OnClickListener btnResetDbPressed  = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            //TODO add dialog to ask maintenance worker whether he is sure about this 'n stuff
-
-            MainActivity.getDBmanager().resetDatabase();
-            COIN_DATA.readConfig(dbm);
-
-            updateLevels();
-
-            String message = String.format("Der Automat wurde auf den Werkszustand zurückgesetzt.");
-
-            Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+            askReset();
         }
     };
+
+    void askReset()
+    {
+        DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+               if (which == DialogInterface.BUTTON_POSITIVE) {
+                   //Yes button clicked
+                   doReset();
+               }
+            }
+        };
+
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this.getActivity());
+        builder
+                .setTitle(R.string.strTitelResetAutomata)
+                .setMessage(R.string.strMessageResetAutomata)
+                .setPositiveButton(android.R.string.yes, dialogClickListener)
+                .setNegativeButton(android.R.string.no, dialogClickListener)
+                .show();
+    }
+
+    void doReset()
+    {
+        COIN_DATA.setDefaults();
+        dbm.resetDatabase();
+
+        updateLevels();
+        String message = String.format("Der Automat wurde auf den Werkszustand zurückgesetzt.");
+        Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+    }
 
     private View.OnClickListener btnShowSettingsPressed = new View.OnClickListener() {
         @Override
