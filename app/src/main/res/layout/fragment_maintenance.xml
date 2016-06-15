@@ -263,7 +263,7 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/strResetDB"
+        android:text="@string/strResetAutomata"
         android:id="@+id/btnResetDB"
         android:layout_row="12"
         android:layout_column="0"

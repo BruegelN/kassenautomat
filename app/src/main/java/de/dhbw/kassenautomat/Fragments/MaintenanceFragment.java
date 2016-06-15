@@ -1,8 +1,10 @@
 package de.dhbw.kassenautomat.Fragments;
 
 import android.app.Fragment;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +19,6 @@ import java.util.Map;
 
 import de.dhbw.kassenautomat.COIN_DATA;
 import de.dhbw.kassenautomat.Database.DatabaseManager;
-import de.dhbw.kassenautomat.Dialogs.CustomYesNoDialog;
 import de.dhbw.kassenautomat.MainActivity;
 import de.dhbw.kassenautomat.R;
 
@@ -129,19 +130,26 @@ public class MaintenanceFragment extends Fragment {
         }
     };
 
-    public class askReset extends CustomYesNoDialog
-    {
-        @Override
-        protected void doThingsForYes() {
-            doReset();
-        }
-    }
-
     void askReset()
     {
-        String title = "Automaten zurücksetzen?";
-        String message = "Wenn Sie den Automaten zurücksetzen werden alle Einstellungen und Tickets gelöscht bzw. auf den Werkszustand gesetzt. Sind Sie sicher?";
-        askReset.ShowDialog(getFragmentManager(), this, new askReset(), title, message);
+        DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+               if (which == DialogInterface.BUTTON_POSITIVE) {
+                   //Yes button clicked
+                   doReset();
+               }
+            }
+        };
+
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this.getActivity());
+        builder
+                .setTitle(R.string.strTitelResetAutomata)
+                .setMessage(R.string.strMessageResetAutomata)
+                .setPositiveButton(android.R.string.yes, dialogClickListener)
+                .setNegativeButton(android.R.string.no, dialogClickListener)
+                .show();
     }
 
     void doReset()
