@@ -1,14 +1,7 @@
 package de.dhbw.kassenautomat;
 
-import android.support.annotation.NonNull;
-
-import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.ListIterator;
 
 /**
  * Created by trugf on 19.04.2016.
@@ -60,7 +53,7 @@ public class TicketManager {
 
         try
         {
-            savedStrings = MainActivity.getDBmanager().getTickets();
+            savedStrings = MainActivity.getDBmanager().getUnpaidTickets();
 
             for (String savedString:savedStrings)
             {
