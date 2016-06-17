@@ -11,18 +11,18 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/strReceipt"
-        android:id="@+id/textView" />
+        android:id="@+id/txtSelectReceipt" />
 
     <ListView
         android:layout_width="match_parent"
         android:layout_height="300dp"
-        android:id="@android:id/list"
+        android:id="@+id/receiptList"
         android:fadeScrollbars="false"/>
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/strBack"
-        android:id="@+id/btnStartNewTicketProcess"
+        android:id="@+id/btnBack"
         android:layout_gravity="center_horizontal|bottom" />
 </LinearLayout>
