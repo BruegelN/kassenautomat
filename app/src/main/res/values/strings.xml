@@ -57,5 +57,6 @@
     <string name="lbl_AbortSettings">Abbrechen</string>
     <string name="strMessageResetAutomata">Wenn Sie den Automaten zurücksetzen werden alle Einstellungen und Tickets gelöscht bzw. auf den Werkszustand gesetzt.</string>
     <string name="strReceipt">Quittung auswählen:</string>
+    <string name="strViewReceipts">Quittungen anzeigen</string>
 
 </resources>

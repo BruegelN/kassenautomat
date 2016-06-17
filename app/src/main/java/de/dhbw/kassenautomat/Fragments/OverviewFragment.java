@@ -2,6 +2,7 @@ package de.dhbw.kassenautomat.Fragments;
 
 import android.app.Fragment;
 import android.app.ListFragment;
+import android.content.ReceiverCallNotAllowedException;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -32,6 +33,7 @@ public class OverviewFragment extends ListFragment{
     private MaintenanceFragment FragmentMaintenance;
     private PayFragment FragmentPay;
     private NewTicketFragment FragmentNewTicket;
+    private ReceiptOverviewFragment FragmentReceiptOverview;
 
     /**
      * Button to go in maintenance mode.
@@ -44,6 +46,11 @@ public class OverviewFragment extends ListFragment{
      * Private button for elements used in overview fragment.
      */
     private Button btnCreateTicket;
+
+    /**
+     * Button to enter the receipt overview fragment.
+     */
+    private Button btnViewReceipts;
 
     private ArrayList<String> arrayList;
     private ArrayAdapter<String> arrayAdapter;
@@ -64,6 +71,7 @@ public class OverviewFragment extends ListFragment{
         FragmentMaintenance = (MaintenanceFragment) Fragment.instantiate(this.getActivity(), MaintenanceFragment.class.getName(), null);
         FragmentPay = (PayFragment) Fragment.instantiate(this.getActivity(), PayFragment.class.getName(), null);
         FragmentNewTicket = (NewTicketFragment) Fragment.instantiate(this.getActivity(), NewTicketFragment.class.getName(), null);
+        FragmentReceiptOverview = (ReceiptOverviewFragment) Fragment.instantiate(this.getActivity(), ReceiptOverviewFragment.class.getName(), null);
 
         super.onCreate(savedInstanceState);
     }
@@ -82,10 +90,12 @@ public class OverviewFragment extends ListFragment{
          */
         btnMaintenance = (Button) LayoutOverview.findViewById(R.id.btnMaintenance);
         btnCreateTicket = (Button) LayoutOverview.findViewById(R.id.btnStartNewTicketProcess);
+        btnViewReceipts = (Button) LayoutOverview.findViewById(R.id.btnViewReceipts);
 
         // Set handlers for button click events.
         btnMaintenance.setOnClickListener(btnMaintenancePressed);
         btnCreateTicket.setOnClickListener(btnCreateTicketPressed);
+        btnViewReceipts.setOnClickListener(btnViewReceiptsPressed);
 
 
         tmr = MainActivity.getTicketMgr();
@@ -134,7 +144,19 @@ public class OverviewFragment extends ListFragment{
 
         }
     };
-    
+
+    /**
+     * onClickListener for show receipts button
+     */
+    private View.OnClickListener btnViewReceiptsPressed = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            getFragmentManager().beginTransaction()
+                    .replace(R.id.mainFragmentContainer, FragmentReceiptOverview)
+                    .addToBackStack(null)
+                    .commitAllowingStateLoss();
+        }
+    };
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
