@@ -10,15 +10,20 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/strMaintainAutomate"
-        android:id="@+id/btnMaintenance" />
+        android:text="@string/strCreateTicket"
+        android:id="@+id/btnStartNewTicketProcess" />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/strCreateTicket"
-        android:id="@+id/btnStartNewTicketProcess"
-        android:layout_gravity="center_horizontal|bottom" />
+        android:text="@string/strViewReceipts"
+        android:id="@+id/btnViewReceipts" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/strMaintainAutomate"
+        android:id="@+id/btnMaintenance" />
 
     <TextView
         android:layout_width="match_parent"
