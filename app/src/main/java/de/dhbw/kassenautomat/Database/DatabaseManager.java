@@ -206,6 +206,33 @@ public class DatabaseManager {
     }
 
     /**
+     * Get a list of all tickets for which receipts have been saved
+     * @return List of ticket-IDs
+     */
+    public ArrayList<Integer> getReceiptIDs()
+    {
+        Cursor c = dbread.rawQuery("SELECT FKid from receipt", null);
+
+        if (c.getCount() < 0)
+            return null;
+
+        c.moveToFirst();
+
+        ArrayList<Integer> IDs = new ArrayList<Integer>();
+
+        while (!c.isAfterLast())
+        {
+            int ID = Integer.parseInt(c.getString(0));
+            IDs.add(ID);
+            c.moveToNext();
+        }
+
+        c.close();
+
+        return IDs;
+    }
+
+    /**
      * This will give you the receipt corresponding to the given ticket ID.
      * @param ID Ticket id.
      * @return Receipt-object on success, else null.
