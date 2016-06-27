@@ -2,7 +2,6 @@ package de.dhbw.kassenautomat.Fragments;
 
 import android.app.Fragment;
 import android.os.Bundle;
-import android.support.annotation.FloatRange;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +10,9 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import de.dhbw.kassenautomat.COIN_DATA;
+import org.w3c.dom.Text;
+
+import de.dhbw.kassenautomat.SETTINGS;
 import de.dhbw.kassenautomat.Database.DatabaseManager;
 import de.dhbw.kassenautomat.MainActivity;
 import de.dhbw.kassenautomat.R;
@@ -25,6 +26,7 @@ public class EditSettingsFragment extends Fragment{
     private TextView txt_defaultCoinLevel;
     private TextView txt_PricePerHalfHour;
     private TextView txt_RejectedCoinsShare;
+    private TextView txt_passwordMaintenance;
 
     private Button btn_Save;
     private Button btn_Back;
@@ -48,6 +50,7 @@ public class EditSettingsFragment extends Fragment{
         txt_defaultCoinLevel = (TextView) layout_editSettings.findViewById(R.id.txt_defaultCoinLevel);
         txt_PricePerHalfHour = (TextView) layout_editSettings.findViewById(R.id.txt_PricePerHalfHour);
         txt_RejectedCoinsShare = (TextView) layout_editSettings.findViewById(R.id.txt_RejectedCoinsShare);
+        txt_passwordMaintenance = (TextView) layout_editSettings.findViewById(R.id.txt_passwordMaintenance);
 
 
         btn_Save = (Button) layout_editSettings.findViewById(R.id.btn_SaveSettings);
@@ -84,27 +87,29 @@ public class EditSettingsFragment extends Fragment{
         float defaultCoinLevel = Integer.parseInt(txt_defaultCoinLevel.getText().toString())/(float)100;
         float pricePerHalfHour = Float.parseFloat(txt_PricePerHalfHour.getText().toString());
         float rejectedCoinsShare = Integer.parseInt(txt_RejectedCoinsShare.getText().toString())/(float)100;
+        String passwordMaintenance = txt_passwordMaintenance.getText().toString();
 
         //TODO ask user whether he is sure to reset coin levels after setting the new settings
 
-        String message = COIN_DATA.setSettings(dbm, maxCoinLevel, defaultCoinLevel, pricePerHalfHour, rejectedCoinsShare);
+        String message = SETTINGS.setSettings(dbm, maxCoinLevel, defaultCoinLevel, pricePerHalfHour, rejectedCoinsShare, passwordMaintenance);
 
         if (message == "")
             message = "Einstellungen gespeichert";
 
         Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
 
-        COIN_DATA.readConfig(dbm);
+        SETTINGS.readConfig(dbm);
         dbm.setDefaultCoinLevels();
 
         goBackToMaintenance();
     }
 
     private void updateValues() {
-        txt_maxCoinLevel.setText(Integer.toString(COIN_DATA.MAX_COIN_LVL));
-        txt_defaultCoinLevel.setText(Integer.toString((int)(COIN_DATA.DEFAULT_COIN_LEVEL*100)));
-        txt_PricePerHalfHour.setText(Float.toString(COIN_DATA.COST_PER_HALF_HOUR / (float) 100));
-        txt_RejectedCoinsShare.setText(Integer.toString((int) (COIN_DATA.REJECTED_COINS_SHARE * 100)));
+        txt_maxCoinLevel.setText(Integer.toString(SETTINGS.MAX_COIN_LVL));
+        txt_defaultCoinLevel.setText(Integer.toString((int)(SETTINGS.DEFAULT_COIN_LEVEL*100)));
+        txt_PricePerHalfHour.setText(Float.toString(SETTINGS.COST_PER_HALF_HOUR / (float) 100));
+        txt_RejectedCoinsShare.setText(Integer.toString((int) (SETTINGS.REJECTED_COINS_SHARE * 100)));
+        txt_passwordMaintenance.setText(SETTINGS.PASSWORD);
     }
 
     private void goBackToMaintenance()

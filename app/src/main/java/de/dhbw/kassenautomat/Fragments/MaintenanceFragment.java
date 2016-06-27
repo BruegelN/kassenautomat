@@ -17,7 +17,7 @@ import android.widget.Toast;
 import java.util.HashMap;
 import java.util.Map;
 
-import de.dhbw.kassenautomat.COIN_DATA;
+import de.dhbw.kassenautomat.SETTINGS;
 import de.dhbw.kassenautomat.Database.DatabaseManager;
 import de.dhbw.kassenautomat.MainActivity;
 import de.dhbw.kassenautomat.R;
@@ -56,23 +56,23 @@ public class MaintenanceFragment extends Fragment {
     }
 
     private void updateLevels() {
-        for (int coin: COIN_DATA.COINS)
+        for (int coin: SETTINGS.COINS)
         {
             int coinLevel = dbm.getCoinLevel(coin);
             ProgressBar bar = pgr_Bars.get(coin);
             TextView txt = txt_Views.get(coin);
 
             bar.setProgress(coinLevel);
-            txt.setText(Integer.toString(coinLevel) + "/" + Integer.toString(COIN_DATA.MAX_COIN_LVL));
+            txt.setText(Integer.toString(coinLevel) + "/" + Integer.toString(SETTINGS.MAX_COIN_LVL));
         }
 
         // do the same for the Parking Coin
-        int coinLevel = dbm.getCoinLevel(COIN_DATA.PARKING_COIN);
-        ProgressBar bar = pgr_Bars.get(COIN_DATA.PARKING_COIN);
-        TextView txt = txt_Views.get(COIN_DATA.PARKING_COIN);
+        int coinLevel = dbm.getCoinLevel(SETTINGS.PARKING_COIN);
+        ProgressBar bar = pgr_Bars.get(SETTINGS.PARKING_COIN);
+        TextView txt = txt_Views.get(SETTINGS.PARKING_COIN);
 
         bar.setProgress(coinLevel);
-        txt.setText(Integer.toString(coinLevel) + "/" + Integer.toString(COIN_DATA.MAX_COIN_LVL));
+        txt.setText(Integer.toString(coinLevel) + "/" + Integer.toString(SETTINGS.MAX_COIN_LVL));
     }
 
     @Nullable
@@ -154,7 +154,7 @@ public class MaintenanceFragment extends Fragment {
 
     void doReset()
     {
-        COIN_DATA.setDefaults();
+        SETTINGS.setDefaults();
         dbm.resetDatabase();
 
         updateLevels();
@@ -194,7 +194,7 @@ public class MaintenanceFragment extends Fragment {
             // inform the service worker
             String message = String.format("Die Münzbehälter wurden geleert und mit je %d Münze(n) aufgefüllt.\n" +
                     "Die Parkmünzen wurden wieder auf den maximalen Füllstand %d aufgefüllt.",
-                    (int)(COIN_DATA.DEFAULT_COIN_LEVEL * COIN_DATA.MAX_COIN_LVL), COIN_DATA.MAX_COIN_LVL);
+                    (int)(SETTINGS.DEFAULT_COIN_LEVEL * SETTINGS.MAX_COIN_LVL), SETTINGS.MAX_COIN_LVL);
 
             Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
         }

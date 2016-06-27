@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import de.dhbw.kassenautomat.COIN_DATA;
+import de.dhbw.kassenautomat.SETTINGS;
 
 /**
  * My own SQLLiteOpenHelper, that connects to the DB and creates the needed tables on first use of DB.
@@ -15,7 +15,7 @@ import de.dhbw.kassenautomat.COIN_DATA;
 public class MySQLiteOpenHelper extends SQLiteOpenHelper {
     Context c;
     public static final String DB_NAME = "kassenautomat.db";
-    public static final int VERSION = 10; //We "start" with DB version 1
+    public static final int VERSION = 11; //We "start" with DB version 1
 
     public MySQLiteOpenHelper(Context c)
     {
@@ -41,18 +41,18 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
 
     public void setDefaultCoinLevels(SQLiteDatabase db) {
         // Insert all COINS into the coins table starting with MAX_COIN_LVL
-        for (int coin: COIN_DATA.COINS) {
+        for (int coin: SETTINGS.COINS) {
             ContentValues values = new ContentValues();
             values.put("value", coin);
-            values.put("level", (int)(COIN_DATA.MAX_COIN_LVL * COIN_DATA.DEFAULT_COIN_LEVEL));
+            values.put("level", (int)(SETTINGS.MAX_COIN_LVL * SETTINGS.DEFAULT_COIN_LEVEL));
 
             db.insert("coins", null, values);
         }
 
         // set Parking Coin level to maximum
         ContentValues values = new ContentValues();
-        values.put("value", COIN_DATA.PARKING_COIN);
-        values.put("level", COIN_DATA.MAX_COIN_LVL);
+        values.put("value", SETTINGS.PARKING_COIN);
+        values.put("level", SETTINGS.MAX_COIN_LVL);
         db.insert("coins", null, values);
     }
 

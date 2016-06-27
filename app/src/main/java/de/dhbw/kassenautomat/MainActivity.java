@@ -3,7 +3,6 @@ package de.dhbw.kassenautomat;
 
 import android.app.Fragment;
 import android.content.Context;
-import android.provider.ContactsContract;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -34,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         // create the objects before switching views
         DBmanager = new DatabaseManager(getContext());
         TicketMgr = new TicketManager();
-        COIN_DATA.readConfig(DBmanager);
+        SETTINGS.readConfig(DBmanager);
 
         /**
          * Instantiate the overview fragment so it can be displayed.
