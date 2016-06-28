@@ -1,15 +1,20 @@
 package de.dhbw.kassenautomat.Fragments;
 
+import android.app.Dialog;
 import android.app.Fragment;
 import android.app.ListFragment;
+import android.content.DialogInterface;
 import android.content.ReceiverCallNotAllowedException;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -22,6 +27,7 @@ import de.dhbw.kassenautomat.MainActivity;
 
 import de.dhbw.kassenautomat.ParkingTicket;
 import de.dhbw.kassenautomat.R;
+import de.dhbw.kassenautomat.SETTINGS;
 import de.dhbw.kassenautomat.TicketManager;
 
 /**
@@ -123,13 +129,50 @@ public class OverviewFragment extends ListFragment{
      */
     View.OnClickListener btnMaintenancePressed = new View.OnClickListener() {
         public void onClick(View v) {
+            final EditText inputPassword = new EditText(MainActivity.getContext());
 
-            getFragmentManager().beginTransaction()
-                    .replace(R.id.mainFragmentContainer, FragmentMaintenance)
-                    .addToBackStack(null)
-                    .commitAllowingStateLoss();
+            DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    if (which == DialogInterface.BUTTON_NEUTRAL) {
+                        //OK button clicked
+                        if (SETTINGS.PASSWORD.equals(inputPassword.getEditableText().toString()))
+                            changeViewToMaintenance();
+                        else
+                            ShowMessageBoxWrongPassword();
+                    }
+                }
+            };
+
+
+            inputPassword.setInputType(InputType.TYPE_TEXT_VARIATION_WEB_PASSWORD);
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder
+                    .setTitle(R.string.strTitlePasswordDialog)
+                    .setMessage(R.string.strMessagePasswordDialog)
+                    .setView(inputPassword)
+                    .setNeutralButton(android.R.string.ok, dialogClickListener)
+                    .show();
         }
     };
+
+    void changeViewToMaintenance()
+    {
+        getFragmentManager().beginTransaction()
+            .replace(R.id.mainFragmentContainer, FragmentMaintenance)
+            .addToBackStack(null)
+            .commitAllowingStateLoss();
+    }
+
+    void ShowMessageBoxWrongPassword() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder
+                .setTitle(R.string.strTitleWrongPassword)
+                .setMessage(R.string.strMessageWrongPassword)
+                .setNeutralButton(android.R.string.ok, null)
+                .show();
+    }
 
     /**
      * onClickListener to create a new ticket

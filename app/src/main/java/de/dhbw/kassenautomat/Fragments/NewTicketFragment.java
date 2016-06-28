@@ -10,10 +10,9 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import de.dhbw.kassenautomat.COIN_DATA;
+import de.dhbw.kassenautomat.SETTINGS;
 import de.dhbw.kassenautomat.MainActivity;
 import de.dhbw.kassenautomat.R;
-import de.dhbw.kassenautomat.TicketManager;
 
 /**
  * Created by nicob on 28.04.16.
@@ -57,7 +56,7 @@ public class NewTicketFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        tvPrivePerUnit.setText(String.format("%,.2f €",COIN_DATA.COST_PER_HALF_HOUR/(float)100));
+        tvPrivePerUnit.setText(String.format("%,.2f €", SETTINGS.COST_PER_HALF_HOUR/(float)100));
     }
 
     View.OnClickListener btnCreateTicketPressed = new View.OnClickListener() {
