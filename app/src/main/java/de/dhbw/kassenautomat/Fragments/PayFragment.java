@@ -14,7 +14,7 @@ import android.widget.Toast;
 // To access the XML layouts easily
 import java.util.Map;
 
-import de.dhbw.kassenautomat.COIN_DATA;
+import de.dhbw.kassenautomat.SETTINGS;
 import de.dhbw.kassenautomat.Dialogs.CustomOkDialog;
 import de.dhbw.kassenautomat.ParkingTicket;
 import de.dhbw.kassenautomat.PaymentManager;
@@ -260,7 +260,7 @@ public class PayFragment extends Fragment {
         String sChange = "";
 
         if (change != null)
-        for (int coin:COIN_DATA.COINS)
+        for (int coin: SETTINGS.COINS)
         {
             int amount = change.get(coin);
             if (amount>0)

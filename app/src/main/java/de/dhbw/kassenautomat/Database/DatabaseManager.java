@@ -3,10 +3,8 @@ package de.dhbw.kassenautomat.Database;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.SearchRecentSuggestionsProvider;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -14,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import de.dhbw.kassenautomat.COIN_DATA;
+import de.dhbw.kassenautomat.SETTINGS;
 import de.dhbw.kassenautomat.ParkingTicket;
 import de.dhbw.kassenautomat.Receipt;
 
@@ -156,7 +154,7 @@ public class DatabaseManager {
     {
         //Make sure the coin level is positive and does not exceed the MAX_COIN_LVL
         //otherwise set to the nearest accepted value
-        newLevel = newLevel> COIN_DATA.MAX_COIN_LVL? COIN_DATA.MAX_COIN_LVL:newLevel;
+        newLevel = newLevel> SETTINGS.MAX_COIN_LVL? SETTINGS.MAX_COIN_LVL:newLevel;
         newLevel = newLevel<0?0:newLevel;
 
         ContentValues values = new ContentValues();
