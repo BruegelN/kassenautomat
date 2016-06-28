@@ -30,7 +30,7 @@ public class TestTicketFragment extends Fragment {
     private DatePicker datePicker;
     private TextView textView;
 
-    private Button btnCancle;
+    private Button btnCancel;
     private Button btnTestTicket;
 
     private MaintenanceFragment FragmentMaintenance;
@@ -58,10 +58,10 @@ public class TestTicketFragment extends Fragment {
          */
         View testTicketLayout = inflater.inflate(R.layout.fragment_test_ticket, container,false);
 
-        btnCancle = (Button) testTicketLayout.findViewById(R.id.btnCancelTestTicket);
+        btnCancel = (Button) testTicketLayout.findViewById(R.id.btnCancelTestTicket);
         btnTestTicket = (Button) testTicketLayout.findViewById(R.id.btnCreateTestTicket);
 
-        btnCancle.setOnClickListener(btnCancelTestTicketPressed);
+        btnCancel.setOnClickListener(btnCancelTestTicketPressed);
         btnTestTicket.setOnClickListener(btnCreateTestTicketPressed);
 
 
