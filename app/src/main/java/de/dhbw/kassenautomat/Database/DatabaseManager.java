@@ -3,10 +3,8 @@ package de.dhbw.kassenautomat.Database;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.SearchRecentSuggestionsProvider;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -14,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import de.dhbw.kassenautomat.COIN_DATA;
+import de.dhbw.kassenautomat.SETTINGS;
 import de.dhbw.kassenautomat.ParkingTicket;
 import de.dhbw.kassenautomat.Receipt;
 
@@ -39,7 +37,7 @@ public class DatabaseManager {
      * This will return all tickets in Database as String-ArrayList.
      * @return String-ArrayList with saved tickets
      */
-    public List<String> getTickets() throws ParseException {
+    public List<String> getUnpaidTickets() throws ParseException {
         List<String> strings = new ArrayList<String>();
 
         Cursor c = dbread.rawQuery("select id, created, print_quality, paid from tickets", null);
@@ -54,7 +52,8 @@ public class DatabaseManager {
                 boolean paid = Boolean.parseBoolean(c.getString(3));
 
                 //This is basically the toString function of ParkingTicket
-                strings.add(Integer.toString(ID)+Delimiter+ParkingTicket.getSimpleDateFormat().format(Created)+Delimiter+Integer.toString(printQuality)+Delimiter+Boolean.toString(paid));
+                if (!paid) // return only unpaid tickets
+                    strings.add(Integer.toString(ID)+Delimiter+ParkingTicket.getSimpleDateFormat().format(Created)+Delimiter+Integer.toString(printQuality)+Delimiter+Boolean.toString(paid));
                 c.moveToNext();
         }
         c.close();
@@ -155,7 +154,7 @@ public class DatabaseManager {
     {
         //Make sure the coin level is positive and does not exceed the MAX_COIN_LVL
         //otherwise set to the nearest accepted value
-        newLevel = newLevel> COIN_DATA.MAX_COIN_LVL? COIN_DATA.MAX_COIN_LVL:newLevel;
+        newLevel = newLevel> SETTINGS.MAX_COIN_LVL? SETTINGS.MAX_COIN_LVL:newLevel;
         newLevel = newLevel<0?0:newLevel;
 
         ContentValues values = new ContentValues();
@@ -183,7 +182,7 @@ public class DatabaseManager {
 
         //STEP 1: Set ticket paid in tickets table.
         ContentValues update = new ContentValues();
-        update.put("paid", true);
+        update.put("paid", "true");
 
         if (1 != dbwrite.update("tickets", update, "id=?", new String[]{Integer.toString(id)}))
             return false;
@@ -202,6 +201,33 @@ public class DatabaseManager {
         }
 
         return true;
+    }
+
+    /**
+     * Get a list of all tickets for which receipts have been saved
+     * @return List of ticket-IDs
+     */
+    public ArrayList<Integer> getReceiptIDs()
+    {
+        Cursor c = dbread.rawQuery("SELECT FKid from receipt", null);
+
+        if (c.getCount() < 0)
+            return null;
+
+        c.moveToFirst();
+
+        ArrayList<Integer> IDs = new ArrayList<Integer>();
+
+        while (!c.isAfterLast())
+        {
+            int ID = Integer.parseInt(c.getString(0));
+            IDs.add(ID);
+            c.moveToNext();
+        }
+
+        c.close();
+
+        return IDs;
     }
 
     /**

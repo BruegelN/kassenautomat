@@ -8,6 +8,8 @@
     <color name="backgroundLightBlue">#0099cc</color>
 
     <color name="yellow_lcd"> #FFFFFF40 </color>
+    <color name="paper"> #F2F2F2 </color>
+    <color name="paper_border"> #BDBDBD </color>
     <color name="black"> #FF000000 </color>
     <color name="newTicketBtnGreen">#00CD00</color>
     <color name="newTicketBtnGreenPressed">#008B00</color>

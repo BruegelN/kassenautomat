@@ -1,7 +1,5 @@
 package de.dhbw.kassenautomat;
 
-import android.widget.Toast;
-
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
@@ -39,7 +37,7 @@ public class PaymentManager implements Serializable {
         paidCoins = new HashMap<>();
 
         // Initialisation of the paid coins with 0
-        for (int coin:COIN_DATA.COINS)
+        for (int coin: SETTINGS.COINS)
         {
             paidCoins.put(coin, 0);
         }
@@ -55,7 +53,7 @@ public class PaymentManager implements Serializable {
         int remainingPrice = rawPrice;
 
         // decrement rawPrice by already paid coins to receive remainingPrice
-        for (int coin:COIN_DATA.COINS)
+        for (int coin: SETTINGS.COINS)
         {
             remainingPrice = remainingPrice - coin * paidCoins.get(coin);
         }
@@ -80,7 +78,7 @@ public class PaymentManager implements Serializable {
 
         int startedHalfHours = (int)(minutes/30)+1;
 
-        int rawPrice = startedHalfHours * COIN_DATA.COST_PER_HALF_HOUR;
+        int rawPrice = startedHalfHours * SETTINGS.COST_PER_HALF_HOUR;
 
         this.rawPrice = rawPrice/(float)100; // save for later processing
         return rawPrice;
@@ -114,7 +112,7 @@ public class PaymentManager implements Serializable {
             return -2;
         }
 
-        if(coinLevel>= COIN_DATA.MAX_COIN_LVL)
+        if(coinLevel>= SETTINGS.MAX_COIN_LVL)
         {
             // We can not accept more of this coins, since the storage is already full
             return -1;
@@ -142,7 +140,7 @@ public class PaymentManager implements Serializable {
     public Map<Integer, Integer> undoPayment()
     {
         DatabaseManager dbm = MainActivity.getDBmanager();
-        for (int coin:COIN_DATA.COINS)
+        for (int coin: SETTINGS.COINS)
         {
             int lvlBefore = dbm.getCoinLevel(coin);
             int lvlToSet = lvlBefore-paidCoins.get(coin);
@@ -161,7 +159,7 @@ public class PaymentManager implements Serializable {
     private boolean acceptCoin()
     {
         Random rd = new Random();
-        return rd.nextFloat()>=COIN_DATA.REJECTED_COINS_SHARE; //10% of coins wont be accepted #evilFace
+        return rd.nextFloat()>= SETTINGS.REJECTED_COINS_SHARE; //10% of coins wont be accepted #evilFace
     }
 
 
@@ -180,15 +178,15 @@ public class PaymentManager implements Serializable {
             return null;
 
         // initialize change with 0 foreach coin
-        for (int coin:COIN_DATA.COINS)
+        for (int coin: SETTINGS.COINS)
         {
             change.put(coin, 0);
         }
 
         // kind of foreach the COIN-Array reverse (highest first)
-        for (int i=COIN_DATA.COINS.length-1; i>=0; i--)
+        for (int i= SETTINGS.COINS.length-1; i>=0; i--)
         {
-            int coin = COIN_DATA.COINS[i];
+            int coin = SETTINGS.COINS[i];
             //float coinValue = coin*0.01f;
             int coinLevel = dbm.getCoinLevel(coin);
 
@@ -225,14 +223,14 @@ public class PaymentManager implements Serializable {
         else
         {
             // return the so far calculated change to the storage
-            for (int coin:COIN_DATA.COINS)
+            for (int coin: SETTINGS.COINS)
             {
                 int level = dbm.getCoinLevel(coin);
                 dbm.setCoinLevel(coin, level+change.get(coin));
             }
 
             // recursively try to calculate change with additional lowest coinValue
-            return getChange(Price-COIN_DATA.COINS[0]);
+            return getChange(Price- SETTINGS.COINS[0]);
         }
     }
 
@@ -244,7 +242,7 @@ public class PaymentManager implements Serializable {
     {
         int sum = 0;
 
-        for (int coin:COIN_DATA.COINS)
+        for (int coin: SETTINGS.COINS)
         {
             sum += coin*coins.get(coin);
         }

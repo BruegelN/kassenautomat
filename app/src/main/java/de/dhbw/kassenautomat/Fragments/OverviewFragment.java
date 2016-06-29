@@ -1,14 +1,20 @@
 package de.dhbw.kassenautomat.Fragments;
 
+import android.app.Dialog;
 import android.app.Fragment;
 import android.app.ListFragment;
+import android.content.DialogInterface;
+import android.content.ReceiverCallNotAllowedException;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -21,6 +27,7 @@ import de.dhbw.kassenautomat.MainActivity;
 
 import de.dhbw.kassenautomat.ParkingTicket;
 import de.dhbw.kassenautomat.R;
+import de.dhbw.kassenautomat.SETTINGS;
 import de.dhbw.kassenautomat.TicketManager;
 
 /**
@@ -32,6 +39,7 @@ public class OverviewFragment extends ListFragment{
     private MaintenanceFragment FragmentMaintenance;
     private PayFragment FragmentPay;
     private NewTicketFragment FragmentNewTicket;
+    private ReceiptOverviewFragment FragmentReceiptOverview;
 
     /**
      * Button to go in maintenance mode.
@@ -44,6 +52,11 @@ public class OverviewFragment extends ListFragment{
      * Private button for elements used in overview fragment.
      */
     private Button btnCreateTicket;
+
+    /**
+     * Button to enter the receipt overview fragment.
+     */
+    private Button btnViewReceipts;
 
     private ArrayList<String> arrayList;
     private ArrayAdapter<String> arrayAdapter;
@@ -64,6 +77,7 @@ public class OverviewFragment extends ListFragment{
         FragmentMaintenance = (MaintenanceFragment) Fragment.instantiate(this.getActivity(), MaintenanceFragment.class.getName(), null);
         FragmentPay = (PayFragment) Fragment.instantiate(this.getActivity(), PayFragment.class.getName(), null);
         FragmentNewTicket = (NewTicketFragment) Fragment.instantiate(this.getActivity(), NewTicketFragment.class.getName(), null);
+        FragmentReceiptOverview = (ReceiptOverviewFragment) Fragment.instantiate(this.getActivity(), ReceiptOverviewFragment.class.getName(), null);
 
         super.onCreate(savedInstanceState);
     }
@@ -82,10 +96,12 @@ public class OverviewFragment extends ListFragment{
          */
         btnMaintenance = (Button) LayoutOverview.findViewById(R.id.btnMaintenance);
         btnCreateTicket = (Button) LayoutOverview.findViewById(R.id.btnStartNewTicketProcess);
+        btnViewReceipts = (Button) LayoutOverview.findViewById(R.id.btnViewReceipts);
 
         // Set handlers for button click events.
         btnMaintenance.setOnClickListener(btnMaintenancePressed);
         btnCreateTicket.setOnClickListener(btnCreateTicketPressed);
+        btnViewReceipts.setOnClickListener(btnViewReceiptsPressed);
 
 
         tmr = MainActivity.getTicketMgr();
@@ -113,13 +129,50 @@ public class OverviewFragment extends ListFragment{
      */
     View.OnClickListener btnMaintenancePressed = new View.OnClickListener() {
         public void onClick(View v) {
+            final EditText inputPassword = new EditText(MainActivity.getContext());
 
-            getFragmentManager().beginTransaction()
-                    .replace(R.id.mainFragmentContainer, FragmentMaintenance)
-                    .addToBackStack(null)
-                    .commitAllowingStateLoss();
+            DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    if (which == DialogInterface.BUTTON_NEUTRAL) {
+                        //OK button clicked
+                        if (SETTINGS.PASSWORD.equals(inputPassword.getEditableText().toString()))
+                            changeViewToMaintenance();
+                        else
+                            ShowMessageBoxWrongPassword();
+                    }
+                }
+            };
+
+
+            inputPassword.setInputType(InputType.TYPE_TEXT_VARIATION_WEB_PASSWORD);
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder
+                    .setTitle(R.string.strTitlePasswordDialog)
+                    .setMessage(R.string.strMessagePasswordDialog)
+                    .setView(inputPassword)
+                    .setNeutralButton(android.R.string.ok, dialogClickListener)
+                    .show();
         }
     };
+
+    void changeViewToMaintenance()
+    {
+        getFragmentManager().beginTransaction()
+            .replace(R.id.mainFragmentContainer, FragmentMaintenance)
+            .addToBackStack(null)
+            .commitAllowingStateLoss();
+    }
+
+    void ShowMessageBoxWrongPassword() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder
+                .setTitle(R.string.strTitleWrongPassword)
+                .setMessage(R.string.strMessageWrongPassword)
+                .setNeutralButton(android.R.string.ok, null)
+                .show();
+    }
 
     /**
      * onClickListener to create a new ticket
@@ -134,7 +187,19 @@ public class OverviewFragment extends ListFragment{
 
         }
     };
-    
+
+    /**
+     * onClickListener for show receipts button
+     */
+    private View.OnClickListener btnViewReceiptsPressed = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            getFragmentManager().beginTransaction()
+                    .replace(R.id.mainFragmentContainer, FragmentReceiptOverview)
+                    .addToBackStack(null)
+                    .commitAllowingStateLoss();
+        }
+    };
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
