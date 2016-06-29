@@ -216,12 +216,14 @@ public class TestTicketFragment extends Fragment {
             cal.set(Calendar.MINUTE, mMinute);
             cal.set(Calendar.HOUR_OF_DAY, mHourOfDay);
             // set day, month and year (DD.MM.YYYY)
-            cal.set(Calendar.DAY_OF_MONTH, mDayOfMonth-1); // first month is '0'
+            cal.set(Calendar.DAY_OF_MONTH, mDayOfMonth);
             cal.set(Calendar.MONTH, mMonth);
             cal.set(Calendar.YEAR, mYear);
 
             // create a new date object with the selected values.
             Date theTime = new Date(cal.getTimeInMillis());
+
+
 
             // Then create ticket with the give date
             ParkingTicket testTicket = new ParkingTicket(theTime);
