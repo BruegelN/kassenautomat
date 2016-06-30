@@ -12,6 +12,7 @@ public class Receipt {
     private float receivedChange;
     private int minutesParked;
     private Date paid;
+    private Date ticket_created;
 
     public Receipt(int FKid, float ticketPrice, float paidPrice, float receivedChange, int minutesParked, Date paid)
     {
@@ -48,5 +49,13 @@ public class Receipt {
 
     public Date getPaid() {
         return paid;
+    }
+
+    public Date getTicket_created() {
+        return ticket_created;
+    }
+
+    public void setTicket_created(Date ticket_created) {
+        this.ticket_created = ticket_created;
     }
 }

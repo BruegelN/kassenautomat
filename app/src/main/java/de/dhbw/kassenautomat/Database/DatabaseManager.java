@@ -195,7 +195,7 @@ public class DatabaseManager {
             values.put("paidPrice", paidPrice);
             values.put("receivedChange", receivedChange);
             values.put("minutesParked", minutesParked);
-            values.put("paid", new SimpleDateFormat().format(date));
+            values.put("paid", ParkingTicket.getSimpleDateFormat().format(date));
             if (-1 == dbwrite.insert("receipt", null, values))
                 return false;
         }
@@ -237,7 +237,10 @@ public class DatabaseManager {
      */
     public Receipt getReceipt(int ID)
     {
-        Cursor c = dbread.rawQuery("SELECT FKid, paid, ticketPrice, paidPrice, receivedChange, minutesParked from receipt WHERE FKid = " + ID, null);
+        Cursor c = dbread.rawQuery("SELECT receipt.FKid, receipt.paid, receipt.ticketPrice, receipt.paidPrice, receipt.receivedChange, receipt.minutesParked, tickets.created " +
+                "FROM receipt " +
+                "INNER JOIN tickets ON tickets.id = receipt.FKid " +
+                "WHERE receipt.FKid = " + ID, null);
 
         if (c.getCount()!=1)
             return null;
@@ -246,9 +249,11 @@ public class DatabaseManager {
 
         int FKid = Integer.parseInt(c.getString(0));
         Date paid;
+        Date created;
         try
         {
-            paid = new SimpleDateFormat().parse(c.getString(1));
+            paid = ParkingTicket.getSimpleDateFormat().parse(c.getString(1));
+            created = ParkingTicket.getSimpleDateFormat().parse(c.getString(6));
         }
         catch (Exception ex)
         {
@@ -259,9 +264,11 @@ public class DatabaseManager {
         float receivedChange = (float)Integer.parseInt(c.getString(4))/100;
         int minutesParked = Integer.parseInt(c.getString(5));
 
+
         c.close();
 
         Receipt rec = new Receipt(FKid, ticketPrice, paidPrice, receivedChange, minutesParked, paid);
+        rec.setTicket_created(created);
 
         return rec;
     }
