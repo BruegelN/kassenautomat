@@ -8,8 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import de.dhbw.kassenautomat.Dialogs.CustomOkDialog;
 import de.dhbw.kassenautomat.SETTINGS;
 import de.dhbw.kassenautomat.MainActivity;
 import de.dhbw.kassenautomat.R;
@@ -21,6 +21,7 @@ public class NewTicketFragment extends Fragment {
 
 
     private OverviewFragment FragmentOverview;
+    private NewTicketFragment FragmentNewTicket;
 
     private Button btnCancelNewTicket;
     private Button btnCreateTicket;
@@ -31,6 +32,7 @@ public class NewTicketFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
 
         FragmentOverview = (OverviewFragment)Fragment.instantiate(this.getActivity(), OverviewFragment.class.getName(), null);
+        FragmentNewTicket = (NewTicketFragment) Fragment.instantiate(this.getActivity(), NewTicketFragment.class.getName(), null );
 
         super.onCreate(savedInstanceState);
     }
@@ -63,7 +65,15 @@ public class NewTicketFragment extends Fragment {
         public void onClick(View v) {
 
             MainActivity.getTicketMgr().createTicket();
-            Toast.makeText(getActivity(), "Bitte entnehmen Sie das Ticket aus dem Ausgabefach.", Toast.LENGTH_SHORT).show();
+
+            CustomOkDialog ticketCreatedDialog = new CustomOkDialog();
+            Bundle args = new Bundle();
+            args.putString("title", "Hinweis");
+            args.putString("message", "Bitte entnehmen Sie das Ticket aus dem Ausgabefach.");
+            ticketCreatedDialog.setArguments(args);
+            ticketCreatedDialog.setTargetFragment(FragmentNewTicket, 0);
+            ticketCreatedDialog.show(getFragmentManager(), "UniqueTagForAndroidToIdentifyThisDialogAsTestTicketCreated");
+
             getFragmentManager().beginTransaction()
                     .replace(R.id.mainFragmentContainer, FragmentOverview)
                     .addToBackStack(null)

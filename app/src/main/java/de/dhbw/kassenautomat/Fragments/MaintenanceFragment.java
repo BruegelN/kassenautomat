@@ -11,12 +11,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
-// To access the XML layouts easily
 import java.util.HashMap;
 import java.util.Map;
 
+import de.dhbw.kassenautomat.Dialogs.CustomOkDialog;
 import de.dhbw.kassenautomat.SETTINGS;
 import de.dhbw.kassenautomat.Database.DatabaseManager;
 import de.dhbw.kassenautomat.MainActivity;
@@ -41,6 +40,7 @@ public class MaintenanceFragment extends Fragment {
     private OverviewFragment FragmentOverview;
     private TestTicketFragment FragmentTestTicket;
     private EditSettingsFragment FragmentEditSettings;
+    private MaintenanceFragment FramgentMaintaince;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -50,6 +50,7 @@ public class MaintenanceFragment extends Fragment {
         FragmentEditSettings = (EditSettingsFragment) Fragment.instantiate(this.getActivity(), EditSettingsFragment.class.getName(), null);
         FragmentOverview = (OverviewFragment) Fragment.instantiate(this.getActivity(), OverviewFragment.class.getName(), null);
         FragmentTestTicket = (TestTicketFragment) Fragment.instantiate(this.getActivity(), TestTicketFragment.class.getName(), null);
+        FramgentMaintaince = (MaintenanceFragment) Fragment.instantiate(this.getActivity(), MaintenanceFragment.class.getName(), null);
         dbm = MainActivity.getDBmanager();
 
         super.onCreate(savedInstanceState);
@@ -159,7 +160,14 @@ public class MaintenanceFragment extends Fragment {
 
         updateLevels();
         String message = String.format("Der Automat wurde auf den Werkszustand zurückgesetzt.");
-        Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+        CustomOkDialog dbResetDialog = new CustomOkDialog();
+        Bundle args = new Bundle();
+        args.putString("title", "Hinweis");
+        args.putString("message", message);
+        dbResetDialog.setArguments(args);
+        dbResetDialog.setTargetFragment(FramgentMaintaince, 0);
+        dbResetDialog.show(getFragmentManager(), "UniqueTagForAndroidToIdentifyThisDialogAsDBReset");
+
     }
 
     private View.OnClickListener btnShowSettingsPressed = new View.OnClickListener() {
@@ -196,7 +204,15 @@ public class MaintenanceFragment extends Fragment {
                     "Die Parkmünzen wurden wieder auf den maximalen Füllstand %d aufgefüllt.",
                     (int)(SETTINGS.DEFAULT_COIN_LEVEL * SETTINGS.MAX_COIN_LVL), SETTINGS.MAX_COIN_LVL);
 
-            Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+            CustomOkDialog coinsResetDialog = new CustomOkDialog();
+            Bundle args = new Bundle();
+            args.putString("title", "Hinweis");
+            args.putString("message", message);
+            coinsResetDialog.setArguments(args);
+            coinsResetDialog.setTargetFragment(FramgentMaintaince, 0);
+            coinsResetDialog.show(getFragmentManager(), "UniqueTagForAndroidToIdentifyThisDialogAsCoinsReset");
+
+
         }
     };
 

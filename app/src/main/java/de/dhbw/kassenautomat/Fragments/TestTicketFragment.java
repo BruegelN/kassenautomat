@@ -33,6 +33,7 @@ public class TestTicketFragment extends Fragment {
     private Button btnTestTicket;
 
     private MaintenanceFragment FragmentMaintenance;
+    private OverviewFragment FragmentOverview;
 
     private int mHourOfDay;
     private int mMinute;
@@ -51,6 +52,7 @@ public class TestTicketFragment extends Fragment {
         mDayOfMonth = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
 
         FragmentMaintenance = (MaintenanceFragment) Fragment.instantiate(this.getActivity(), MaintenanceFragment.class.getName(), null);
+        FragmentOverview = (OverviewFragment) Fragment.instantiate(this.getActivity(), OverviewFragment.class.getName(), null);
 
         super.onCreate(savedInstanceState);
     }
@@ -201,14 +203,13 @@ public class TestTicketFragment extends Fragment {
                 mHourOfDay = hourNow;
                 mMinute = minuteNow;
 
-                //Toast.makeText(getActivity(), R.string.strWarningTicketInFuture,Toast.LENGTH_LONG).show();
-                CustomOkDialog changeMoneyDialog = new CustomOkDialog();
+                CustomOkDialog noFutureTicketDialog = new CustomOkDialog();
                 Bundle args = new Bundle();
                 args.putString("title", "Hinweis");
                 args.putString("message", "Der gewählte Zeitpunk liegt in der Zukunft, aktueller Zeitpunkt verwendet!");
-                changeMoneyDialog.setArguments(args);
-                changeMoneyDialog.setTargetFragment(FragmentMaintenance, 0);
-                changeMoneyDialog.show(getFragmentManager(), "UniqueTagForAndroidToIdentifyThisInfoDialog");
+                noFutureTicketDialog.setArguments(args);
+                noFutureTicketDialog.setTargetFragment(FragmentOverview, 0);
+                noFutureTicketDialog.show(getFragmentManager(), "UniqueTagForAndroidBecauseYouCantCreateATicketInTheFuture");
             }
 
             // set hours and minutes(HH:MM)

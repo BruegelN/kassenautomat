@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
+
 
 // To access the XML layouts easily
 import java.util.Map;
@@ -221,7 +221,16 @@ public class PayFragment extends Fragment {
             }
         }
 
-        Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+
+        CustomOkDialog automataStateDialog = new CustomOkDialog();
+        Bundle args = new Bundle();
+        String title = getActivity().getApplicationContext().getString(R.string.dropChange);
+        args.putString("title", title);
+        args.putString("message", message);
+        automataStateDialog.setArguments(args);
+        automataStateDialog.setTargetFragment(this, 0);
+        automataStateDialog.show(getFragmentManager(), "UniqueTagForAndroidToIdentifyAutomataStateDialog");
+
         float remainingPrice = paymentmgr.calculatePrice();
         setRemainingPrice(remainingPrice);
 
