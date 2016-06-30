@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
+import de.dhbw.kassenautomat.Dialogs.CustomOkDialog;
 import de.dhbw.kassenautomat.SETTINGS;
 import de.dhbw.kassenautomat.Database.DatabaseManager;
 import de.dhbw.kassenautomat.MainActivity;
@@ -96,7 +97,13 @@ public class EditSettingsFragment extends Fragment{
         if (message == "")
             message = "Einstellungen gespeichert";
 
-        Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
+        CustomOkDialog settingsSavedDialog = new CustomOkDialog();
+        Bundle args = new Bundle();
+        args.putString("title", "Hinweis");
+        args.putString("message", message);
+        settingsSavedDialog.setArguments(args);
+        settingsSavedDialog.setTargetFragment(this, 0);
+        settingsSavedDialog.show(getFragmentManager(), "UniqueTagForAndroidToIdentifyThisDialogAsSettingsSaved");
 
         SETTINGS.readConfig(dbm);
         dbm.setDefaultCoinLevels();
