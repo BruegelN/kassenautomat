@@ -63,5 +63,6 @@
     <string name="strMessagePasswordDialog">Bitte geben Sie das Passwort für den Wartungsmodus ein.</string>
     <string name="strTitleWrongPassword">Authentifizierung fehlgeschlagen</string>
     <string name="strMessageWrongPassword">Das eingegebene Passwort war nicht korrekt.</string>
+    <string name="strReceiptPrinted">Quittung gedruckt:</string>
 
 </resources>

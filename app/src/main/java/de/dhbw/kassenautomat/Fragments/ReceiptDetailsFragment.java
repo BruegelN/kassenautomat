@@ -8,6 +8,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import org.w3c.dom.Text;
+
+import java.text.SimpleDateFormat;
 
 import de.dhbw.kassenautomat.MainActivity;
 import de.dhbw.kassenautomat.PaymentManager;
@@ -27,6 +32,11 @@ public class ReceiptDetailsFragment extends Fragment {
     private TextView txtPaidPrice;
     private TextView txtReceivedChange;
 
+    private TextView txtStartParkTimeDate;
+    private TextView txtStartParkTime;
+    private TextView txtReceiptPrintedDate;
+    private TextView txtReceiptPrintedTime;
+
     private Button btnBack;
 
     @Override
@@ -44,6 +54,11 @@ public class ReceiptDetailsFragment extends Fragment {
         txtTicketPrice = (TextView) LayoutDetailsView.findViewById(R.id.txtTicketPrice);
         txtPaidPrice = (TextView) LayoutDetailsView.findViewById(R.id.txtPaidPrice);
         txtReceivedChange = (TextView) LayoutDetailsView.findViewById(R.id.txtReceivedChange);
+
+        txtStartParkTimeDate = (TextView) LayoutDetailsView.findViewById(R.id.txtStartTimeDate);
+        txtStartParkTime = (TextView) LayoutDetailsView.findViewById(R.id.txtStartTime);
+        txtReceiptPrintedDate = (TextView) LayoutDetailsView.findViewById(R.id.txtReceiptPrintedDate);
+        txtReceiptPrintedTime = (TextView) LayoutDetailsView.findViewById(R.id.txtReceiptPrintedTime);
 
         btnBack =  (Button) LayoutDetailsView.findViewById(R.id.buttonBack);
         btnBack.setOnClickListener(btnBackPressed);
@@ -72,9 +87,17 @@ public class ReceiptDetailsFragment extends Fragment {
     private void printPaymentData()
     {
         txtParkedTime.setText(String.format("%d:%02d h",(int)(receipt.getMinutesParked() / 60), (receipt.getMinutesParked() % 60)));
-
         txtTicketPrice.setText(String.format("%,.2f €", receipt.getTicketPrice()));
         txtPaidPrice.setText(String.format("%,.2f €", receipt.getPaidPrice()));
         txtReceivedChange.setText(String.format("%,.2f €", receipt.getReceivedChange()));
+
+        SimpleDateFormat sdfDate = new SimpleDateFormat("dd.MM.yyyy");
+        SimpleDateFormat sdfTime = new SimpleDateFormat("HH:mm:ss");
+
+        txtStartParkTimeDate.setText(sdfDate.format(receipt.getTicket_created()));
+        txtStartParkTime.setText(sdfTime.format(receipt.getTicket_created()));
+
+        txtReceiptPrintedDate.setText(sdfDate.format(receipt.getPaid()));
+        txtReceiptPrintedTime.setText(sdfTime.format(receipt.getPaid()));
     }
 }
