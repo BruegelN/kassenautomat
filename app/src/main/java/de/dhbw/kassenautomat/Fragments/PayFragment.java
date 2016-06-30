@@ -220,7 +220,6 @@ public class PayFragment extends Fragment {
             }
         }
 
-
         if(!message.isEmpty())
         {
             CustomOkDialog automataStateDialog = new CustomOkDialog();
@@ -279,7 +278,7 @@ public class PayFragment extends Fragment {
         }
 
         if (!sChange.equals("")) {
-            message = String.format("Bitte entnehmen Sie Ihr Rückgeld aus dem Ausgabefach:\n%s", sChange);
+            message = String.format("Bitte entnehmen Sie ihre Parkmünze so wie folgendes Rückgeld aus dem Ausgabefach:\n%s\nEinen schönen Aufenthalt.", sChange);
 
             // TODO maybe Geräusch?
             CustomOkDialog changeMoneyDialog = new CustomOkDialog();
