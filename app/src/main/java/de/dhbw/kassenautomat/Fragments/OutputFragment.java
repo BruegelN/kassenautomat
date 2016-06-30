@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import de.dhbw.kassenautomat.COIN_DATA;
+import de.dhbw.kassenautomat.SETTINGS;
 import de.dhbw.kassenautomat.Database.DatabaseManager;
 import de.dhbw.kassenautomat.MainActivity;
 import de.dhbw.kassenautomat.PaymentManager;
@@ -83,12 +83,12 @@ public class OutputFragment extends Fragment {
     }
 
     private void dropParkingCoin() {
-        int coinLevel = dbm.getCoinLevel(COIN_DATA.PARKING_COIN);
+        int coinLevel = dbm.getCoinLevel(SETTINGS.PARKING_COIN);
 
         if (coinLevel>0)
         {
             // Take parking coin out of storage
-            dbm.setCoinLevel(COIN_DATA.PARKING_COIN, coinLevel-1);
+            dbm.setCoinLevel(SETTINGS.PARKING_COIN, coinLevel-1);
             // TODO: show dialog which tells the user to take his coin
             Toast.makeText(getActivity(), "PARKMÜNZE!", Toast.LENGTH_SHORT).show();
         }

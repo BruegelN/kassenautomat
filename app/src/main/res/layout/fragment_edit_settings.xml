@@ -7,7 +7,7 @@
     android:id="@+id/fragmentEditSettings"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:padding="10dp"
     android:columnCount="2">
 
@@ -67,6 +67,20 @@
         android:ems="10"
         android:id="@+id/txt_RejectedCoinsShare"
         android:inputType="number" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/lbl_passwordMaintenance"
+        android:id="@+id/lbl_passwordMaintenance"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:id="@+id/txt_passwordMaintenance"
+        android:inputType="textPassword" />
 
     <Button
         android:layout_width="match_parent"

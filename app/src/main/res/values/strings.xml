@@ -58,5 +58,10 @@
     <string name="strMessageResetAutomata">Wenn Sie den Automaten zurücksetzen werden alle Einstellungen und Tickets gelöscht bzw. auf den Werkszustand gesetzt.</string>
     <string name="strReceipt">Quittung auswählen:</string>
     <string name="strViewReceipts">Quittungen anzeigen</string>
+    <string name="lbl_passwordMaintenance">Passwort für den Wartungsmodus:</string>
+    <string name="strTitlePasswordDialog">Authentifizierung erforderlich</string>
+    <string name="strMessagePasswordDialog">Bitte geben Sie das Passwort für den Wartungsmodus ein.</string>
+    <string name="strTitleWrongPassword">Authentifizierung fehlgeschlagen</string>
+    <string name="strMessageWrongPassword">Das eingegebene Passwort war nicht korrekt.</string>
 
 </resources>
