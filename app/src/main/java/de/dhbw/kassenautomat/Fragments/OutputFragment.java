@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import de.dhbw.kassenautomat.Dialogs.CustomOkDialog;
 import de.dhbw.kassenautomat.SETTINGS;
 import de.dhbw.kassenautomat.Database.DatabaseManager;
 import de.dhbw.kassenautomat.MainActivity;
@@ -85,20 +86,28 @@ public class OutputFragment extends Fragment {
     private void dropParkingCoin() {
         int coinLevel = dbm.getCoinLevel(SETTINGS.PARKING_COIN);
 
+        String message = "";
+
         if (coinLevel>0)
         {
             // Take parking coin out of storage
             dbm.setCoinLevel(SETTINGS.PARKING_COIN, coinLevel-1);
-            // TODO: show dialog which tells the user to take his coin
-            Toast.makeText(getActivity(), "PARKMÜNZE!", Toast.LENGTH_SHORT).show();
         }
         else
         {
-            //TODO: show dialog which tells the user that no more ParkingCoins are available, but the barrier has been opend
-            // & Worker has been informed
-            Toast.makeText(getActivity(), "NIX PARKMÜNZE!\nSchranke offen. Mitarbeiter informiert.", Toast.LENGTH_SHORT).show();
-
+            message = "Derzeit sind keine Parkmünzen mehr verfügbar. Sie können ausfahren, die Schranke ist geöffnet. Techniker ist informiert";
             imageParkingCoin.setImageResource(R.drawable.no_parkmuenze);
+        }
+
+        if(!message.isEmpty())
+        {
+            CustomOkDialog automataStateDialog = new CustomOkDialog();
+            Bundle args = new Bundle();
+            args.putString("title", "Hinweis");
+            args.putString("message", message);
+            automataStateDialog.setArguments(args);
+            automataStateDialog.setTargetFragment(this, 0);
+            automataStateDialog.show(getFragmentManager(), "UniqueTagForAndroidBecauseThisDialogHasSomethignToDoWithParkingcoins");
         }
     }
 
@@ -116,14 +125,8 @@ public class OutputFragment extends Fragment {
         public void onClick(View v) {
             if (dbm.setTicketPaid(tmpReceipt, true))
             {
-                // TODO: show dialog to confirm that the receipt has been saved
-                Toast.makeText(getActivity(), "Quittung gedruckt.", Toast.LENGTH_SHORT).show();
                 //act as if OK was clicked to go back to the main menu
                 buttonOkPressed.onClick(v);
-            }
-            else
-            {
-                Toast.makeText(getActivity(), "Fehler beim Drucken der Quittung. :(", Toast.LENGTH_SHORT).show();
             }
         }
     };

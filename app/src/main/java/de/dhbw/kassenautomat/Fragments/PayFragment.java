@@ -179,27 +179,26 @@ public class PayFragment extends Fragment {
     {
         btnAbort.setEnabled(false);
 
-        String message;
+        String message = "";
         int result;
 
         switch (result = paymentmgr.insertCoin(coinValue))
         {
             case 2:
             {
-                message = String.format("Zahlung abgeschlossen.");
+                // ticket pay, do nothing just prevent default case
+                break;
+            }
+
+            case 1:
+            {
+                // everything worked well, but do nothing just prevent default case
                 break;
             }
 
             case 0:
             {
                 message = String.format("Es ist keine weitere Geldeingabe erforderlich.");
-                break;
-            }
-
-            case 1:
-            {
-                // TODO maybe sound of a coin
-                message = String.format("%,.2f € bezahlt", (float)coinValue/(float)100);
                 break;
             }
 
@@ -221,15 +220,17 @@ public class PayFragment extends Fragment {
             }
         }
 
-
-        CustomOkDialog automataStateDialog = new CustomOkDialog();
-        Bundle args = new Bundle();
-        String title = getActivity().getApplicationContext().getString(R.string.dropChange);
-        args.putString("title", title);
-        args.putString("message", message);
-        automataStateDialog.setArguments(args);
-        automataStateDialog.setTargetFragment(this, 0);
-        automataStateDialog.show(getFragmentManager(), "UniqueTagForAndroidToIdentifyAutomataStateDialog");
+        if(!message.isEmpty())
+        {
+            CustomOkDialog automataStateDialog = new CustomOkDialog();
+            Bundle args = new Bundle();
+            String title = getActivity().getApplicationContext().getString(R.string.dropChange);
+            args.putString("title", title);
+            args.putString("message", message);
+            automataStateDialog.setArguments(args);
+            automataStateDialog.setTargetFragment(this, 0);
+            automataStateDialog.show(getFragmentManager(), "UniqueTagForAndroidToIdentifyAutomataStateDialog");
+        }
 
         float remainingPrice = paymentmgr.calculatePrice();
         setRemainingPrice(remainingPrice);
@@ -277,7 +278,7 @@ public class PayFragment extends Fragment {
         }
 
         if (!sChange.equals("")) {
-            message = String.format("Bitte entnehmen Sie Ihr Rückgeld aus dem Ausgabefach:\n%s", sChange);
+            message = String.format("Bitte entnehmen Sie ihre Parkmünze so wie folgendes Rückgeld aus dem Ausgabefach:\n%s\nEinen schönen Aufenthalt.", sChange);
 
             // TODO maybe Geräusch?
             CustomOkDialog changeMoneyDialog = new CustomOkDialog();
